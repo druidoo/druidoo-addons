@@ -31,7 +31,7 @@
 
         <!-- We show the downpayments next to the untaxed_amount -->
         <xpath expr="//span[@t-field='o.amount_total']/parent::td/parent::tr" position="before">
-            <tr class="border-black o_advance_payment" t-if="not is_deposit_invoice">
+            <tr class="border-black o_advance_payment" t-if="not is_deposit_invoice and advance_payment">
                 <td><strong>Advance Payment</strong></td>
                 <td class="text-right"><span t-esc="advance_payment" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
             </tr>
