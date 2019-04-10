@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document_advance_payment" inherit_id="account.report_invoice_document">
+
+        <!-- Helper variables -->
+        <xpath expr="//div[@class='page']/*[1]" position="before">
+            <!--
+            We get the deposit_product_id from config paramenters.
+            Then we get all the downpayments lines from the invoice.
+            We consider the invoice as 'deposit' if the downpaiment is > 0.
+            Otherwise, means we are actually using the downpayments as discounts
+            -->
+            <t t-set="deposit_product_id" t-value="int(o.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id'))"/>
+            <t t-set="advance_payment" t-value="sum(o.invoice_line_ids.filtered(lambda l: l.product_id and l.product_id.id == deposit_product_id).mapped('price_subtotal')) or 0.00"/>
+            <t t-set="is_deposit_invoice" t-value="advance_payment > 0"/>
+        </xpath>
+
+        <!-- Hide advance payment lines -->
+        <!-- We are only hiding for the final invoice, not for deposit invoices -->
+        <xpath expr="//table[@name='invoice_line_table']/tbody//tr" position="attributes">
+            <attribute name="t-att-style">'display:none;' if not is_deposit_invoice and (line.product_id and line.product_id.id == deposit_product_id) else ''</attribute>
+        </xpath>
+
+        <!-- We add the advance_payment to the subtotal amount_untaxed, to show the original value (only if is the final invoice) -->
+        <xpath expr="//span[@t-field='o.amount_untaxed']" position="attributes">
+            <attribute name="t-field"></attribute>
+            <attribute name="t-esc">o.amount_untaxed - (advance_payment if not is_deposit_invoice else 0.00)</attribute>
+            <attribute name="t-options">{'widget': 'monetary', 'display_currency': o.currency_id}</attribute>
+        </xpath>
+
+        <!-- We show the downpayments next to the untaxed_amount -->
+        <xpath expr="//span[@t-field='o.amount_total']/parent::td/parent::tr" position="before">
+            <tr class="border-black o_advance_payment" t-if="not is_deposit_invoice">
+                <td><strong>Advance Payment</strong></td>
+                <td class="text-right"><span t-esc="advance_payment" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+            </tr>
+        </xpath>
+
+
+    </template>
+
+</odoo>
