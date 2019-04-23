@@ -14,10 +14,10 @@
     "license": "AGPL-3",
     "depends": ['base', 'account', 'document', 'mail', 'uom'],
     "data": [
+        "views/res_partner_view.xml",
+        "views/account_view.xml",
+        "views/export_view.xml",
         "security/account_export_security.xml",
         "security/ir.model.access.csv",
-        "views/account_view.xml",
-        "views/res_partner_view.xml",
-        "views/export_view.xml",
     ],
 }
