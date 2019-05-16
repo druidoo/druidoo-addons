@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_purchaseorder" inherit_id="purchase.report_purchaseorder_document">
+
+        <!-- Show Date without Time -->
+        <p t-field="o.date_order" position="attributes">
+            <attribute name="t-options">{"widget": "date"}</attribute>
+        </p>
+
+        <span t-field="line.date_planned" position="attributes">
+            <attribute name="t-options">{"widget": "date"}</attribute>
+        </span>
+
+    </template>
+
+</odoo>

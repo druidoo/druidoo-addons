@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+
+        <!-- Show datetime fields as date -->
+        <p t-field="doc.confirmation_date" position="attributes">
+            <attribute name="t-options">{"widget": "date"}</attribute>
+        </p>
+        <p t-field="doc.date_order" position="attributes">
+            <attribute name="t-options">{"widget": "date"}</attribute>
+        </p>
+        <p t-field="doc.validity_date" position="attributes">
+            <attribute name="t-options">{"widget": "date"}</attribute>
+        </p>
+
+    </template>
+
+</odoo>
