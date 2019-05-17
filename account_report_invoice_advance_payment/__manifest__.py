@@ -1,6 +1,6 @@
 {
     'name': 'Account Report Invoice Advance Payment',
-    'summary': 'This module moves the advance payment lines to the bottom of the invoice.',
+    'summary': '',
     'version': '12.0.1.0.0',
     'category': 'Druidoo',
     'author': 'Iván Todorovich',
