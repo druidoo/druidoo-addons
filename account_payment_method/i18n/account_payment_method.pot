@@ -1,16 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_payment_method
+#	* account_payment_method
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-17 11:47+0000\n"
-"PO-Revision-Date: 2019-04-17 11:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -24,7 +21,7 @@ msgstr ""
 #. module: account_payment_method
 #: model:ir.model,name:account_payment_method.model_account_invoice
 msgid "Invoice"
-msgstr "Facture"
+msgstr ""
 
 #. module: account_payment_method
 #: model:ir.model.fields,field_description:account_payment_method.field_account_invoice__payment_journal_id
@@ -33,10 +30,11 @@ msgstr "Facture"
 #: model:ir.model.fields,field_description:account_payment_method.field_res_users__property_payment_journal_id
 #: model:ir.model.fields,field_description:account_payment_method.field_res_users__property_supplier_payment_journal_id
 msgid "Payment method"
-msgstr "Mode de règlement"
+msgstr ""
 
 #. module: account_payment_method
 #: code:addons/account_payment_method/models/account_invoice.py:39
 #, python-format
 msgid "The payment method should belong to the same company as the invoice."
-msgstr "Le mode de règlement doit appartenir à la même société que la facture."
+msgstr ""
+
