@@ -1,0 +1,40 @@
+language: python
+sudo: false
+cache: pip
+
+python:
+  - "3.5"
+
+addons:
+  postgresql: "9.6"
+  apt:
+    packages:
+      - expect-dev  # provides unbuffer utility
+      - python-lxml  # because pip installation is slow
+      - python-simplejson
+      - python-serial
+      - python-yaml
+
+env:
+  global:
+  - VERSION="12.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0" WKHTMLTOPDF_VERSION="0.12.4"
+  - TRANSIFEX_USER='transbot@druidoo.io'
+  - secure: "XCp3Doqs1NnyRU2WkItg64DU432chg7BUDGSF7rjs6HkUFzXqr5xQJyFpXOHjlnVeB5sQU/a6oT7oYFjikIncgr9K40+rF7UI6f3Szao5wFsFEXVSaHXBPDMKiSeL4HuukyI/23pKz3AbnrsIQiBg2dZ4uSd36fiKVt7GJQXB9NsIyKqcnxl8ecr0Xoj442yYtHeArphDSlJz0YS+oTtiGFvWHDpkJnT4WBzph3FMhZEBs6Ttc+gN1PPoWfBouivL04QmQue5F+XdDThSDsYHtXqXFExXBUN6TFh74DcjZ+iSehQHOmz01wcOJqHCSe2MRVAe0UNpNWxczavzEyYhoRqFM6icb3tbAbzppH/l9yYzS0+oEw0SXpysCoGNQ0C/wE35Q8moCiT/uSQudif05/B9a5woLo0iAhgp8c96lEhsLMc42dUHYt6gXcdpGQS/RCpOhc9F6RoIzdC6QtSn4jMsQ52GJhg0hvdjAwBipLjdBQz8yXgkV1f+RYD8D8S9D0nrvN3372iLKA4+NxImfR1JIOSeqLwDWC6/hB11P+tzkw/Pkv/DF3trEnoiK1DX2wAaP5A54Up829qvBjqJ2aFr0SvQ5eub5XZhtqDz0YSKe+1NnciAdQA6ZRSvRzBGBZHrMWoqY5npvAPvWRQRHDEZyFXU3RkkpEVbVGDF98="
+
+  matrix:
+  - LINT_CHECK="1"
+  - TRANSIFEX="1"
+  #- TESTS="1" ODOO_REPO="OCA/OCB" LINT_CHECK="0"
+  - TESTS="1" ODOO_REPO="odoo/odoo" LINT_CHECK="0"
+
+
+install:
+  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
+  - travis_install_nightly
+
+script:
+  - travis_run_tests
+
+after_success:
+  - travis_after_tests_success
