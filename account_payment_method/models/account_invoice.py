@@ -1,5 +1,5 @@
-from odoo import api, fields, models
-from collections import OrderedDict
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class AccountInvoice(models.Model):
