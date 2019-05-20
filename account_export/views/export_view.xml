@@ -137,7 +137,7 @@
 		</record>
 
 		<!-- Menus -->
-		<menuitem id="menu_account_exports" parent="account.menu_finance" name="Exports"
+		<menuitem id="menu_account_exports" parent="account.menu_finance_reports" name="Exports"
 			sequence="4" />
 		<menuitem id="menu_account_export_moves" parent="menu_account_exports"
 			name="Export Moves" action="action_account_export"
