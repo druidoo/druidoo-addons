@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pricelist_item_tree" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Pricelist Items" editable="bottom">
+                <field name="pricelist_id" string="Pricelist" required="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="product_tmpl_id" required="1"/>
+                <field name="fixed_price" string="Price" required="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="min_quantity"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="applied_on" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pricelist_item_search" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pricelist_id" string="Pricelist"/>
+                <field name="product_tmpl_id" string="Product"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Pricelist" name="group_by_pricelist_id" domain="[]" context="{'group_by':'pricelist_id'}"/>
+                    <filter name="group_by_product" string="Product" domain="[]" context="{'group_by':'product_tmpl_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pricelist_item" model="ir.actions.act_window">
+        <field name="name">Pricelist Items</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist.item</field>
+        <field name="context">{'default_base':'list_price', 'default_applied_on' :'1_product'}</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_pricelist_item_tree"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create or edit the prices of all your products
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="pricelist_items"
+        parent="sale.product_menu_catalog"
+        sequence="4"
+        name="Pricelist Items"
+        groups="product.group_product_pricelist"
+        action="action_pricelist_item"
+    />
+
+</odoo>
