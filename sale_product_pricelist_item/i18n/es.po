@@ -6,48 +6,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2019-05-24 13:49+0000\n"
+"Last-Translator: Druidoo Weblate <transbot@druidoo.io>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: sale_product_pricelist_item
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_search
 msgid "Archived"
-msgstr ""
+msgstr "Archivado"
 
 #. module: sale_product_pricelist_item
 #: model_terms:ir.actions.act_window,help:sale_product_pricelist_item.action_pricelist_item
 msgid "Create or edit the prices of all your products"
-msgstr ""
+msgstr "Crear o editar los precios de todos sus productos"
 
 #. module: sale_product_pricelist_item
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_search
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar por"
 
 #. module: sale_product_pricelist_item
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_tree
 msgid "Price"
-msgstr ""
+msgstr "Precio"
 
 #. module: sale_product_pricelist_item
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_search
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_tree
 msgid "Pricelist"
-msgstr ""
+msgstr "Lista de Precios"
 
 #. module: sale_product_pricelist_item
 #: model:ir.actions.act_window,name:sale_product_pricelist_item.action_pricelist_item
 #: model:ir.ui.menu,name:sale_product_pricelist_item.pricelist_items
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_tree
 msgid "Pricelist Items"
-msgstr ""
+msgstr "Elementos de la lista de precios"
 
 #. module: sale_product_pricelist_item
 #: model_terms:ir.ui.view,arch_db:sale_product_pricelist_item.view_pricelist_item_search
 msgid "Product"
-msgstr ""
+msgstr "Producto"
