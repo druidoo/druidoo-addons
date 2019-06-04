@@ -332,14 +332,35 @@ class AccountExport(models.Model):
 
         # Refreshing the data before export
         export_code = export_code != 'NO-JOURNAL-CODE' and export_code or ""
-        if debit - credit > 0:
-            sense = '0'
-            amount = ustr(debit - credit)
+
+        # Format credit/debit based on format
+        credit_debit_format = \
+            self.config_id and self.config_id.credit_debit_format or '01'
+        sense = None
+        if debit > credit:
+            if credit_debit_format == '01':
+                sense = '0'
+            elif credit_debit_format == 'DC':
+                sense = 'D'
+            amount = debit - credit
         else:
-            sense = '1'
-            amount = ustr(credit - debit)
+            if credit_debit_format == '01':
+                sense = '1'
+            elif credit_debit_format == 'DC':
+                sense = 'C'
+            amount = credit - debit
+
+        # Signed credit/debit formats
+        if credit_debit_format == '+-' and debit > credit:
+            amount = -amount
+        elif credit_debit_format == '-+' and debit <= credit:
+            amount = -amount
+
+        # Format number / decimal point
+        amount = ustr(amount)
         amount = amount[:14].replace('.', self.get_decimal_point())
 
+        # Format dates to software format
         try:
             move_line_date = \
                 self.convert_to_software_date_format(move_line_date)
@@ -347,8 +368,19 @@ class AccountExport(models.Model):
             pass
 
         account_move_name = account_move_name and account_move_name[:13] or ''
-        res_data = [export_code, move_line_date, move_number,
-                    export_account_code, account_move_name, sense, amount]
+
+        res_data = [
+            export_code,
+            move_line_date,
+            move_number,
+            export_account_code,
+            account_move_name,
+        ]
+
+        if credit_debit_format in ('01', 'DC'):
+            res_data.append(sense)
+
+        res_data.append(amount)
 
         # Replace the column with False Value by the header column name
         final_data = []

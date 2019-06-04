@@ -23,3 +23,14 @@ class AccountExportConfig(models.Model):
         exemple: %d%m%y -> 211216""")
     is_default = fields.Boolean('Is Default')
     active = fields.Boolean('active', default=True)
+
+    credit_debit_format = fields.Selection([
+        ('01', 'Debit: 0; Credit: 1'),
+        ('DC', 'Debit: D; Credit: C'),
+        ('-+', 'Debit: (+); Credit: (-)'),
+        ('+-', 'Debit: (-); Credit: (+)'),
+        ],
+        string='Credit and Debit format',
+        default='01',
+        required=True,
+    )

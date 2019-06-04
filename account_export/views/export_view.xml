@@ -97,6 +97,7 @@
 							<field name="header"/>
 							<field name="footer"/>
 							<field name="csv_separator"/>
+							<field name="credit_debit_format"/>
 						</group>
 					</sheet>
 				</form>
