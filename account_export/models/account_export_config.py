@@ -7,12 +7,20 @@ from odoo import fields, models
 class AccountExportConfig(models.Model):
     _name = 'account.export.config'
 
-    name = fields.Char('Name', required=True)
-    header = fields.Char("Header", help="""Header of the exported file.
-        exemple: journal,account,ref,amount""")
-    footer = fields.Char("Footer", help="""Footer of the exported file.
-        exemple: END""")
-    csv_separator = fields.Char('Separator', required=True)
+    name = fields.Char(required=True)
+
+    header = fields.Char(
+        help='Header of the exported file.\n'
+             'Exemple: journal,account,ref,amount',
+    )
+
+    footer = fields.Char(
+        help='Footer of the exported file.\n'
+             'Example: END',
+    )
+
+    csv_separator = fields.Char('Separator', required=True, default=';')
+
     dateformat = fields.Char(
         string='Software Date Format',
         help="""
@@ -20,7 +28,11 @@ class AccountExportConfig(models.Model):
         %m: month on 2 digits
         %y: year on 2 digits
         %Y: year on 4 digits
-        exemple: %d%m%y -> 211216""")
+        exemple: %d%m%y -> 211216""",
+        default='%d%m%y',
+        required=True,
+    )
+
     is_default = fields.Boolean('Is Default')
     active = fields.Boolean('active', default=True)
 
@@ -30,7 +42,13 @@ class AccountExportConfig(models.Model):
         ('-+', 'Debit: (+); Credit: (-)'),
         ('+-', 'Debit: (-); Credit: (+)'),
         ],
-        string='Credit and Debit format',
+        string='Credit and Debit',
         default='01',
         required=True,
     )
+
+    show_account_name = fields.Boolean('Account Name', default=False)
+    show_partner_ref = fields.Boolean('Partner Reference', default=False)
+    show_partner_name = fields.Boolean('Partner Name', default=False)
+    show_product_code = fields.Boolean('Product Reference', default=False)
+    show_move_line_name = fields.Boolean('Move Line Name', default=False)

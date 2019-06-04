@@ -99,6 +99,7 @@ class AccountExport(models.Model):
 
         attachment_name = "{}-{}.{}".format(
                 self.name, now_at_local, self.extension)
+
         vals = {
             'name': attachment_name,
             'type': 'binary',
@@ -107,11 +108,21 @@ class AccountExport(models.Model):
             'res_model': 'account.export',
             'res_id': self.id,
         }
+
         self.env["ir.attachment"].create(vals)
 
         # Change report state to exported
         self.state = 'exported'
-        return True
+
+        # Refresh window
+        # TODO: Maybe change this to post a chatter message with the
+        # attachment, instead of adding it directly.
+        # I think chatter messages are displayed immediatly without 
+        # needing to refresh the window.
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 
     @api.model
     def get_data_csv_file(self, source_data, delimiter_separator=","):
@@ -271,13 +282,21 @@ class AccountExport(models.Model):
                 ) AS account_move_name,
 
                 aml.debit,
-                aml.credit
+                aml.credit,
+
+                COALESCE(aml.name,'') AS move_line_name,
+                COALESCE(rp.ref,'') AS partner_ref,
+                COALESCE(pt.name,'') AS product_name,
+                COALESCE(pp.default_code,'') AS product_code
+
             FROM
-                 account_move_line aml
-                 LEFT JOIN account_journal aj ON aml.journal_id = aj.id
-                 LEFT JOIN account_move am ON aml.move_id = am.id
-                 LEFT JOIN res_partner rp ON aml.partner_id = rp.id
-                 LEFT JOIN account_account aa ON aml.account_id = aa.id
+                account_move_line aml
+                LEFT JOIN account_journal aj ON aml.journal_id = aj.id
+                LEFT JOIN account_move am ON aml.move_id = am.id
+                LEFT JOIN res_partner rp ON aml.partner_id = rp.id
+                LEFT JOIN account_account aa ON aml.account_id = aa.id
+                LEFT JOIN product_product pp ON aml.product_id = pp.id
+                LEFT JOIN product_template pt ON pp.product_tmpl_id = pt.id
             WHERE aml.id IN (%s)
         """
         sql_str = sql_str % ', '.join(map(str, move_line_ids))
@@ -318,9 +337,11 @@ class AccountExport(models.Model):
                     export_account_code != "GROUPED" and \
                         export_account_code != line['account_code']:
                     export_account_code = "GROUPED"
+
                 if account_move_name and account_move_name != "GROUPED" and \
                         account_move_name != line['account_move_name']:
                     account_move_name = "GROUPED"
+
                 debit += line['debit']
                 credit += line['credit']
         else:
@@ -377,9 +398,21 @@ class AccountExport(models.Model):
             account_move_name,
         ]
 
+        # Add fields that are not supported when grouping
+        if not groupings and self.config_id:
+            if self.config_id.show_account_name:
+                res_data.append(first_line['account_name'])
+            if self.config_id.show_partner_ref:
+                res_data.append(first_line['partner_ref'])
+            if self.config_id.show_partner_name:
+                res_data.append(first_line['partner_name'])
+            if self.config_id.show_product_code:
+                res_data.append(first_line['product_code'])
+            if self.config_id.show_move_line_name:
+                res_data.append(first_line['move_line_name'])
+
         if credit_debit_format in ('01', 'DC'):
             res_data.append(sense)
-
         res_data.append(amount)
 
         # Replace the column with False Value by the header column name

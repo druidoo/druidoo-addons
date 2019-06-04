@@ -87,18 +87,35 @@
                                     options='{"terminology": "archive"}'/>
                             </button>
                         </div>
+
 						<label for="name" class="oe_edit_only" />
 						<h1>
 							<field name="name" />
 						</h1>
-						<group colspan="4" col="4">
-							<field name="is_default"/>
-							<field name="dateformat"/>
-							<field name="header"/>
-							<field name="footer"/>
-							<field name="csv_separator"/>
-							<field name="credit_debit_format"/>
+
+						<group>
+							<group string="Settings">
+								<field name="is_default"/>
+								<field name="header"/>
+								<field name="footer"/>
+								<field name="csv_separator"/>
+							</group>
+							<group string="Format">
+								<field name="dateformat"/>
+								<field name="credit_debit_format"/>
+							</group>
 						</group>
+
+						<group>
+							<group string="Extra fields">
+								<field name="show_account_name"/>
+								<field name="show_partner_ref"/>
+								<field name="show_partner_name"/>
+								<field name="show_product_code"/>
+								<field name="show_move_line_name"/>
+							</group>
+						</group>
+
 					</sheet>
 				</form>
 			</field>
