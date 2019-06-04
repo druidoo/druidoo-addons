@@ -24,6 +24,11 @@ msgid "\n"
 msgstr ""
 
 #. module: account_export
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "<strong>Note: </strong>These fields are only shown when the lines are not grouped."
+msgstr ""
+
+#. module: account_export
 #: model:ir.actions.act_window,name:account_export.action_account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_search
@@ -45,6 +50,11 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__journal_ids
 msgid "Account Journals"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_account_name
+msgid "Account Name"
 msgstr ""
 
 #. module: account_export
@@ -102,6 +112,11 @@ msgid "Created on"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__credit_debit_format
+msgid "Credit and Debit"
+msgstr ""
+
+#. module: account_export
 #: selection:account.export,extension:0
 msgid "Csv"
 msgstr ""
@@ -109,6 +124,26 @@ msgstr ""
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Dates"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: (+); Credit: (-)"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: (-); Credit: (+)"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: 0; Credit: 1"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: D; Credit: C"
 msgstr ""
 
 #. module: account_export
@@ -181,6 +216,11 @@ msgid "Extension"
 msgstr ""
 
 #. module: account_export
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "Extra fields"
+msgstr ""
+
+#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_search
 msgid "Filter on my exports"
 msgstr ""
@@ -213,7 +253,12 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_export_config__footer
 msgid "Footer of the exported file.\n"
-"        exemple: END"
+"Example: END"
+msgstr ""
+
+#. module: account_export
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "Format"
 msgstr ""
 
 #. module: account_export
@@ -234,7 +279,7 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_export_config__header
 msgid "Header of the exported file.\n"
-"        exemple: journal,account,ref,amount"
+"Exemple: journal,account,ref,amount"
 msgstr ""
 
 #. module: account_export
@@ -343,6 +388,11 @@ msgid "Messages"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_move_line_name
+msgid "Move Line Name"
+msgstr ""
+
+#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Move lines created after"
 msgstr ""
@@ -435,6 +485,16 @@ msgid "Partner"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_partner_name
+msgid "Partner Name"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_partner_ref
+msgid "Partner Reference"
+msgstr ""
+
+#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Partners"
 msgstr ""
@@ -451,6 +511,11 @@ msgid "Planned"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_product_code
+msgid "Product Reference"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model.fields,help:account_export.field_res_partner__property_account_receivable_software
 #: model:ir.model.fields,help:account_export.field_res_users__property_account_receivable_software
 msgid "Receivable account in your accounting software"
@@ -464,6 +529,11 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__csv_separator
 msgid "Separator"
+msgstr ""
+
+#. module: account_export
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "Settings"
 msgstr ""
 
 #. module: account_export
