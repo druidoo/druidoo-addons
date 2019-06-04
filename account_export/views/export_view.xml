@@ -108,6 +108,7 @@
 
 						<group>
 							<group string="Extra fields">
+								<p colspan="2"><strong>Note: </strong>These fields are only shown when the lines are not grouped.</p>
 								<field name="show_account_name"/>
 								<field name="show_partner_ref"/>
 								<field name="show_partner_name"/>
