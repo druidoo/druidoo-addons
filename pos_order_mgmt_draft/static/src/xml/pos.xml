@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <t t-extend="OrderListScreenWidget">
+        <t t-jquery=".top-content" t-operation="append">
+            <span class="button-group order-type-selector">
+                <span class="button active" data-filter="done">Orders</span>
+                <span class="button" data-filter="draft">Quotations</span>
+            </span>
+        </t>
+    </t>
+
+
+    <t t-extend="OrderLine">
+
+        <!-- Replace because there isn't a t-operation="attributes" directive (I think) -->
+        <!--
+        <span t-if="widget.pos.config.iface_reprint_done_order" class="button order-list-reprint" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
+            <i class='fa fa-fw fa-print'/>
+        </span>
+        <span t-if="widget.pos.config.iface_copy_done_order" class="button order-list-copy" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
+            <i class='fa fa-fw fa-copy'/>
+        </span>
+    -->
+
+        <t t-jquery="span.button.order-list-return" t-operation="replace">
+            <span t-if="widget.pos.config.iface_return_done_order and order.amount_total >= 0 and order.state != 'draft'" class="button order-list-return" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
+                <i class='fa fa-fw fa-undo'/>
+            </span>
+        </t>
+
+        <!-- Add new button -->
+        <t t-jquery="td[name='td_ol_reprint']" t-operation="append">
+            <span t-if="order.state == 'draft'" class="button order-list-open" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
+                <i class='fa fa-fw fa-external-link'/>
+            </span>
+        </t>
+    </t>
+
+
+
+    <t t-extend="ActionpadWidget">
+        <t t-jquery="button.button.pay" t-operation="after">
+            <button class='button save-draft'>
+                <i class='fa fa-save' role="img" aria-label="Save" title="Save"/>
+                Save
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="PosTicket">
+        <t t-jquery="t[t-if='pos.reloaded_order'] div" t-operation="before">
+            <t t-if="order.state == 'draft'">
+                <div style='text-align:center'>QUOTATION</div>
+            </t>
+        </t>
+        <t t-jquery="table.receipt-change" t-operation="replace">
+            <table t-if="order.get_change()" class='receipt-change'>
+                <tr><td>Change:</td><td class="pos-right-align">
+                    <t t-esc="widget.format_currency(order.get_change())"/>
+                </td></tr>
+            </table>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery=".orderlines" t-operation="before">
+            <t t-if="order.state == 'draft'">
+                <div>QUOTATION</div>
+                <br/>
+            </t>
+        </t>        
+    </t>
+
+</templates>
