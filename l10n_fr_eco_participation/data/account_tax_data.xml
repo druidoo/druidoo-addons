@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Account Tax Group -->
+    <record id="tax_group_tax_eco_participation" model="account.tax.group">
+        <field name="name">Éco-participation</field>
+    </record>
+
+    <!-- Account Tags -->
+    <record id="tag_eco_participation" model="account.account.tag">
+        <field name="name">Éco-participation</field>
+        <field name="applicability">taxes</field>
+    </record>
+
+    <!--Account Tax Template-->
+    <record model="account.tax.template" id="tax_template_participation_001">
+        <field name="chart_template_id" ref="l10n_fr.l10n_fr_pcg_chart_template"/>
+        <field name="name">Éco-participation 001</field>
+        <field name="description">Éco-participation 001</field>
+        <field name="amount" eval="0.070"/>
+        <field name="amount_type">weight</field>
+        <field name="account_id" ref="at_eco_participation"/>
+        <field name="type_tax_use">sale</field>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_eco_participation')])]"/>
+        <field name="tax_group_id" ref="tax_group_tax_eco_participation"/>
+    </record>
+    <record model="account.tax.template" id="tax_template_participation_003">
+        <field name="chart_template_id" ref="l10n_fr.l10n_fr_pcg_chart_template"/>
+        <field name="name">Éco-participation 003</field>
+        <field name="description">Éco-participation 003</field>
+        <field name="amount" eval="0.070"/>
+        <field name="amount_type">weight</field>
+        <field name="account_id" ref="at_eco_participation"/>
+        <field name="type_tax_use">sale</field>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_eco_participation')])]"/>
+        <field name="tax_group_id" ref="tax_group_tax_eco_participation"/>
+    </record>
+    <record model="account.tax.template" id="tax_template_participation_006">
+        <field name="chart_template_id" ref="l10n_fr.l10n_fr_pcg_chart_template"/>
+        <field name="name">Éco-participation 006</field>
+        <field name="description">Éco-participation 006</field>
+        <field name="amount" eval="0.018"/>
+        <field name="amount_type">weight</field>
+        <field name="account_id" ref="at_eco_participation"/>
+        <field name="type_tax_use">sale</field>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_eco_participation')])]"/>
+        <field name="tax_group_id" ref="tax_group_tax_eco_participation"/>
+    </record>
+    <record model="account.tax.template" id="tax_template_participation_005">
+        <field name="chart_template_id" ref="l10n_fr.l10n_fr_pcg_chart_template"/>
+        <field name="name">Éco-participation 005</field>
+        <field name="description">Éco-participation 005</field>
+        <field name="amount" eval="0.018"/>
+        <field name="amount_type">weight</field>
+        <field name="account_id" ref="at_eco_participation"/>
+        <field name="type_tax_use">sale</field>
+        <field name="tag_ids" eval="[(6,0,[ref('tag_eco_participation')])]"/>
+        <field name="tax_group_id" ref="tax_group_tax_eco_participation"/>
+    </record>
+
+</odoo>

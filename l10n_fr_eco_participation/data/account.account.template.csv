@@ -1,0 +1,2 @@
+"id","name","code","user_type_id/id","chart_template_id/id","reconcile"
+"at_eco_participation","Éco-participation","701900","account.data_account_type_revenue","l10n_fr.l10n_fr_pcg_chart_template","False"
