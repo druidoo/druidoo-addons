@@ -14,18 +14,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_export
-#: model:ir.model.fields,help:account_export.field_account_export_config__dateformat
-msgid "\n"
-"        %d: day on 2 digits\n"
-"        %m: month on 2 digits\n"
-"        %y: year on 2 digits\n"
-"        %Y: year on 4 digits\n"
-"        exemple: %d%m%y -> 211216"
-msgstr ""
-
-#. module: account_export
-#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
-msgid "<strong>Note: </strong>These fields are only shown when the lines are not grouped."
+#: model:ir.model.fields,help:account_export.field_account_export_config_field__transform_expr
+msgid "A python expression to transform the value.\n"
+"ie: value[:10]"
 msgstr ""
 
 #. module: account_export
@@ -43,18 +34,13 @@ msgid "Account Export Config"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model,name:account_export.model_account_export_config_field
+msgid "Account Export Config Field"
+msgstr ""
+
+#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_tree
 msgid "Account Export Configuration"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export__journal_ids
-msgid "Account Journals"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_account_name
-msgid "Account Name"
 msgstr ""
 
 #. module: account_export
@@ -95,6 +81,11 @@ msgid "Code of this journal in your accounting software"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__config_id
+msgid "Config"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model,name:account_export.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -102,23 +93,20 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__create_uid
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__create_uid
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__create_date
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__create_date
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__credit_debit_format
 msgid "Credit and Debit"
-msgstr ""
-
-#. module: account_export
-#: selection:account.export,extension:0
-msgid "Csv"
 msgstr ""
 
 #. module: account_export
@@ -147,8 +135,15 @@ msgid "Debit: D; Credit: C"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__description
+msgid "Description"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__display_name
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__display_name
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__display_name
+#: model:ir.model.fields,field_description:account_export.field_report_account_export_report_xls__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -211,13 +206,14 @@ msgid "Exports"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export__extension
-msgid "Extension"
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__field_type
+msgid "Field Type"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__field_ids
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
-msgid "Extra fields"
+msgid "Fields"
 msgstr ""
 
 #. module: account_export
@@ -246,17 +242,6 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__footer
-msgid "Footer"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,help:account_export.field_account_export_config__footer
-msgid "Footer of the exported file.\n"
-"Example: END"
-msgstr ""
-
-#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
 msgid "Format"
 msgstr ""
@@ -272,19 +257,10 @@ msgid "Group export by"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__header
-msgid "Header"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,help:account_export.field_account_export_config__header
-msgid "Header of the exported file.\n"
-"Exemple: journal,account,ref,amount"
-msgstr ""
-
-#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__id
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__id
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__id
+#: model:ir.model.fields,field_description:account_export.field_report_account_export_report_xls__id
 msgid "ID"
 msgstr ""
 
@@ -340,6 +316,7 @@ msgid "Journal Entries"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export__journal_ids
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Journals"
 msgstr ""
@@ -352,18 +329,22 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export____last_update
 #: model:ir.model.fields,field_description:account_export.field_account_export_config____last_update
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field____last_update
+#: model:ir.model.fields,field_description:account_export.field_report_account_export_report_xls____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__write_uid
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__write_uid
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__write_date
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__write_date
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -385,11 +366,6 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__message_ids
 msgid "Messages"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_move_line_name
-msgid "Move Line Name"
 msgstr ""
 
 #. module: account_export
@@ -426,6 +402,7 @@ msgstr ""
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__name
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__name
 msgid "Name"
 msgstr ""
 
@@ -485,16 +462,6 @@ msgid "Partner"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_partner_name
-msgid "Partner Name"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_partner_ref
-msgid "Partner Reference"
-msgstr ""
-
-#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Partners"
 msgstr ""
@@ -511,11 +478,6 @@ msgid "Planned"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__show_product_code
-msgid "Product Reference"
-msgstr ""
-
-#. module: account_export
 #: model:ir.model.fields,help:account_export.field_res_partner__property_account_receivable_software
 #: model:ir.model.fields,help:account_export.field_res_users__property_account_receivable_software
 msgid "Receivable account in your accounting software"
@@ -527,18 +489,13 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__csv_separator
-msgid "Separator"
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__sequence
+msgid "Sequence"
 msgstr ""
 
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
 msgid "Settings"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__dateformat
-msgid "Software Date Format"
 msgstr ""
 
 #. module: account_export
@@ -555,6 +512,11 @@ msgid "Status based on activities\n"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export_config_field__name
+msgid "The name of the field that's going to be used in the header"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__date_to
 msgid "To date"
 msgstr ""
@@ -562,6 +524,11 @@ msgstr ""
 #. module: account_export
 #: selection:account.export,activity_state:0
 msgid "Today"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__transform_expr
+msgid "Transform Expr"
 msgstr ""
 
 #. module: account_export
@@ -597,5 +564,10 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__active
 msgid "active"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_report_account_export_report_xls
+msgid "report.account_export.report_xls"
 msgstr ""
 
