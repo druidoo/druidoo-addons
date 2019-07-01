@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import api, fields, models
+from datetime import datetime, date
 import base64
 import csv
 import pytz
 import shutil
 import tempfile
-
-from datetime import datetime, date
-
-
-from odoo import api, fields, models
-from odoo.tools import ustr
 
 
 class AccountExport(models.Model):
@@ -19,31 +15,49 @@ class AccountExport(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(
-        'Export filename', size=32, required=True,
-        default=lambda self: self._get_default_name())
-    extension = fields.Selection([('csv', 'Csv')], 'Extension', default='csv',
-                                 required=True)
-    state = fields.Selection(
-        [('draft', 'Draft'), ('exported', 'Exported')], 'State',
-        default='draft')
+        'Export filename',
+        size=32,
+        required=True,
+        default=lambda self: self._get_default_name(),
+    )
+
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('exported', 'Exported')
+        ],
+        'State',
+        default='draft',
+    )
+
     last_export_date = fields.Datetime(
-        string='Last Export Date', compute='_get_last_export_date',
-        readonly=True, help='Last date of export')
+        'Last Export Date',
+        help='Last date of export',
+        compute='_get_last_export_date',
+        readonly=True,
+    )
+
     # Options
     filter_move_lines = fields.Selection([
         ('all', 'Export all move lines'),
-        ('non_exported', 'Export only non exported move lines')],
-        'Move lines to export', default='non_exported')
+        ('non_exported', 'Export only non exported move lines')
+        ],
+        'Move lines to export',
+        default='non_exported',
+    )
+
     # Filters
     date_from = fields.Date('From date')
     date_to = fields.Date('To date')
     invoice_ids = fields.Many2many('account.invoice', string='Invoice')
-    journal_ids = fields.Many2many(
-        'account.journal', string='Account Journals')
+    journal_ids = fields.Many2many('account.journal', string='Journals')
     partner_ids = fields.Many2many('res.partner', string='Partner')
+
     config_id = fields.Many2one(
-        string='Export Configuration', comodel_name='account.export.config',
-        default=lambda self: self._get_default_config(), required=True)
+        'account.export.config',
+        'Export Configuration',
+        default=lambda self: self._get_default_config(),
+        required=True,
+    )
 
     # ############## MODEL FUNCTION FIELDS #####################
 
@@ -63,96 +77,44 @@ class AccountExport(models.Model):
     @api.model
     def _get_default_config(self):
         config = self.env['account.export.config'].search(
-            [('is_default', '=', True)])
+            [('is_default', '=', True)], limit=1)
         if not config:
-            config = self.env['account.export.config'].search([])
-        return config and config[0].id or False
+            config = self.env['account.export.config'].search([], limit=1)
+        return config and config.id or False
+
 
     # ################## EXPORTING FUNCTIONS ####################
 
     @api.multi
     def create_report(self):
-        '''
-        @Function to generate the report
-        '''
-        self.ensure_one()
-        self.HEADER = self.build_header()
-
-        # Prepare data to export to file
-        datas = self.get_account_move_line_data()
-
-        # Generate the file based
-        moves_file = False
-        if self.extension == 'csv':
-            moves_file = self.get_data_csv_file(
-                datas, str(self.config_id.csv_separator))
-
-        if not moves_file:
-            return True
-
-        # Create a document with output as content
-        user_tz = self.env.user.tz or 'Europe/Paris'
-        now_at_utc = fields.Datetime.from_string(fields.Datetime.now())
-        local = pytz.timezone(user_tz)
-        now_at_local = pytz.utc.localize(now_at_utc).astimezone(local)
-        now_at_local = fields.Datetime.to_string(now_at_local)
-
-        attachment_name = "{}-{}.{}".format(
-                self.name, now_at_local, self.extension)
-
-        vals = {
-            'name': attachment_name,
-            'type': 'binary',
-            'datas': moves_file,
-            'datas_fname': attachment_name,
-            'res_model': 'account.export',
+        data, fileformat = self.env['ir.actions.report'].with_context(
+            report_name='account_export.report_xls',
+            active_model=self._name,
+        ).render_xlsx(
+            docids=self.ids,
+            data={'dynamic_report': True},
+        )
+        # Attach file
+        filename = '%s-%s.%s' % (
+            self.name, fields.Datetime.now(), fileformat)
+        attach = self.env['ir.attachment'].create({
+            'name': filename,
             'res_id': self.id,
-        }
-
-        self.env["ir.attachment"].create(vals)
-
-        # Change report state to exported
-        self.state = 'exported'
-
-        # Refresh window
-        # TODO: Maybe change this to post a chatter message with the
-        # attachment, instead of adding it directly.
-        # I think chatter messages are displayed immediatly without 
-        # needing to refresh the window.
+            'res_model': self._name,
+            'datas': base64.encodestring(data),
+            'datas_fname': filename
+        })
+        # Open attachment view
         return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
+            'name': self.name,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'ir.attachment',
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'current',
+            'res_id': attach.id,
         }
-
-    @api.model
-    def get_data_csv_file(self, source_data, delimiter_separator=","):
-        '''
-        @Function to write the data into csv file and return the binary data
-            @Params:
-                source_data: List of data
-                delimiter_separator: Delimeter separator, comma by default
-        '''
-        tmp_directory = tempfile.mkdtemp()
-        file_path = tmp_directory + '/tmp_file.csv'
-        csvfile = open(file_path, 'w')
-
-        csv_writer = csv.writer(csvfile, delimiter=delimiter_separator)
-
-        for line in source_data:
-            # Encode the string to utf8 before writing
-            new_line = [u"{}".format(item) for item in line]
-            csv_writer.writerow(new_line)
-
-        csvfile.close()
-        csvfile = open(file_path, 'rb')
-        data = base64.encodestring(csvfile.read())
-
-        # Remove the temporary directory
-        try:
-            shutil.rmtree(tmp_directory)
-        except:
-            print('Can not remove directory: ', tmp_directory)
-        return data
 
     # ############### MAIN FUNCTIONS TO GET DATA ###############
 
@@ -170,7 +132,8 @@ class AccountExport(models.Model):
             self.get_account_move_line_group_by_journal()
 
         # Get header
-        output = self.HEADER and [self.HEADER] or []
+        #output = self.HEADER and [self.HEADER] or []
+        output = []
 
         for line in aml_groupedby_journal:
             journal_id = line['journal_id']
@@ -184,11 +147,6 @@ class AccountExport(models.Model):
 
         # Mark account move as exported
         self.env['account.move'].browse(move_ids).write({'exported': True})
-
-        # Get footer
-        footer = self.build_footer()
-        if footer:
-            output += [footer]
         return output
 
     @api.model
@@ -230,6 +188,17 @@ class AccountExport(models.Model):
 
     @api.model
     def get_report_line_detail_data(self, move_line_ids, groupings=False):
+        '''
+        @Function to get report data line in detail, according to the configuration
+        @Params: move_line_ids: List of Move line ids. If Grouping = False, one
+        element should be input.
+                groupings: a líst of fields used for grouping move line
+        '''
+        vals = self._get_report_line_detail_data(move_line_ids, groupings)
+        return self.config_id.field_ids.get_column_values(vals)
+
+    @api.model
+    def _get_report_line_detail_data(self, move_line_ids, groupings=False):
         '''
         @Function to get report data line in detail
         @Params: move_line_ids: List of Move line ids. If Grouping = False, one
@@ -354,99 +323,28 @@ class AccountExport(models.Model):
         # Refreshing the data before export
         export_code = export_code != 'NO-JOURNAL-CODE' and export_code or ""
 
-        # Format credit/debit based on format
-        credit_debit_format = \
-            self.config_id and self.config_id.credit_debit_format or '01'
-        sense = None
-        if debit > credit:
-            if credit_debit_format == '01':
-                sense = '0'
-            elif credit_debit_format == 'DC':
-                sense = 'D'
-            amount = debit - credit
-        else:
-            if credit_debit_format == '01':
-                sense = '1'
-            elif credit_debit_format == 'DC':
-                sense = 'C'
-            amount = credit - debit
+        # We can do that in the config now
+        #account_move_name = account_move_name and account_move_name[:13] or ''
 
-        # Signed credit/debit formats
-        if credit_debit_format == '+-' and debit > credit:
-            amount = -amount
-        elif credit_debit_format == '-+' and debit <= credit:
-            amount = -amount
-
-        # Format number / decimal point
-        amount = ustr(amount)
-        amount = amount[:14].replace('.', self.get_decimal_point())
-
-        # Format dates to software format
-        try:
-            move_line_date = \
-                self.convert_to_software_date_format(move_line_date)
-        except:
-            pass
-
-        account_move_name = account_move_name and account_move_name[:13] or ''
-
-        res_data = [
-            export_code,
-            move_line_date,
-            move_number,
-            export_account_code,
-            account_move_name,
-        ]
+        res_data = {
+            'export_code': export_code,
+            'move_line_date': move_line_date,
+            'move_number': move_number,
+            'export_account_code': export_account_code,
+            'account_move_name': account_move_name,
+            'debit': debit,
+            'credit': credit,
+        }
 
         # Add fields that are not supported when grouping
         if not groupings and self.config_id:
-            if self.config_id.show_account_name:
-                res_data.append(first_line['account_name'])
-            if self.config_id.show_partner_ref:
-                res_data.append(first_line['partner_ref'])
-            if self.config_id.show_partner_name:
-                res_data.append(first_line['partner_name'])
-            if self.config_id.show_product_code:
-                res_data.append(first_line['product_code'])
-            if self.config_id.show_move_line_name:
-                res_data.append(first_line['move_line_name'])
+            res_data['account_name'] = first_line['account_name']
+            res_data['partner_ref'] = first_line['partner_ref']
+            res_data['partner_name'] = first_line['partner_name']
+            res_data['product_code'] = first_line['product_code']
+            res_data['move_line_name'] = first_line['move_line_name']
 
-        if credit_debit_format in ('01', 'DC'):
-            res_data.append(sense)
-        res_data.append(amount)
-
-        # Replace the column with False Value by the header column name
-        final_data = []
-        pos = 0
-        for item in res_data:
-            new_item = item and item or ''
-            if new_item == "GROUPED":
-                try:
-                    new_item = self.HEADER[pos]
-                except:
-                    # Set value to empty string if the item position is greater
-                    # than the header size
-                    new_item = ""
-            pos += 1
-            final_data.append(u'{}'.format(new_item))
-        return final_data
-
-    @api.model
-    def build_header(self):
-        '''
-        @Function Use the default header if it is set, otherwise, use thje
-        '''
-        header = self.config_id and self.config_id.header and \
-            self.config_id.header.split(",") or []
-        # Strip the leading and trailling spaces
-        header = [item.strip() for item in header]
-        return header
-
-    @api.model
-    def build_footer(self):
-        return self.config_id and \
-            self.config_id.footer and \
-            self.config_id.footer.split(",") or []
+        return res_data
 
     # ########### OTHER FUNCTIONS FOR GETTING DATA #############
 
@@ -520,19 +418,3 @@ class AccountExport(models.Model):
         grouping_fields = \
             self.env['account.journal'].browse(journal_id).group_fields
         return ["aml." + g_field.name for g_field in grouping_fields]
-
-    @api.model
-    def get_decimal_point(self):
-        '''
-        @Function to get the decimal separator based on the user language
-        '''
-        user = self.env['res.users'].browse(self._uid)
-        user_lang_code = user.lang or 'en_US'
-        user_lang = self.env['res.lang'].search(
-            [('code', '=', user_lang_code)],
-            limit=1)
-        return user_lang and user_lang.decimal_point or '.'
-
-    def convert_to_software_date_format(self, date):
-        dateformat = self.config_id and self.config_id.dateformat or "%d%m%y"
-        return datetime.strptime(str(date), "%Y-%m-%d").strftime(dateformat)

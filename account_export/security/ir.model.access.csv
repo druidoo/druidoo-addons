@@ -35,3 +35,5 @@ account_export.access_37,res_partner group_account_manager,account.model_res_par
 account_export.access_38,account.move.line manager,account.model_account_move_line,account_export.group_account_export,1,0,0,0
 account_export.access_39,account.move manager,account.model_account_move,account_export.group_account_export,1,0,0,0
 account_export.access_export_config,account.export.config manager,account_export.model_account_export_config,account_export.group_account_export,1,1,1,1
+account_export.access_export_config_field,account.export.config.field manager,account_export.model_account_export_config_field,account_export.group_account_export,1,1,1,1
+account_export.access_export_config_field_type,account.export.config.field.type manager,account_export.model_account_export_config_field_type,account_export.group_account_export,1,0,0,0
