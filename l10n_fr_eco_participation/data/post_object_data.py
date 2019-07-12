@@ -70,5 +70,3 @@ class PostObjectData(models.TransientModel):
             self.load_fr_chart_template()
         _logger.info('======END post object========')
         return True
-
-
