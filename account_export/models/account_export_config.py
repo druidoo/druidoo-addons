@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
-from odoo import api, models, fields, _
-from odoo.tools import safe_eval, ustr
+from odoo import api, models, fields
+from odoo.tools import safe_eval
 
 
 class AccountExportConfig(models.Model):
@@ -21,7 +18,7 @@ class AccountExportConfig(models.Model):
         string='Credit and Debit',
         default='01',
         required=True,
-    )    
+    )
 
     @api.model
     def _default_field_ids(self):
@@ -158,7 +155,7 @@ class AccountExportConfigField(models.Model):
             else:
                 res[rec.id] = vals.get(rec.field_type)
         return res
-                
+
     def _get_columns_value_amount(self, vals):
         # Format credit/debit based on format
         self.ensure_one()

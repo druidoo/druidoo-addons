@@ -2,12 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from datetime import datetime, date
+from datetime import date
 import base64
-import csv
-import pytz
-import shutil
-import tempfile
 
 
 class AccountExport(models.Model):
@@ -82,7 +78,6 @@ class AccountExport(models.Model):
             config = self.env['account.export.config'].search([], limit=1)
         return config and config.id or False
 
-
     # ################## EXPORTING FUNCTIONS ####################
 
     @api.multi
@@ -132,7 +127,7 @@ class AccountExport(models.Model):
             self.get_account_move_line_group_by_journal()
 
         # Get header
-        #output = self.HEADER and [self.HEADER] or []
+        # output = self.HEADER and [self.HEADER] or []
         output = []
 
         for line in aml_groupedby_journal:
@@ -189,7 +184,7 @@ class AccountExport(models.Model):
     @api.model
     def get_report_line_detail_data(self, move_line_ids, groupings=False):
         '''
-        @Function to get report data line in detail, according to the configuration
+        @Function to get report data line in detail, according to the config
         @Params: move_line_ids: List of Move line ids. If Grouping = False, one
         element should be input.
                 groupings: a líst of fields used for grouping move line
@@ -322,9 +317,6 @@ class AccountExport(models.Model):
 
         # Refreshing the data before export
         export_code = export_code != 'NO-JOURNAL-CODE' and export_code or ""
-
-        # We can do that in the config now
-        #account_move_name = account_move_name and account_move_name[:13] or ''
 
         res_data = {
             'export_code': export_code,

@@ -1,7 +1,5 @@
-# Copyright 2019 Druidoo
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo import models, fields
 
-from odoo import models, fields, _
 
 class AccountExportReportXLS(models.AbstractModel):
     _name = 'report.account_export.report_xls'
@@ -35,14 +33,17 @@ class AccountExportReportXLS(models.AbstractModel):
                     export.config_id.credit_debit_format in ('01', 'DC'):
                 template['%g_sense' % field.id] = {
                     'header': {'type': 'string', 'value': ''},
-                    'line': {'value': self._render('line.get("%g_sense")' % field.id)},
+                    'line': {
+                        'value': self._render(
+                            'line.get("%g_sense")' % field.id)
+                    },
                     'width': 5,
                 }
         return template
 
     def _get_ws_params(self, wb, data, export):
         template = self._get_template(export)
-        
+
         # Generate wanted list
         wl = []
         for field in export.config_id.field_ids:
@@ -73,9 +74,6 @@ class AccountExportReportXLS(models.AbstractModel):
         ws.set_header(self.xls_headers['standard'])
         ws.set_footer(self.xls_footers['standard'])
         self._set_column_width(ws, ws_params)
-
-        row_pos = 0
-        #row_pos = self._write_ws_title(ws, row_pos, ws_params)
 
         lines = export.get_account_move_line_data()
 
