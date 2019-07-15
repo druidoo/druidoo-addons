@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 {
     'name': 'French ECO Participation Taxes',
     'version': '1.0',
     'category': 'Accounting',
-    'description': """
+    'summary': """
 Provides French ECO Participation Taxes
     """,
     'author': 'Druidoo',
