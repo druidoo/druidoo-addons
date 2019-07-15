@@ -78,7 +78,7 @@ class AccountExportReportXLS(models.AbstractModel):
         lines = export.get_account_move_line_data()
 
         row_pos = self._write_line(
-            ws, row_pos, ws_params,
+            ws, 0, ws_params,
             col_specs_section='header',
             default_format=self.format_theader_yellow_left,
         )
