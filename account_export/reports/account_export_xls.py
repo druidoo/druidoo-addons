@@ -1,5 +1,8 @@
 from odoo import models, fields
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class AccountExportReportXLS(models.AbstractModel):
     _name = 'report.account_export.report_xls'
@@ -17,7 +20,7 @@ class AccountExportReportXLS(models.AbstractModel):
                 },
                 'line': {
                     'type': col.get('type', 'string'),
-                    'value': self._render('line.get(%s)' % field.id),
+                    'value': self._render('line.get(%s, "")' % field.id),
                     'format': col.get('format', (
                         self.format_tcell_date_center
                         if col.get('type') == 'datetime'
@@ -85,7 +88,10 @@ class AccountExportReportXLS(models.AbstractModel):
 
         ws.freeze_panes(row_pos, 0)
 
+        i=0
         for line in lines:
+            i += 1
+            _logger.warning('Writing line: %g/%g\n%s' % (i, len(lines), line))
             row_pos = self._write_line(
                 ws, row_pos, ws_params,
                 col_specs_section='line',

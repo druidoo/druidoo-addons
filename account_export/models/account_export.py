@@ -241,7 +241,7 @@ class AccountExport(models.Model):
                         WHEN aj.type = 'purchase'
                         THEN COALESCE(rp.name, '')
                     ELSE
-                        COALESCE (aml.ref, '') || COALESCE(rp.name, '')
+                        COALESCE (aml.ref, rp.name, '')
                     END
                 ) AS account_move_name,
 
@@ -323,7 +323,7 @@ class AccountExport(models.Model):
             'move_line_date': move_line_date,
             'move_number': move_number,
             'export_account_code': export_account_code,
-            'account_move_name': account_move_name,
+            'account_move_name': account_move_name or '',
             'debit': debit,
             'credit': credit,
         }
