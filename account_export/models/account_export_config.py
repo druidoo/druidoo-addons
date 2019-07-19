@@ -90,6 +90,14 @@ class AccountExportConfig(models.Model):
                 'name': 'Amount',
                 'type': 'number',
             },
+            'debit': {
+                'name': 'Debit',
+                'type': 'number',
+            },
+            'credit': {
+                'name': 'Credit',
+                'type': 'number',
+            },
         }
 
 
