@@ -89,33 +89,31 @@ odoo.define('pos_order_mgmt_draft.widgets', function (require) {
             });
         },
 
-        action_open: function(order_data) {
-        	var order = this.load_order_from_data(order_data);
-            if (!order) { return false; }
-            // Restore the previous name
-            order.name = order_data.pos_reference || order_data.name;
-            order.odoo_id = order_data.id;
-            order.trigger('change');
+        action_open: function(order_data, order) {
 			this.pos.get('orders').add(order);
             this.pos.set('selectedOrder', order);
             return order;
         },
 
-        action_print: function(order_data) {
+        action_print: function(order_data, order) {
             /* In case of draft orders, we print the pos.order report */
             if (order_data.state == 'draft') {
                 return this.pos.chrome.do_action('pos_order_mgmt_draft.pos_order_report', {
                     additional_context: { active_ids: [order_data.id] }
                 });
             } else {
-                this._super(order_data);
+                this._super(order_data, order);
             }
         },
 
-        load_order_from_data: function(order_data) {
-            var order = this._super(order_data);
-            order.state = order_data.state;
-            order.trigger('change');
+        load_order_from_data: function(order_data, action) {
+            var order = this._super(order_data, action);
+            if (['open'].indexOf(action) !== -1) {
+                order.state = order_data.state;
+                order.name = order_data.pos_reference || order_data.name;
+                order.odoo_id = order_data.id;
+                order.trigger('change');
+            }
             return order;
         },
 
