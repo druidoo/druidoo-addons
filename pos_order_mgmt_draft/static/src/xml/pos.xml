@@ -13,17 +13,7 @@
 
 
     <t t-extend="OrderLine">
-
-        <!-- Replace because there isn't a t-operation="attributes" directive (I think) -->
-        <!--
-        <span t-if="widget.pos.config.iface_reprint_done_order" class="button order-list-reprint" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
-            <i class='fa fa-fw fa-print'/>
-        </span>
-        <span t-if="widget.pos.config.iface_copy_done_order" class="button order-list-copy" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
-            <i class='fa fa-fw fa-copy'/>
-        </span>
-    -->
-
+        <!-- FIXME: Try using t-operation attributes instead? Didn't work the first time -->
         <t t-jquery="span.button.order-list-return" t-operation="replace">
             <span t-if="widget.pos.config.iface_return_done_order and order.amount_total >= 0 and order.state != 'draft'" class="button order-list-return" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
                 <i class='fa fa-fw fa-undo'/>
@@ -37,7 +27,6 @@
             </span>
         </t>
     </t>
-
 
 
     <t t-extend="ActionpadWidget">
@@ -72,5 +61,57 @@
             </t>
         </t>        
     </t>
+
+
+    <t t-name="DraftOrderScreenWidget">
+        <div class='payment-screen screen'>
+            <div class='screen-content'>
+                <div class='top-content'>
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Back
+                    </span>
+                    <h1>Draft Order</h1>
+                    <span class='button next highlight'>
+                        Save &amp; Close
+                        <i class='fa fa-angle-double-right'></i>
+                    </span>
+                </div>
+
+                <div class='left-content pc40 touch-scrollable scrollable-y'>
+                </div>
+
+                <div class='right-content pc60 touch-scrollable scrollable-y'>
+
+                    <div class='payment-buttons'>
+                        <div class='button js_set_customer'>
+                            <i class='fa fa-user' role="img" aria-label="Customer" title="Customer"/>
+                            <span class='js_customer_name'>
+                                <t t-if="widget.pos.get_client()">
+                                    <t t-esc="widget.pos.get_client().name" />
+                                </t>
+                                <t t-if="!widget.pos.get_client()">
+                                    Customer
+                                </t>
+                            </span>
+                        </div>
+
+                        <div class="button js_save">
+                            <i class="fa fa-save"/> Save
+                        </div>
+
+                        <div class="button js_print">
+                            <i class="fa fa-print"/> Print Quotation
+                        </div>
+
+                        <div class="button js_send_mail disabled">
+                            <i class="fa fa-envelope-o"/> Send by Email
+                        </div>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </t>
 
 </templates>
