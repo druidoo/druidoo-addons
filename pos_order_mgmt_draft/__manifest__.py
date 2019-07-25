@@ -10,7 +10,10 @@
     ],
     'data': [
         'views/assets.xml',
+        'views/pos_order.xml',
+        'views/pos_config.xml',
         'reports/report_pos_order.xml',
+        'data/mail_data.xml',
     ],
     'qweb': [
         'static/src/xml/pos.xml',

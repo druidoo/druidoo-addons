@@ -9,7 +9,17 @@ _logger = logging.getLogger(__name__)
 
 
 class PosOrder(models.Model):
-    _inherit = 'pos.order'
+    _name = 'pos.order'
+    _inherit = ['pos.order', 'mail.thread']
+
+    @api.multi
+    @api.returns('mail.message', lambda value: value.id)
+    def message_post(self, **kwargs):
+        ''' Add mail_post_autofollow to context '''
+        return super(
+            PosOrder,
+            self.with_context(mail_post_autofollow=True)
+        ).message_post(**kwargs)
 
     @api.model
     def _prepare_fields_for_pos_list(self):
@@ -73,21 +83,24 @@ class PosOrder(models.Model):
         return order_ids
 
     @api.model
-    def create_draft_from_ui(self, pos_order):
+    def create_draft_from_ui(self, pos_order, options=None):
         """ Creates a draft order from the ui """
-        vals = self._order_fields(pos_order)
-        _logger.warning(vals)
+        if not options:
+            options = {}
         odoo_id = pos_order.get('odoo_id')
-        order = None
-        if odoo_id:
-            order = self.browse([odoo_id]).exists()
+        order = self.browse([odoo_id]).exists() if odoo_id else None
+        vals = self._order_fields(pos_order)
         if order:
-            # Update, we should remove previous lines
-            if vals.get('lines'):
-                vals['lines'] = [(5,0,0)] + vals['lines'];
+            if 'lines' in vals:
+                vals['lines'] = [(5,0,0)] + (vals['lines'] or []);
             order.write(vals)
         else:
             order = self.create(vals)
+        # Send mail if required
+        if options.get('send_mail'):
+            template_id = self.env.ref(
+                'pos_order_mgmt_draft.email_template_pos_order')
+            order.message_post_with_template(template_id.id)
         return order.id
 
     @api.model
@@ -101,9 +114,7 @@ class PosOrder(models.Model):
             pos_order['pos_session_id'] = self._get_valid_session(pos_order).id
 
         odoo_id = pos_order.get('odoo_id')
-        order = None
-        if odoo_id:
-            order = self.browse([odoo_id]).exists()
+        order = self.browse([odoo_id]).exists() if odoo_id else None
         if order:
             order.write(self._order_fields(pos_order))
         else:

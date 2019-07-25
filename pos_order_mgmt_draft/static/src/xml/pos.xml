@@ -30,7 +30,7 @@
 
 
     <t t-extend="ActionpadWidget">
-        <t t-jquery="button.button.pay" t-operation="after">
+        <t t-jquery="button.button.pay" t-operation="before">
             <button class='button save-draft'>
                 <i class='fa fa-save' role="img" aria-label="Save" title="Save"/>
                 Save
@@ -73,12 +73,23 @@
                     </span>
                     <h1>Draft Order</h1>
                     <span class='button next highlight'>
-                        Save &amp; Close
+                        Save &amp; continue
                         <i class='fa fa-angle-double-right'></i>
                     </span>
                 </div>
 
                 <div class='left-content pc40 touch-scrollable scrollable-y'>
+                    <div class="paymentmethods-container">
+                        <div class="paymentmethods">
+                            <div class="button paymentmethod js_advance_payment">
+                                <i class="fa fa-money"/> Create Advance Payment
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 16px;">
+                        <!--<p>Here we'll show a list of advance payments, if any.</p>-->
+                    </div>
                 </div>
 
                 <div class='right-content pc60 touch-scrollable scrollable-y'>
@@ -95,23 +106,23 @@
                                 </t>
                             </span>
                         </div>
-
-                        <div class="button js_save">
-                            <i class="fa fa-save"/> Save
-                        </div>
-
-                        <div class="button js_print">
+                        <div t-attf-class="button js_print{{widget.pos.get_order().to_print ? ' highlight' : ''}}">
                             <i class="fa fa-print"/> Print Quotation
                         </div>
-
-                        <div class="button js_send_mail disabled">
+                        <div class="button js_send_mail disabled{{widget.pos.get_order().to_send_mail ? ' highlight' : ''}}">
                             <i class="fa fa-envelope-o"/> Send by Email
                         </div>
+                    </div>
 
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </t>
+                    <div class='payment-buttons' style='padding: 16px;'>
+                        <div class="button js_cancel altlight">
+                            <i class="fa fa-trash"/> Remove Quotation
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
 
 </templates>
