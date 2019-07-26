@@ -252,4 +252,8 @@ screens.ActionpadWidget.include({
     },
 });
 
+return {
+    DraftOrderScreenWidget: DraftOrderScreenWidget,
+}
+
 });

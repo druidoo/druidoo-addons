@@ -24,8 +24,8 @@
 	right: 20px;
 }
 
-.pos .actionpad .button.save-draft + .pos .actionpad .button.pay {
-    height: 108px;
+.pos .actionpad .button.save-draft + .button.pay {
+    height: 108px !important;
 }
 
 .pos .actionpad .button.save-draft .fa {
