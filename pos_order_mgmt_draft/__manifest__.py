@@ -1,10 +1,17 @@
+# Copyright 2019 Druidoo - Iván Todorovich
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     'name': 'POS Order Draft',
+    'summary': 'Create POS draft orders',
     'version': '12.0.1.0.0',
     'category': 'Point of Sale',
-    'website': 'https://github.com/druidoo/druidoo-addons',
-    'author': 'Druidoo',
+    'author': 'Druidoo, '
+              'Odoo Community Association (OCA)',
+    'website': 'https://github.com/OCA/pos',
     'license': 'AGPL-3',
+    'maintainers': [
+        'ivantodorovich',
+    ],
     'depends': [
         'pos_order_mgmt',
     ],
@@ -17,5 +24,5 @@
     ],
     'qweb': [
         'static/src/xml/pos.xml',
-    ]
+    ],
 }

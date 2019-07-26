@@ -1,4 +1,6 @@
-
+/* Copyright 2019 Druidoo - Iván Todorovich
+   License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). */
+   
 odoo.define('pos_order_mgmt_draft.screens', function (require) {
 "use strict";
 
@@ -143,101 +145,24 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
         });
     },
 
-    /* TODO: Move to another module */
-    click_advance_payment: function() {
-        var self = this;
-        var order = this.pos.get_order();
-        this.gui.show_popup('number', {
-            'title': _t('Advance Payment'),
-            'body': _t('Enter the advance payment amount'),
-            confirm: function(val) {
-                self.create_advance_payment(order, val);
-            },
-        });
-    },
-
-    /* TODO: Move to another module */
-    create_advance_payment: function(order, amount) {
-        // Creates an advance payment
-        var self = this;
-
-        if (amount <= order.get_total_tax()) {
-            self.gui.show_popup('error', {
-                'title': _t('Advance payment amount'),
-                'body': _t('The Advance Payment cannot be larger than the order amount'),
-            });
-            return false;
-        }
-
-        if (!this.pos.config.deposit_product_id) {
-            self.gui.show_popup('error', {
-                'title': _t('Missing Deposit Product'),
-                'body': _t('There\'s no deposit product in the POS Configuration'),
-            });
-            return false;
-        }
-
-        var deposit_product_id = this.pos.db.get_product_by_id(
-            this.pos.config.deposit_product_id[0]);
-
-        if (!deposit_product_id) {
-            self.gui.show_popup('error', {
-                'title': _t('No Advance Payment Product'),
-                'body': _t(
-                    'There\'s a product in the config, but it\'s not loaded ' +
-                    'on the POS. Try refreshing the browser. ' +
-                    'Also, make sure the deposit product is available on the POS'
-                ),
-            });
-            return false;
-        }
-
-        // Restore order page
-        this.gui.back();
-
-        // TODO: Listen to deposit_order changes instead. Only add the line and save AFTER 
-        // we receive payment for deposit_order
-        // Add advance payment line to current order
-        order.add_product(deposit_product_id, {quantity: 1, price: (-amount)})
-
-
-        // Create the advance payment order
-        var deposit_order = new models.Order({},{ pos: this.pos });
-        deposit_order.set_client(order.get_client());
-        deposit_order.add_product(deposit_product_id, {quantity: 1, price: amount});
-        this.pos.get('orders').add(deposit_order);
-        this.pos.set('selectedOrder', deposit_order);
-
-    },
-
     renderElement: function() {
         var self = this;
         this._super();
-
         this.$('.back').click(function(){
             self.click_back();
         });
-
         this.$('.next').click(function(){
             self.click_next();
         });
-
         this.$('.js_set_customer').click(function(){
             self.click_set_customer();
         });
-
         this.$('.js_print').click(function(){
             self.click_print();
         });
-
         this.$('.js_send_mail').click(function(){
             self.click_send_mail();
         });
-
-        this.$('.js_advance_payment').click(function() {
-            self.click_advance_payment();
-        });
-
         this.$('.js_cancel').click(function() {
             self.click_cancel();
         });
@@ -251,9 +176,6 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
     order_is_valid: function() {
         var self = this;
         var order = this.pos.get_order();
-
-        // FIXME: this check is there because the backend is unable to
-        // process empty orders. This is not the right place to fix it.
         if (order.is_empty()) {
             this.gui.show_popup('error',{
                 'title': _t('Empty Order'),
@@ -261,7 +183,6 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
             });
             return false;
         }
-
         if(!order.get_client()){
             this.gui.show_popup('confirm',{
                 'title': _t('Please select the Customer'),
@@ -272,7 +193,6 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
             });
             return false;
         }
-
         return true;
     },
 
@@ -307,7 +227,6 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
         return done;
     },
 
-    // Checks if everything is ok and push draft to backend
     save_draft_order: function(options) {
         var self = this;
         var order = this.pos.get_order();

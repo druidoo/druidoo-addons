@@ -1,4 +1,5 @@
 # Copyright 2019 Druidoo - Iván Todorovich
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models, fields, _
 from odoo.tools import float_is_zero

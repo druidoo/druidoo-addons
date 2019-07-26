@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-
     <t t-extend="OrderListScreenWidget">
         <t t-jquery=".top-content" t-operation="append">
             <span class="button-group order-type-selector">
@@ -11,16 +10,12 @@
         </t>
     </t>
 
-
     <t t-extend="OrderLine">
-        <!-- FIXME: Try using t-operation attributes instead? Didn't work the first time -->
         <t t-jquery="span.button.order-list-return" t-operation="replace">
             <span t-if="widget.pos.config.iface_return_done_order and order.amount_total >= 0 and order.state != 'draft'" class="button order-list-return" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
                 <i class='fa fa-fw fa-undo'/>
             </span>
         </t>
-
-        <!-- Add new button -->
         <t t-jquery="td[name='td_ol_reprint']" t-operation="append">
             <span t-if="order.state == 'draft'" class="button order-list-open" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
                 <i class='fa fa-fw fa-external-link'/>
@@ -28,10 +23,9 @@
         </t>
     </t>
 
-
     <t t-extend="ActionpadWidget">
         <t t-jquery="button.button.pay" t-operation="before">
-            <button class='button save-draft'>
+            <button t-if="widget.pos.config.iface_draft_order" class='button save-draft'>
                 <i class='fa fa-save' role="img" aria-label="Save" title="Save"/>
                 Save
             </button>
@@ -62,7 +56,6 @@
         </t>        
     </t>
 
-
     <t t-name="DraftOrderScreenWidget">
         <div class='payment-screen screen'>
             <div class='screen-content'>
@@ -79,17 +72,6 @@
                 </div>
 
                 <div class='left-content pc40 touch-scrollable scrollable-y'>
-                    <div class="paymentmethods-container">
-                        <div class="paymentmethods">
-                            <div class="button paymentmethod js_advance_payment">
-                                <i class="fa fa-money"/> Create Advance Payment
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="margin: 16px;">
-                        <!--<p>Here we'll show a list of advance payments, if any.</p>-->
-                    </div>
                 </div>
 
                 <div class='right-content pc60 touch-scrollable scrollable-y'>

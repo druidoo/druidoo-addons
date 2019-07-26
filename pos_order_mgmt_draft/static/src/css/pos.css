@@ -24,11 +24,11 @@
 	right: 20px;
 }
 
-.pos .actionpad .button.pay {
+.pos .actionpad .button.save-draft + .pos .actionpad .button.pay {
     height: 108px;
 }
 
-.pos .actionpad .button .fa-save {
+.pos .actionpad .button.save-draft .fa {
     position: absolute;
     left: 13px;
     top: 13px;
