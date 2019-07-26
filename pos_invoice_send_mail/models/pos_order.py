@@ -1,4 +1,5 @@
 # Copyright 2019 Druidoo - Iván Todorovich
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models, fields
 
@@ -17,7 +18,7 @@ class PosOrder(models.Model):
         for order in self.browse(order_ids):
             if (
                 order.config_id.iface_invoice_mail
-                and order.config_id.iface_invoice_mail_template_id
+                and order.config_id.invoice_mail_template_id
                 and order.invoice_id
                 and order.invoice_id.sent == False
                 and order.pos_reference in refs_to_send_mail
@@ -25,5 +26,5 @@ class PosOrder(models.Model):
                 invoice_id = order.invoice_id.with_context(
                     mark_invoice_as_sent=True)
                 invoice_id.message_post_with_template(
-                    order.config_id.iface_invoice_mail_template_id.id)
+                    order.config_id.invoice_mail_template_id.id)
         return order_ids

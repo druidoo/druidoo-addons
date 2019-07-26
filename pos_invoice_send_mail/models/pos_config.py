@@ -1,3 +1,6 @@
+# Copyright 2019 Druidoo - Iván Todorovich
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 from odoo import api, models, fields
 
 
@@ -6,9 +9,9 @@ class PosConfig(models.Model):
 
     iface_invoice_mail = fields.Boolean('Send Invoice by Mail')
 
-    iface_invoice_mail_template_id = fields.Many2one(
+    invoice_mail_template_id = fields.Many2one(
         'mail.template',
-        string='Email Template',
+        string='Invoice Email Template',
         domain=[('model', '=', 'account.invoice')],
         context=lambda self: {
             'default_model_id': self.ref('account.model_account_invoice').id,
