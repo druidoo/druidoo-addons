@@ -138,7 +138,15 @@ msgstr ""
 #: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:41
 #, python-format
 msgid "Unable to mass edit attributes that create variants\n"
-"You're trying to edit attribute \"%s\", which always creates new variants."
+"You're trying to edit attribute \"%s\", which always creates new variants.This is not recommended. If you really need to do it run the wizard in debug mode and enable the option."
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:50
+#, python-format
+msgid "Unable to mass edit attributes that create variants\n"
+"You're trying to remove or replace values for \"%s\", which creates variants dynamically.\n"
+"This is not recommended. If you really need to do it run the wizard in debug mode and enable the option."
 msgstr ""
 
 #. module: product_attribute_mass_edit
