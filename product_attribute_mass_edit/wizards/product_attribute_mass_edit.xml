@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Druidoo - Iván Todorovich
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record model="ir.ui.view" id="product_attribute_mass_edit_wizard_view">
+        <field name="model">product.attribute.mass.edit.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <p>Use this to wizard to <strong>Add</strong>, <strong>Remove</strong> or <strong>Replace</strong> product attributes values to the product's variants.</p>
+                <p>
+                If the line doesn't exist and you're trying to add new values, it will be created.<br/>
+                If you remove all the values of a line, the line will be removed
+                </p>
+                <p>
+                By default, it will not allow to edit attributes that will trigger a variant create/deletion. This is dangerous and not recommended.<br/>
+                But, if you need it, open this wizard in Debug mode and enable <i>Allow to modify attributes that create/delete variants</i>
+                </p>
+
+                <group>
+                    <field name="product_tmpl_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="force" groups="base.group_no_one"/>
+                </group>
+
+                <notebook>
+                    <page string="Operations" name="line_ids">
+                        <field name="line_ids">
+                            <tree editable="bottom">
+                                <field name="wizard_id" invisible="1"/>
+                                <field name="force" invisible="1"/>
+                                <field name="attribute_id"
+                                       domain="[('create_variant', '!=', not force and 'always' or False)]"/>
+                                <field name="action"/>
+                                <field name="value_ids" widget="many2many_tags"
+                                       domain="[('attribute_id', '=', attribute_id)]"
+                                       context="{'default_attribute_id': attribute_id}"
+                                       attrs="{'required': [('action', 'in', ['add', 'remove'])]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button string="Confirm" name="confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+   <act_window
+        name="Mass Edit Product Attributes"
+        id="product_attribute_mass_edit_wizard_action"
+        multi="True"
+        key2="client_action_multi"
+        res_model="product.attribute.mass.edit.wizard"
+        src_model="product.template"
+        view_mode="form"
+        target="new"
+        view_type="form"
+        groups="base.group_user"/>
+
+</odoo>
