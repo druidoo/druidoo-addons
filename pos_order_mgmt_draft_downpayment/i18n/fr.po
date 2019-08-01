@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_order_mgmt_draft_downpayment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-01 14:11+0000\n"
+"PO-Revision-Date: 2019-08-01 14:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:29
+#, python-format
+msgid "Advance Payment"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:44
+#, python-format
+msgid "Advance payment amount"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/xml/pos.xml:9
+#, python-format
+msgid "Create Advance Payment"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_config__deposit_product_id
+msgid "Deposit Product"
+msgstr "Article de dépôt"
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_config__iface_downpayment
+msgid "Enable Downpayments"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:30
+#, python-format
+msgid "Enter the advance payment amount"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:52
+#, python-format
+msgid "Missing Deposit Product"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:63
+#, python-format
+msgid "No Advance Payment Product"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: code:addons/pos_order_mgmt_draft_downpayment/models/pos_order.py:150
+#, python-format
+msgid "No cash statement found for this session. Unable to record returned cash."
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model,name:pos_order_mgmt_draft_downpayment.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Paramétrage du point de vente"
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model,name:pos_order_mgmt_draft_downpayment.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Commandes du point de vente"
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:45
+#, python-format
+msgid "The Advance Payment cannot be larger than the order amount"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:64
+#, python-format
+msgid "There's a product in the config, but it's not loaded on the POS. Try refreshing the browser. Also, make sure the deposit product is available on the POS"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:53
+#, python-format
+msgid "There's no deposit product in the POS Configuration"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: code:addons/pos_order_mgmt_draft_downpayment/models/pos_order.py:155
+#, python-format
+msgid "return"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:117
+#, python-format
+msgid "temporary order"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:118
+#, python-format
+msgid "temporary orders can not be saved as draft"
+msgstr ""
+
