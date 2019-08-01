@@ -42,7 +42,20 @@ msgid "<div style=\"margin: 0px; padding: 0px;\">\n"
 "    </p>\n"
 "</div>\n"
 "            "
-msgstr ""
+msgstr "<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        % set doc_name = 'quotation' if object.state == 'draft' else 'order'\n"
+"        Cher ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Veuillez trouver ci-joint le devis ${doc_name} <strong>${object.pos_reference or object.name}</strong>\n"
+"        de ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        Merci de votre confiance, n'hésitez pas à nous contacter pour toute question !\n"
+"    </p>\n"
+"</div>\n"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
@@ -52,22 +65,22 @@ msgstr "<span>Rem.(%)</span>"
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "<strong>Date Ordered:</strong>"
-msgstr "<strong>Date de commande:</strong>"
+msgstr "<strong>Date :</strong>"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "<strong>Fiscal Position Remark:</strong>"
-msgstr "<strong>Remarque sur le régime fiscal :</strong>"
+msgstr "<strong>Remarques :</strong>"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "<strong>Quotation Date:</strong>"
-msgstr "<strong>Date du devis :</strong>"
+msgstr "<strong>Date :</strong>"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "<strong>Salesperson:</strong>"
-msgstr "<strong>Vendeur :</strong>"
+msgstr "<strong>Votre contact :</strong>"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
@@ -77,17 +90,17 @@ msgstr "<strong>Sous-total</strong>"
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "<strong>Taxes</strong>"
-msgstr ""
+msgstr "<strong>Taxes</strong>"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "<strong>Total</strong>"
-msgstr ""
+msgstr "<strong>Total</strong>"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.pos_config_view_form
 msgid "Allow to save orders as draft and to retrieve them."
-msgstr ""
+msgstr "Enregistrer des devis POS."
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
@@ -99,14 +112,14 @@ msgstr "Montant"
 #: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:116
 #, python-format
 msgid "Are you sure you want to cancel the order?"
-msgstr ""
+msgstr "Voulez-vous annuler ce devis ?"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:64
 #, python-format
 msgid "Back"
-msgstr ""
+msgstr "Retour"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
@@ -115,21 +128,21 @@ msgstr ""
 #: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:58
 #, python-format
 msgid "Can not execute this action because the POS is currently offline"
-msgstr ""
+msgstr "Le POS est actuellement hors-ligne, veuillez vérifier la connexion"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:115
 #, python-format
 msgid "Cancel the order"
-msgstr ""
+msgstr "Annuler"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:43
 #, python-format
 msgid "Change:"
-msgstr ""
+msgstr "Modifier"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
@@ -138,12 +151,12 @@ msgstr ""
 #: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:57
 #, python-format
 msgid "Connection error"
-msgstr ""
+msgstr "Erreur réseau"
 
 #. module: pos_order_mgmt_draft
 #: model:ir.model.fields,field_description:pos_order_mgmt_draft.field_pos_config__iface_draft_order
 msgid "Create Draft Orders"
-msgstr ""
+msgstr "Créer des devis POS"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
@@ -152,56 +165,56 @@ msgstr ""
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:86
 #, python-format
 msgid "Customer"
-msgstr ""
+msgstr "Client"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:67
 #, python-format
 msgid "Draft Order"
-msgstr ""
+msgstr "Devis POS"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:181
 #, python-format
 msgid "Empty Order"
-msgstr ""
+msgstr "Devis vide"
 
 #. module: pos_order_mgmt_draft
 #: code:addons/pos_order_mgmt_draft/models/pos_order.py:153
 #, python-format
 msgid "No cash statement found for this session. Unable to record returned cash."
-msgstr ""
+msgstr "Impossible, aucune opération en espèces sur cette session"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "Order #"
-msgstr "Commande n°"
+msgstr "Devis n°"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:7
 #, python-format
 msgid "Orders"
-msgstr ""
+msgstr "Commandes"
 
 #. module: pos_order_mgmt_draft
 #: model:ir.actions.report,name:pos_order_mgmt_draft.pos_order_report
 msgid "POS Quotation / Order"
-msgstr ""
+msgstr "Devis/Commandes"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:188
 #, python-format
 msgid "Please select the Customer"
-msgstr ""
+msgstr "Veuillez sélectionner un client"
 
 #. module: pos_order_mgmt_draft
 #: model:ir.model,name:pos_order_mgmt_draft.model_pos_config
@@ -218,7 +231,7 @@ msgstr "Commandes du point de vente"
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:92
 #, python-format
 msgid "Print Quotation"
-msgstr ""
+msgstr "Imprimer"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
@@ -226,7 +239,7 @@ msgstr ""
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:53
 #, python-format
 msgid "QUOTATION"
-msgstr ""
+msgstr "DEVIS"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
@@ -243,52 +256,52 @@ msgstr "Devis №"
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:8
 #, python-format
 msgid "Quotations"
-msgstr ""
+msgstr "Devis"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:101
 #, python-format
 msgid "Remove Quotation"
-msgstr ""
+msgstr "Supprimer"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:29
 #, python-format
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:68
 #, python-format
 msgid "Save & continue"
-msgstr ""
+msgstr "Enregistrer et continuer"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:95
 #, python-format
 msgid "Send by Email"
-msgstr "Envoyer par email"
+msgstr "Envoyer"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "Taxes"
-msgstr ""
+msgstr "Taxes"
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:182
 #, python-format
 msgid "There must be at least one product in your order before it can be saved"
-msgstr ""
+msgstr "Un devis doit contenir au moins une ligne pour être enregistré"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "Total Price"
-msgstr "Prix total"
+msgstr "Montant total"
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
@@ -300,11 +313,11 @@ msgstr "Prix unitaire"
 #: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:189
 #, python-format
 msgid "You need to select the customer before you can save a quotation."
-msgstr ""
+msgstr "Veuillez sélectionner un client avant d'enregistrer"
 
 #. module: pos_order_mgmt_draft
 #: code:addons/pos_order_mgmt_draft/models/pos_order.py:158
 #, python-format
 msgid "return"
-msgstr ""
+msgstr "retour"
 
