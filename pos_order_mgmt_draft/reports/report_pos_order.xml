@@ -14,8 +14,6 @@
                 <div class="oe_structure"/>
 
                 <h2>
-                    <span t-if="doc.state not in ['draft','sent']">Order # </span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation # </span>
                     <span t-field="doc.pos_reference"/>
                 </h2>
 
