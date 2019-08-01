@@ -20,58 +20,58 @@ msgstr ""
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:29
 #, python-format
 msgid "Advance Payment"
-msgstr ""
+msgstr "Acompte"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:44
 #, python-format
 msgid "Advance payment amount"
-msgstr ""
+msgstr "Montant de l'acompte"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/xml/pos.xml:9
 #, python-format
 msgid "Create Advance Payment"
-msgstr ""
+msgstr "Enregistrer un acompte"
 
 #. module: pos_order_mgmt_draft_downpayment
 #: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_config__deposit_product_id
 msgid "Deposit Product"
-msgstr "Article de dépôt"
+msgstr "Article d'acompte"
 
 #. module: pos_order_mgmt_draft_downpayment
 #: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_config__iface_downpayment
 msgid "Enable Downpayments"
-msgstr ""
+msgstr "Enregistrer des acomptes"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:30
 #, python-format
 msgid "Enter the advance payment amount"
-msgstr ""
+msgstr "Renseignez le montant de l'acompte"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:52
 #, python-format
 msgid "Missing Deposit Product"
-msgstr ""
+msgstr "Un article d'acompte doit être créé"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:63
 #, python-format
 msgid "No Advance Payment Product"
-msgstr ""
+msgstr "Un article d'acompte doit être créé"
 
 #. module: pos_order_mgmt_draft_downpayment
 #: code:addons/pos_order_mgmt_draft_downpayment/models/pos_order.py:150
 #, python-format
 msgid "No cash statement found for this session. Unable to record returned cash."
-msgstr ""
+msgstr "Impossible. Aucune opération en espèces sur cette session."
 
 #. module: pos_order_mgmt_draft_downpayment
 #: model:ir.model,name:pos_order_mgmt_draft_downpayment.model_pos_config
@@ -88,39 +88,39 @@ msgstr "Commandes du point de vente"
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:45
 #, python-format
 msgid "The Advance Payment cannot be larger than the order amount"
-msgstr ""
+msgstr "Le montant de l'acompte est supérieur à la vente"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:64
 #, python-format
 msgid "There's a product in the config, but it's not loaded on the POS. Try refreshing the browser. Also, make sure the deposit product is available on the POS"
-msgstr ""
+msgstr "Un article configuré n'est pas chargé dans le POS. Essayez de recharger la session et vérifiez le paramétrage."
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:53
 #, python-format
 msgid "There's no deposit product in the POS Configuration"
-msgstr ""
+msgstr "Aucun article d'acompte paramétré sur ce point de vente"
 
 #. module: pos_order_mgmt_draft_downpayment
 #: code:addons/pos_order_mgmt_draft_downpayment/models/pos_order.py:155
 #, python-format
 msgid "return"
-msgstr ""
+msgstr "retour"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:117
 #, python-format
 msgid "temporary order"
-msgstr ""
+msgstr "devis temporaire"
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:118
 #, python-format
 msgid "temporary orders can not be saved as draft"
-msgstr ""
+msgstr "les devis temporaires ne peuvent être enregistrés"
 
