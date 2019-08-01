@@ -116,10 +116,13 @@ class PosOrder(models.Model):
 
         odoo_id = pos_order.get('odoo_id')
         order = self.browse([odoo_id]).exists() if odoo_id else None
+        vals = self._order_fields(pos_order)
         if order:
-            order.write(self._order_fields(pos_order))
+            if 'lines' in vals:
+                vals['lines'] = [(5,0,0)] + (vals['lines'] or []);
+            order.write(vals)
         else:
-            order = self.create(self._order_fields(pos_order))
+            order = self.create(vals)
 
         prec_acc = order.pricelist_id.currency_id.decimal_places
         journal_ids = set()
