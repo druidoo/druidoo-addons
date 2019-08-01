@@ -17,21 +17,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_export
-#: model:ir.model.fields,help:account_export.field_account_export_config__dateformat
+#: model:ir.model.fields,help:account_export.field_account_export_config_field__transform_expr
 msgid ""
-"\n"
-"        %d: day on 2 digits\n"
-"        %m: month on 2 digits\n"
-"        %y: year on 2 digits\n"
-"        %Y: year on 4 digits\n"
-"        exemple: %d%m%y -> 211216"
+"A python expression to transform the value.\n"
+"ie: value[:10]"
 msgstr ""
-"\n"
-"        %d: jour sur 2 digits\n"
-"        %m: mois sur 2 digits\n"
-"        %y: année sur 2 digits\n"
-"        %Y: année sur 4 digits\n"
-"        exemple: %d%m%y -> 211216"
 
 #. module: account_export
 #: model:ir.actions.act_window,name:account_export.action_account_export
@@ -48,14 +38,16 @@ msgid "Account Export Config"
 msgstr "Config Export Comptable"
 
 #. module: account_export
+#: model:ir.model,name:account_export.model_account_export_config_field
+#, fuzzy
+#| msgid "Account Export Config"
+msgid "Account Export Config Field"
+msgstr "Config Export Comptable"
+
+#. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_tree
 msgid "Account Export Configuration"
 msgstr "Configuration Export Comptable"
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export__journal_ids
-msgid "Account Journals"
-msgstr "Journaux Comptable"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_res_partner__property_account_payable_software
@@ -96,6 +88,11 @@ msgid "Code of this journal in your accounting software"
 msgstr "Code de ce journal dans votre logiciel de comptabilité"
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__config_id
+msgid "Config"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model,name:account_export.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -103,19 +100,21 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__create_uid
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__create_uid
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__create_date
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__create_date
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: account_export
-#: selection:account.export,extension:0
-msgid "Csv"
-msgstr "Csv"
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__credit_debit_format
+msgid "Credit and Debit"
+msgstr ""
 
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
@@ -123,8 +122,35 @@ msgid "Dates"
 msgstr "Dates"
 
 #. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: (+); Credit: (-)"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: (-); Credit: (+)"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: 0; Credit: 1"
+msgstr ""
+
+#. module: account_export
+#: selection:account.export.config,credit_debit_format:0
+msgid "Debit: D; Credit: C"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__description
+msgid "Description"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__display_name
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__display_name
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__display_name
+#: model:ir.model.fields,field_description:account_export.field_report_account_export_report_xls__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -187,9 +213,15 @@ msgid "Exports"
 msgstr "Exports"
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export__extension
-msgid "Extension"
-msgstr "Extension"
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__field_type
+msgid "Field Type"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__field_ids
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "Fields"
+msgstr ""
 
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_search
@@ -217,18 +249,9 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__footer
-msgid "Footer"
-msgstr "Pied de page"
-
-#. module: account_export
-#: model:ir.model.fields,help:account_export.field_account_export_config__footer
-msgid ""
-"Footer of the exported file.\n"
-"        exemple: END"
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+msgid "Format"
 msgstr ""
-"Pied de page du fichier.\n"
-"        exemple: FIN"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__date_from
@@ -241,22 +264,10 @@ msgid "Group export by"
 msgstr "Champs de regroupement pour export"
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__header
-msgid "Header"
-msgstr "Entête"
-
-#. module: account_export
-#: model:ir.model.fields,help:account_export.field_account_export_config__header
-msgid ""
-"Header of the exported file.\n"
-"        exemple: journal,account,ref,amount"
-msgstr ""
-"Entête du fichier.\n"
-"        exemple: journal,compte,ref,montant"
-
-#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__id
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__id
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__id
+#: model:ir.model.fields,field_description:account_export.field_report_account_export_report_xls__id
 msgid "ID"
 msgstr "ID"
 
@@ -316,6 +327,7 @@ msgid "Journal Entries"
 msgstr "Journaux"
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export__journal_ids
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Journals"
 msgstr "Journaux"
@@ -328,18 +340,22 @@ msgstr "Dernier export"
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export____last_update
 #: model:ir.model.fields,field_description:account_export.field_account_export_config____last_update
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field____last_update
+#: model:ir.model.fields,field_description:account_export.field_report_account_export_report_xls____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__write_uid
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__write_uid
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__write_uid
 msgid "Last Updated by"
 msgstr "Mis à jour par"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__write_date
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__write_date
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__write_date
 msgid "Last Updated on"
 msgstr "Mis à jour le"
 
@@ -397,6 +413,7 @@ msgstr "Mes Exports"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__name
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__name
 msgid "Name"
 msgstr "Nom"
 
@@ -483,14 +500,16 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__csv_separator
-msgid "Separator"
-msgstr "séparateur"
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__sequence
+msgid "Sequence"
+msgstr ""
 
 #. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__dateformat
-msgid "Software Date Format"
-msgstr "Format de Date"
+#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
+#, fuzzy
+#| msgid "Export Settings"
+msgid "Settings"
+msgstr "Export"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__state
@@ -507,6 +526,11 @@ msgid ""
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export_config_field__name
+msgid "The name of the field that's going to be used in the header"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__date_to
 msgid "To date"
 msgstr "Date fin"
@@ -514,6 +538,11 @@ msgstr "Date fin"
 #. module: account_export
 #: selection:account.export,activity_state:0
 msgid "Today"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config_field__transform_expr
+msgid "Transform Expr"
 msgstr ""
 
 #. module: account_export
@@ -550,6 +579,61 @@ msgstr "account.export.config"
 #: model:ir.model.fields,field_description:account_export.field_account_export_config__active
 msgid "active"
 msgstr "actif"
+
+#. module: account_export
+#: model:ir.model,name:account_export.model_report_account_export_report_xls
+msgid "report.account_export.report_xls"
+msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "        %d: day on 2 digits\n"
+#~ "        %m: month on 2 digits\n"
+#~ "        %y: year on 2 digits\n"
+#~ "        %Y: year on 4 digits\n"
+#~ "        exemple: %d%m%y -> 211216"
+#~ msgstr ""
+#~ "\n"
+#~ "        %d: jour sur 2 digits\n"
+#~ "        %m: mois sur 2 digits\n"
+#~ "        %y: année sur 2 digits\n"
+#~ "        %Y: année sur 4 digits\n"
+#~ "        exemple: %d%m%y -> 211216"
+
+#~ msgid "Account Journals"
+#~ msgstr "Journaux Comptable"
+
+#~ msgid "Csv"
+#~ msgstr "Csv"
+
+#~ msgid "Extension"
+#~ msgstr "Extension"
+
+#~ msgid "Footer"
+#~ msgstr "Pied de page"
+
+#~ msgid ""
+#~ "Footer of the exported file.\n"
+#~ "        exemple: END"
+#~ msgstr ""
+#~ "Pied de page du fichier.\n"
+#~ "        exemple: FIN"
+
+#~ msgid "Header"
+#~ msgstr "Entête"
+
+#~ msgid ""
+#~ "Header of the exported file.\n"
+#~ "        exemple: journal,account,ref,amount"
+#~ msgstr ""
+#~ "Entête du fichier.\n"
+#~ "        exemple: journal,compte,ref,montant"
+
+#~ msgid "Separator"
+#~ msgstr "séparateur"
+
+#~ msgid "Software Date Format"
+#~ msgstr "Format de Date"
 
 #~ msgid "Account Entry"
 #~ msgstr "Écriture comptable"
