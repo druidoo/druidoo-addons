@@ -88,7 +88,7 @@
                                 <tr class="border-black o_subtotal" style="">
                                     <td><strong>Subtotal</strong></td>
                                     <td class="text-right">
-                                        <span t-esc="doc.amount_total - doc.amount_tax"/>
+                                        <span t-esc="'%0.2f' % (doc.amount_total - doc.amount_tax)"/>
                                     </td>
                                 </tr>
                                 <tr class="" style="">
