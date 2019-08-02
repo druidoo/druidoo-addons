@@ -39,7 +39,7 @@ DraftOrderScreenWidget.include({
         // Creates an advance payment
         var self = this;
 
-        if (amount >= order.get_total_tax()) {
+        if (amount >= order.get_total_with_tax()) {
             self.gui.show_popup('error', {
                 'title': _t('Advance payment amount'),
                 'body': _t('The Advance Payment cannot be larger than the order amount'),
