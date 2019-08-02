@@ -82,7 +82,7 @@ class PosOrder(models.Model):
                 pos_order.invoice_id.sudo().with_context(force_company=self.env.user.company_id.id).action_invoice_open()
                 pos_order.account_move = pos_order.invoice_id.move_id
         return order_ids
-
+    
     @api.model
     def create_draft_from_ui(self, pos_order, options=None):
         """ Creates a draft order from the ui """
@@ -117,6 +117,7 @@ class PosOrder(models.Model):
         odoo_id = pos_order.get('odoo_id')
         order = self.browse([odoo_id]).exists() if odoo_id else None
         vals = self._order_fields(pos_order)
+        
         if order:
             if 'lines' in vals:
                 vals['lines'] = [(5,0,0)] + (vals['lines'] or []);
