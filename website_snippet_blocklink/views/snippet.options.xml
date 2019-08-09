@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="snippet_options" inherit_id="website.snippet_options">
+
+        <!-- Add colorpicker to snippets -->
+        <xpath expr="//div[@id='so_main_colorpicker']" position="attributes">
+            <attribute name="data-selector" separator="," add=".s_blocklink"/>
+        </xpath>
+
+        <!-- Add background image to snippets -->
+        <xpath expr="//div[@data-js='background'][1]" position="attributes">
+            <attribute name="data-selector" separator="," add=".s_blocklink"/>
+        </xpath>
+
+        <xpath expr="//div[@data-js='background_position'][1]" position="attributes">
+            <attribute name="data-selector" separator="," add=".s_blocklink"/>
+        </xpath>
+
+        <!-- Add snippets options -->
+        <xpath expr="." position="inside">
+
+            <!-- simple blocklink -->
+            <div data-selector=".s_blocklink:not(.dropdown)" data-js="blocklink">
+                <a href="#" class="dropdown-item" data-map="" data-no-preview="true"><i class="fa fa-fw fa-cog"/>Blocklink options</a>
+            </div>
+
+            <!-- blocklink and dropdown -->
+            <div data-selector=".s_blocklink" data-drop-in=".content">
+
+                <!-- Height Control -->
+                <div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#"><i class="fa fa-arrows-v"/> Height</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item" data-select-class="">Auto</a>
+                        <a href="#" class="dropdown-item" data-select-class="opt_height_1">1</a>
+                        <a href="#" class="dropdown-item" data-select-class="opt_height_2">2</a>
+                        <a href="#" class="dropdown-item" data-select-class="opt_height_3">3</a>
+                        <a href="#" class="dropdown-item" data-select-class="opt_height_4">4</a>
+                        <a href="#" class="dropdown-item" data-select-class="opt_height_5">5</a>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#"><i class="fa fa-caret-square-o-down"/> Features</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item" data-toggle-class="opt_img">Image</a>
+                        <a href="#" class="dropdown-item" data-toggle-class="opt_btn">Button</a>
+                    </div>
+                </div>
+
+                <!-- Display Options -->
+                <div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#"><i class="fa fa-columns"/> Layout</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item" data-select-class="">Horizontal</a>
+                        <a href="#" class="dropdown-item" data-select-class="opt_layout_vertical">Vertical</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </xpath>
+
+    </template>
+
+</odoo>

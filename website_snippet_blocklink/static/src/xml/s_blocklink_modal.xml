@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="website_snippet_blocklink.s_blocklink_modal">
+        <div class="form-group form-row">
+            <label for="href" class="col-md-3 col-form-label text-right">URL</label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-link"/></div>
+                    </div>
+                    <input type="text" class="form-control" id="href" placeholder="/custom/page"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

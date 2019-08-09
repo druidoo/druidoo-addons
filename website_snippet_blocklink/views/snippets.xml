@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Blocklink -->
+    <template id="s_blocklink" name="Blocklink Card">
+        <div t-attf-class="s_blocklink#{ ' ' + (color or 'bg-alpha') } opt_img" contenteditable="False">
+            <a>
+                <span class="s_blocklink__wrap">
+                    <span class="s_blocklink__icon" contenteditable="True">
+                        <i class="fa fa-cog"/>
+                    </span>
+                    <span class="s_blocklink__text" contenteditable="True">
+                        <span class="text">Buttons icon with text</span>
+                    </span>
+                </span>
+            </a>
+        </div>
+    </template>
+
+    <!-- Layouts -->
+    <template id="s_blocklink_columns" name="Blocklink Columns">
+         <section class="s_blocklink_columns">
+            <div class="container">
+                <div class="row d-flex align-items-stretch">
+                    <t t-foreach="['bg-alpha','bg-gamma','bg-beta']" t-as="color">
+                        <div class="col-lg-4 s_col_no_bgcolor p-2">
+                            <div class="content">
+                                <t t-call="website_snippet_blocklink.s_blocklink"/>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Add snippets to menu -->
+    <template id="snippet_selection" inherit_id="website.snippets" name="Place into bar">
+        <!-- Structure -->
+        <xpath expr="//div[@id='snippet_structure']/div[@class='o_panel_body']" position="inside">
+            <t t-snippet="website_snippet_blocklink.s_blocklink_columns" t-thumbnail="/website_snippet_blocklink/static/src/img/snippets_thumbs/s_blocklink_columns.png"/>
+        </xpath>
+        <!-- Content -->
+        <xpath expr="//div[@id='snippet_content']/div[@class='o_panel_body']" position="inside">
+            <t t-snippet="website_snippet_blocklink.s_blocklink" t-thumbnail="/website_snippet_blocklink/static/src/img/snippets_thumbs/s_blocklink.png"/>
+        </xpath>
+    </template>
+
+</odoo>
