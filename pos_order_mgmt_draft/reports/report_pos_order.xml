@@ -14,6 +14,7 @@
                 <div class="oe_structure"/>
 
                 <h2>
+                    <t t-if="doc.state in ['draft']">Quotation </t>
                     <span t-field="doc.pos_reference"/>
                 </h2>
 
