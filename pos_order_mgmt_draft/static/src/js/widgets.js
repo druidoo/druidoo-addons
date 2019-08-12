@@ -110,4 +110,6 @@ pos_mgmt.OrderListScreenWidget.include({
 
 });
 
+return pos_mgmt;
+
 });
