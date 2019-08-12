@@ -39,6 +39,14 @@ DraftOrderScreenWidget.include({
         // Creates an advance payment
         var self = this;
 
+        if (amount <= 0) {
+            self.gui.show_popup('error', {
+                'title': _t('Advance payment amount'),
+                'body': _t('The Advance Payment has to be larger than 0.'),
+            });
+            return false;
+        }
+
         if (amount >= order.get_total_with_tax()) {
             self.gui.show_popup('error', {
                 'title': _t('Advance payment amount'),
@@ -69,9 +77,6 @@ DraftOrderScreenWidget.include({
             });
             return false;
         }
-
-        // Restore order page
-        this.click_back();
 
         // Create the advance payment order
         var deposit_order = new models.Order({},{
