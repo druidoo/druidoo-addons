@@ -70,23 +70,18 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
     },
 
     click_print: function() {
+        var self = this;
         var order = this.pos.get_order();
-        order.to_print = !order.to_print;
-        if (order.to_print) {
-            this.$('.js_print').addClass('highlight');
-        } else {
-            this.$('.js_print').removeClass('highlight');
-        }
+        var saved = this.save_draft_order().done(function() {
+            self.pos.chrome.do_action('pos_order_mgmt_draft.pos_order_report', {
+                additional_context: { active_ids: [order.odoo_id] }
+            });
+        });
     },
 
     click_send_mail: function() {
         var order = this.pos.get_order();
-        order.to_send_mail = !order.to_send_mail;
-        if (order.to_send_mail) {
-            this.$('.js_send_mail').addClass('highlight');
-        } else {
-            this.$('.js_send_mail').removeClass('highlight');
-        }
+        var saved = this.save_draft_order({send_mail: order.to_send_mail});
     },
 
     click_back: function(){
@@ -96,13 +91,7 @@ var DraftOrderScreenWidget = ScreenWidget.extend({
     click_next: function() {
         var self = this;
         var order = this.pos.get_order();
-        var saved = this.save_draft_order({send_mail: order.to_send_mail});
-        saved.done(function() {
-            if (order.to_print) {
-                self.pos.chrome.do_action('pos_order_mgmt_draft.pos_order_report', {
-                    additional_context: { active_ids: [order.odoo_id] }
-                });
-            }
+        var saved = this.save_draft_order().done(function() {
             // Remove order from localStorage and UI
             order.destroy();
         });
