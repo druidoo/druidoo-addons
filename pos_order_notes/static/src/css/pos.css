@@ -1,0 +1,15 @@
+.order-container .order .orderNote {
+	margin: 15px;
+}
+
+.order-container .order .orderNote p {
+	white-space: pre-wrap;
+	color: darkgrey;
+	font-style: italic;
+	cursor: pointer;
+}
+
+.order-container .order .orderNote i.fa {
+	float: left;
+	margin-right: 15px;
+}
