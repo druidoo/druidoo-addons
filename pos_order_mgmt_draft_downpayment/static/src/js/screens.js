@@ -84,6 +84,7 @@ DraftOrderScreenWidget.include({
             temporary: true,
         });
 
+        deposit_order.downpayment_order_id = order.odoo_id;
         deposit_order.set_client(order.get_client());
         deposit_order.add_product(deposit_product_id, {quantity: 1, price: amount});
         this.pos.get('orders').add(deposit_order);

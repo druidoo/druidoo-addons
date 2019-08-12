@@ -58,7 +58,8 @@ class PosOrder(models.Model):
     @api.model
     def create_from_ui(self, orders):
         """ Inherit method to handle continuing workflow of draft orders """
-        draft_orders_to_process = [o for o in orders if o['data'].get('odoo_id')]
+        draft_orders_to_process = [
+            o for o in orders if o['data'].get('odoo_id')]
         orders = [o for o in orders if not o['data'].get('odoo_id')]
         order_ids = super().create_from_ui(orders)
         for tmp_order in draft_orders_to_process:
@@ -72,17 +73,21 @@ class PosOrder(models.Model):
             try:
                 pos_order.action_pos_order_paid()
             except psycopg2.DatabaseError:
-                # do not hide transactional errors, the order(s) won't be saved!
+                # do not hide transactional errors, the order(s) won't be saved
                 raise
             except Exception as e:
-                _logger.error('Could not fully process the POS Order: %s', tools.ustr(e))
+                _logger.error(
+                    'Could not fully process the POS Order: %s',
+                    tools.ustr(e))
 
             if to_invoice:
                 pos_order.action_pos_order_invoice()
-                pos_order.invoice_id.sudo().with_context(force_company=self.env.user.company_id.id).action_invoice_open()
+                pos_order.invoice_id.sudo().with_context(
+                    force_company=self.env.user.company_id.id,
+                ).action_invoice_open()
                 pos_order.account_move = pos_order.invoice_id.move_id
         return order_ids
-    
+
     @api.model
     def create_draft_from_ui(self, pos_order, options=None):
         """ Creates a draft order from the ui """
@@ -93,7 +98,7 @@ class PosOrder(models.Model):
         vals = self._order_fields(pos_order)
         if order:
             if 'lines' in vals:
-                vals['lines'] = [(5,0,0)] + (vals['lines'] or []);
+                vals['lines'] = [(5, 0, 0)] + (vals['lines'] or [])
             order.write(vals)
         else:
             order = self.create(vals)
@@ -110,17 +115,19 @@ class PosOrder(models.Model):
          WARNING: This doesn't handle payments at all.
          Draft orders should never have payments anyway..
         """
-        pos_session = self.env['pos.session'].browse(pos_order['pos_session_id'])
-        if pos_session.state == 'closing_control' or pos_session.state == 'closed':
+        pos_session = self.env['pos.session'].browse(
+            pos_order['pos_session_id'])
+        if pos_session.state == 'closing_control' \
+                or pos_session.state == 'closed':
             pos_order['pos_session_id'] = self._get_valid_session(pos_order).id
 
         odoo_id = pos_order.get('odoo_id')
         order = self.browse([odoo_id]).exists() if odoo_id else None
         vals = self._order_fields(pos_order)
-        
+
         if order:
             if 'lines' in vals:
-                vals['lines'] = [(5,0,0)] + (vals['lines'] or []);
+                vals['lines'] = [(5, 0, 0)] + (vals['lines'] or [])
             order.write(vals)
         else:
             order = self.create(vals)
@@ -128,12 +135,16 @@ class PosOrder(models.Model):
         prec_acc = order.pricelist_id.currency_id.decimal_places
         journal_ids = set()
         for payments in pos_order['statement_ids']:
-            if not float_is_zero(payments[2]['amount'], precision_digits=prec_acc):
+            if not float_is_zero(
+                    payments[2]['amount'],
+                    precision_digits=prec_acc):
                 order.add_payment(self._payment_fields(payments[2]))
             journal_ids.add(payments[2]['journal_id'])
 
         if pos_session.sequence_number <= pos_order['sequence_number']:
-            pos_session.write({'sequence_number': pos_order['sequence_number'] + 1})
+            pos_session.write({
+                'sequence_number': pos_order['sequence_number'] + 1,
+            })
             pos_session.refresh()
 
         if not float_is_zero(pos_order['amount_return'], prec_acc):
@@ -146,12 +157,15 @@ class PosOrder(models.Model):
                     ('id', 'in', list(journal_ids)),
                 ], limit=1)
                 if not cash_journal:
-                    # If none, select for change one of the cash journals of the POS
-                    # This is used for example when a customer pays by credit card
-                    # an amount higher than total amount of the order and gets cash back
-                    cash_journal = [statement.journal_id for statement in pos_session.statement_ids if statement.journal_id.type == 'cash']
+                    cash_journal = [
+                        statement.journal_id for statement
+                        in pos_session.statement_ids
+                        if statement.journal_id.type == 'cash'
+                    ]
                     if not cash_journal:
-                        raise UserError(_("No cash statement found for this session. Unable to record returned cash."))
+                        raise UserError(_(
+                            "No cash statement found for this session. "
+                            "Unable to record returned cash."))
                 cash_journal_id = cash_journal[0].id
             order.add_payment({
                 'amount': -pos_order['amount_return'],
