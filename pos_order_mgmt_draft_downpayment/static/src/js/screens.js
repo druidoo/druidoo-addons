@@ -94,9 +94,16 @@ DraftOrderScreenWidget.include({
         // Add advance payment line to current order, once the deposit is validated
         this.pos.get_order().on('validated', function() {
             order.assert_editable();
-            self.pos.set('selectedOrder', order); // avoid parentNode error
+            /*  The following lines avoid raising a 'parentNode' error that occurs
+                when adding lines in a not selected order.
+                We have to check if the order is still on the pos before selecting it back,
+                because depending on the IoT Box settings the screen receipt could've been
+                closed and the order removed automatically. */
+            self.pos.set('selectedOrder', order);
             order.add_product(deposit_product_id, {quantity: 1, price: (-amount)})
-            self.pos.set('selectedOrder', this); // avoid parentNode error
+            if (self.pos.get('orders').contains(this)) {
+                self.pos.set('selectedOrder', this);
+            }
             self.push_draft_order(order);
         });
 
