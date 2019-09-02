@@ -92,12 +92,14 @@ class AccountExport(models.Model):
         # Attach file
         filename = '%s-%s.%s' % (
             self.name, fields.Datetime.now(), fileformat)
-        attach = self.env['ir.attachment'].create({
+        # we use sudo() to workaround this issue:
+        # https://github.com/odoo/odoo/issues/33543
+        attach = self.env['ir.attachment'].sudo().create({
             'name': filename,
             'res_id': self.id,
             'res_model': self._name,
             'datas': base64.encodestring(data),
-            'datas_fname': filename
+            'datas_fname': filename,
         })
         # Open attachment view
         return {
