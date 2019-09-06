@@ -19,8 +19,7 @@ class AccountExportReportXLS(models.AbstractModel):
                     'value': field.name,
                 },
                 'line': {
-                    'type': col.get('type', 'string'),
-                    'value': self._render('line.get(%s, "")' % field.id),
+                    'value': self._render('line.get(%s)' % field.id),
                     'format': col.get('format', (
                         self.format_tcell_date_center
                         if col.get('type') == 'datetime'
