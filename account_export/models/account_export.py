@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
+# Copyright 2019 Druidoo (https://www.druidoo.io)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 from datetime import date
 import base64
 
@@ -44,8 +45,19 @@ class AccountExport(models.Model):
     # Filters
     date_from = fields.Date('From date')
     date_to = fields.Date('To date')
-    invoice_ids = fields.Many2many('account.invoice', string='Invoice')
-    journal_ids = fields.Many2many('account.journal', string='Journals')
+
+    invoice_ids = fields.Many2many(
+        'account.invoice',
+        string='Invoice',
+        domain="[('company_id', '=', company_id)]",
+    )
+
+    journal_ids = fields.Many2many(
+        'account.journal',
+        string='Journals',
+        domain="[('company_id', '=', company_id)]",
+    )
+
     partner_ids = fields.Many2many('res.partner', string='Partner')
 
     config_id = fields.Many2one(
@@ -54,6 +66,37 @@ class AccountExport(models.Model):
         default=lambda self: self._get_default_config(),
         required=True,
     )
+
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        help="Company related to this export",
+        index=True,
+        required=True,
+        default=lambda self: self.env.user.company_id,
+    )
+
+    @api.constrains('company_id', 'journal_ids', 'invoice_ids')
+    def _check_multi_company(self):
+        for rec in self.filtered('company_id'):
+            journal_company_ids = rec.journal_ids.mapped('company_id')
+            invoice_company_ids = rec.invoice_ids.mapped('company_id')
+            if journal_company_ids and journal_company_ids != rec.company_id:
+                raise ValidationError(_(
+                    'The company in the journals do not match the company '
+                    'in this Export configuration. \n\n'
+                    'Company on Journal: %s\n'
+                    'Company on Export: %s' % (
+                        journal_company_ids,
+                        rec.company_id)))
+            if invoice_company_ids and invoice_company_ids != rec.company_id:
+                raise ValidationError(_(
+                    'The company in the invoices do not match the company '
+                    'in this Export configuration. \n\n'
+                    'Company on Invoices: %s\n'
+                    'Company on Export: %s' % (
+                        invoice_company_ids,
+                        rec.company_id)))
 
     # ############## MODEL FUNCTION FIELDS #####################
 

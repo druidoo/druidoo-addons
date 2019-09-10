@@ -17,4 +17,12 @@
 		</record>
 
 	</data>
+
+    <record id="rule_account_export_multicompany" model="ir.rule">
+        <field name="name">Account Export Multicompany</field>
+        <field name="model_id" ref="model_account_export"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
 </odoo>
