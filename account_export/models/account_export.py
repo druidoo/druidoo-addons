@@ -270,73 +270,39 @@ class AccountExport(models.Model):
         self._cr.execute(sql_str)
         move_line_data = self._cr.dictfetchall()
 
-        # Get data of the first line
-        first_line = move_line_data[0]
-        export_code = first_line['export_code']
-        move_line_date = first_line['date']
-        move_number = first_line['move_number']
-        export_account_code = first_line['export_account_code']
-        journal_code = first_line['journal_code']
-
-        account_move_name = first_line['account_move_name']
-        debit = 0.0
-        credit = 0.0
+        # Prepare response dict
+        # As default, we send the values of the first line
+        # Unless there are grouppings...
+        res_data = dict(move_line_data[0])
 
         # Group the data of account move lines if groupings are set.
         # Otherwise, the result is the data of the first line
         if groupings:
+            group_keys = [
+                k for k in res_data.keys()
+                if k not in ['credit', 'debit']
+            ]
+            res_data['debit'] = 0.0
+            res_data['credit'] = 0.0
             for line in move_line_data:
-                if export_code and export_code != "GROUPED" and \
-                    export_code != 'NO-JOURNAL-CODE' and \
-                        export_code != line['export_code']:
-                    export_code = "GROUPED"
+                for key in group_keys:
+                    if (
+                        res_data[key]
+                        and res_data[key] != "GROUPED"
+                        and res_data[key] != line[key]
+                    ):
+                        res_data[key] = "GROUPED"
+                res_data['debit'] += line['debit']
+                res_data['credit'] += line['credit']
 
-                if move_line_date and move_line_date != "GROUPED" and \
-                        move_line_date != line["date"]:
-                    move_line_date = "GROUPED"
+        # If export_code is missing, use journal code
+        if not res_data.get('export_code') and res_data.get('journal_code'):
+            res_data['export_code'] = res_data['journal_code']
 
-                if move_number and move_number != "GROUPED" and \
-                        move_number != line['move_number']:
-                    move_number = "GROUPED"
-
-                if export_account_code and \
-                    export_account_code != "GROUPED" and \
-                        export_account_code != line['account_code']:
-                    export_account_code = "GROUPED"
-
-                if account_move_name and account_move_name != "GROUPED" and \
-                        account_move_name != line['account_move_name']:
-                    account_move_name = "GROUPED"
-
-                debit += line['debit']
-                credit += line['credit']
-        else:
-            debit = first_line['debit']
-            credit = first_line['credit']
-
-        if not export_code and journal_code:
-            export_code = journal_code
-
-        # Refreshing the data before export
-        export_code = export_code != 'NO-JOURNAL-CODE' and export_code or ""
-
-        res_data = {
-            'export_code': export_code,
-            'move_line_date': move_line_date,
-            'move_number': move_number,
-            'export_account_code': export_account_code,
-            'account_move_name': account_move_name or '',
-            'debit': debit,
-            'credit': credit,
-        }
-
-        # Add fields that are not supported when grouping
-        if not groupings and self.config_id:
-            res_data['account_name'] = first_line['account_name']
-            res_data['partner_ref'] = first_line['partner_ref']
-            res_data['partner_name'] = first_line['partner_name']
-            res_data['product_code'] = first_line['product_code']
-            res_data['move_line_name'] = first_line['move_line_name']
+        # Handle cases where the code is missing
+        # (Legacy code)
+        if res_data['export_code'] == 'NO-JOURNAL-CODE':
+            res_data['export_code'] = None
 
         return res_data
 
