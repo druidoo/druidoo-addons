@@ -347,6 +347,9 @@ class AccountExport(models.Model):
         if res_data['export_code'] == 'NO-JOURNAL-CODE':
             res_data['export_code'] = None
 
+        # Compatibility with old code
+        res_data['move_line_date'] = res_data['date']
+
         return res_data
 
     # ########### OTHER FUNCTIONS FOR GETTING DATA #############
