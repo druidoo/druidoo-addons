@@ -81,6 +81,16 @@ msgid "Code of this journal in your accounting software"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export__company_id
+msgid "Company"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,help:account_export.field_account_export__company_id
+msgid "Company related to this export"
+msgstr ""
+
+#. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config_field__config_id
 msgid "Config"
 msgstr ""
@@ -509,6 +519,24 @@ msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
+msgstr ""
+
+#. module: account_export
+#: code:addons/account_export/models/account_export.py:97
+#, python-format
+msgid "The company in the invoices do not match the company in this Export configuration. \n"
+"\n"
+"Company on Invoices: %s\n"
+"Company on Export: %s"
+msgstr ""
+
+#. module: account_export
+#: code:addons/account_export/models/account_export.py:89
+#, python-format
+msgid "The company in the journals do not match the company in this Export configuration. \n"
+"\n"
+"Company on Journal: %s\n"
+"Company on Export: %s"
 msgstr ""
 
 #. module: account_export
