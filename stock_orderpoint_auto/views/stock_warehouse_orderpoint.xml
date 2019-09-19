@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_warehouse_orderpoint_form" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+        <field name="arch" type="xml">
+
+            <field name="product_min_qty" position="before">
+                <field name="orderpoint_type"/>
+            </field>
+
+            <xpath expr="//field[@name='product_min_qty']/parent::group" position="inside">
+                <field name="auto_min_months" attrs="{'invisible': [('orderpoint_type', '!=', 'auto')], 'required': [('orderpoint_type', '=', 'auto')]}"/>
+                <field name="auto_max_months" attrs="{'invisible': [('orderpoint_type', '!=', 'auto')], 'required': [('orderpoint_type', '=', 'auto')]}"/>
+                <field name="auto_analyze_months" attrs="{'invisible': [('orderpoint_type', '!=', 'auto')], 'required': [('orderpoint_type', '=', 'auto')]}"/>
+                <button name="compute_orderpoint_auto" type="object" string="Recompute" attrs="{'invisible': [('orderpoint_type', '!=', 'auto')]}"/>
+            </xpath>
+
+            <field name="product_min_qty" position="attributes">
+                <attribute name="attrs">{'readonly': [('orderpoint_type', '=', 'auto')]}</attribute>
+            </field>
+
+            <field name="product_max_qty" position="attributes">
+                <attribute name="attrs">{'readonly': [('orderpoint_type', '=', 'auto')]}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>
