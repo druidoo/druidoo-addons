@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models, _
@@ -26,9 +25,9 @@ class AccountTax(models.Model):
         if self.amount_type == 'weight':
             if not product:
                 display_name = self.name_get()[0][1]
-                raise UserError(
-                    _('Tax {} requires product to compute amount '
-                      'based on product weight'.format(display_name)))
+                raise UserError(_(
+                    'Tax %s requires product to compute amount '
+                    'based on product weight') % display_name)
             product_uom_qty = self._context.get('product_uom_qty', quantity)
             tax_amount = product.weight * self.amount * product_uom_qty
             return tax_amount
