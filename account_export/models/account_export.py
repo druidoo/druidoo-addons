@@ -22,14 +22,12 @@ class AccountExport(models.Model):
         ('draft', 'Draft'),
         ('exported', 'Exported')
         ],
-        'State',
         default='draft',
     )
 
     last_export_date = fields.Datetime(
-        'Last Export Date',
         help='Last date of export',
-        compute='_get_last_export_date',
+        compute='_compute_last_export_date',
         readonly=True,
     )
 
@@ -86,22 +84,23 @@ class AccountExport(models.Model):
                     'The company in the journals do not match the company '
                     'in this Export configuration. \n\n'
                     'Company on Journal: %s\n'
-                    'Company on Export: %s' % (
+                    'Company on Export: %s') % (
                         journal_company_ids,
-                        rec.company_id)))
+                        rec.company_id))
             if invoice_company_ids and invoice_company_ids != rec.company_id:
                 raise ValidationError(_(
                     'The company in the invoices do not match the company '
                     'in this Export configuration. \n\n'
                     'Company on Invoices: %s\n'
-                    'Company on Export: %s' % (
+                    'Company on Export: %s') % (
                         invoice_company_ids,
-                        rec.company_id)))
+                        rec.company_id))
 
     # ############## MODEL FUNCTION FIELDS #####################
 
-    @api.one
-    def _get_last_export_date(self):
+    @api.multi
+    def _compute_last_export_date(self):
+        self.ensure_one()
         ir_attachment_ids = self.env["ir.attachment"].search([
             ('res_model', '=', 'account.export'), ('res_id', '=', self.id)])
         if ir_attachment_ids:
@@ -204,10 +203,8 @@ class AccountExport(models.Model):
                 WHERE aml.id IN %s
                 GROUP BY %s
             """
-            sql_query = sql_query % (grouping_str, str(tuple(move_line_ids)),
-                                     grouping_str)
-
-            self._cr.execute(sql_query)
+            self._cr.execute(sql_query, (grouping_str, tuple(move_line_ids),
+                                         grouping_str))
             grouped_move_lines = self._cr.dictfetchall()
 
             for g_mv_line in grouped_move_lines:
@@ -308,9 +305,7 @@ class AccountExport(models.Model):
                 LEFT JOIN product_template pt ON pp.product_tmpl_id = pt.id
             WHERE aml.id IN (%s)
         """
-        sql_str = sql_str % ', '.join(map(str, move_line_ids))
-
-        self._cr.execute(sql_str)
+        self._cr.execute(sql_str, (tuple(move_line_ids),))
         move_line_data = self._cr.dictfetchall()
 
         # Prepare response dict
@@ -348,7 +343,7 @@ class AccountExport(models.Model):
             res_data['export_code'] = None
 
         # Compatibility with old code
-        res_data['move_line_date'] = res_data['date']
+        res_data['move_line_date'] = res_data['date'] and str(res_data['date'])
 
         return res_data
 
@@ -362,56 +357,49 @@ class AccountExport(models.Model):
             - account move list involved
         '''
         # Building the Where Clause
-        WHERE_CLAUSE = """
-            WHERE am.state <> 'draft'
-        """
+        where_clause = 'WHERE am.state <> %s'
+        where_params = ['draft']
         # Options
         if self.filter_move_lines == 'non_exported':
-            WHERE_CLAUSE += "\n AND am.exported IS NOT TRUE"
+            where_clause += ' AND am.exported IS NOT TRUE'
 
         # Filters
         if self.date_from:
-            WHERE_CLAUSE += "\n AND aml.date >= '%s'" % self.date_from
+            where_clause += " AND aml.date >= %s"
+            where_params.append(self.date_from)
         if self.date_to:
-            WHERE_CLAUSE += "\n AND aml.date <= '%s'" % self.date_to
+            where_clause += " AND aml.date <= %s"
+            where_params.append(self.date_to)
         if self.invoice_ids:
-            WHERE_CLAUSE += \
-                "\n AND aml.invoice_id IN (%s)" % ', '.join(
-                    map(str, self.invoice_ids.ids))
+            where_clause += " AND aml.invoice_id IN %s"
+            where_params.append(tuple(self.invoice_ids.ids))
         if self.journal_ids:
-            WHERE_CLAUSE += \
-                "\n AND aml.journal_id IN (%s)" % ', '.join(
-                    map(str, self.journal_ids.ids))
+            where_clause += " AND aml.journal_id IN %s"
+            where_params.append(tuple(self.journal_ids.ids))
         if self.partner_ids:
-            WHERE_CLAUSE += \
-                "\n AND aml.partner_id IN (%s)" % ', '.join(
-                    map(str, self.partner_ids.ids))
-
-        SQL_STR = """
+            where_clause += " AND aml.partner_id IN %s"
+            where_params.append(tuple(self.partner_ids.ids))
+        sql_str = """
             SELECT
                 aml.journal_id AS journal_id,
                 array_agg(aml.id) AS move_line_ids
             FROM account_move_line aml
             LEFT JOIN account_move am
-            ON aml.move_id = am.id
-            %s
-            GROUP BY aml.journal_id
-        """ % WHERE_CLAUSE
-
-        self._cr.execute(SQL_STR)
+            ON aml.move_id = am.id {where} GROUP BY
+            aml.journal_id""".format_map({'where': where_clause})
+        self._cr.execute(sql_str, tuple(where_params))
         move_line_grouped_journal = self._cr.dictfetchall()
 
         # Get Account Move involved in the export
-        SQL_STR = """
+        sql_str = """
             SELECT array_agg(DISTINCT am.id) as account_moves
             FROM
                 account_move_line aml
                 INNER JOIN account_move am
                 ON aml.move_id = am.id
-            %s
-        """ % WHERE_CLAUSE
-
-        self._cr.execute(SQL_STR)
+            {where}
+        """.format_map({'where': where_clause})
+        self._cr.execute(sql_str, tuple(where_params))
         account_moves = self._cr.dictfetchall()[0]['account_moves']
 
         return move_line_grouped_journal, account_moves

@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Account Export',
     "summary": "Export account move lines for accounting software",
     'version': '12.0.2.0.0',
-    "description": """Provides generic functionality to export account moves
-    as csv files that will be imported in accounting software
-    """,
     "category": 'Accounting & Finance',
     "author": "Druidoo",
     'website': 'http://www.druidoo.io',

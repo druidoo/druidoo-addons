@@ -87,7 +87,7 @@ class AccountExportReportXLS(models.AbstractModel):
 
         ws.freeze_panes(row_pos, 0)
 
-        i=0
+        i = 0
         for line in lines:
             i += 1
             _logger.warning('Writing line: %g/%g\n%s' % (i, len(lines), line))

@@ -6,8 +6,8 @@ class AccountExportConfig(models.Model):
     _name = 'account.export.config'
 
     name = fields.Char(required=True)
-    active = fields.Boolean('active', default=True)
-    is_default = fields.Boolean('Is Default')
+    active = fields.Boolean(default=True)
+    is_default = fields.Boolean()
 
     credit_debit_format = fields.Selection([
         ('01', 'Debit: 0; Credit: 1'),
