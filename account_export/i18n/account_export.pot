@@ -23,7 +23,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_export.action_account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_search
-#: model_terms:ir.ui.view,arch_db:account_export.view_attachment_tree
 #: model:res.groups,name:account_export.group_account_export
 msgid "Account Export"
 msgstr ""
@@ -36,11 +35,6 @@ msgstr ""
 #. module: account_export
 #: model:ir.model,name:account_export.model_account_export_config_field
 msgid "Account Export Config Field"
-msgstr ""
-
-#. module: account_export
-#: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_tree
-msgid "Account Export Configuration"
 msgstr ""
 
 #. module: account_export
@@ -58,6 +52,11 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__message_needaction
 msgid "Action Needed"
+msgstr ""
+
+#. module: account_export
+#: model:ir.model.fields,field_description:account_export.field_account_export_config__active
+msgid "Active"
 msgstr ""
 
 #. module: account_export
@@ -522,7 +521,7 @@ msgid "Status based on activities\n"
 msgstr ""
 
 #. module: account_export
-#: code:addons/account_export/models/account_export.py:97
+#: code:addons/account_export/models/account_export.py:91
 #, python-format
 msgid "The company in the invoices do not match the company in this Export configuration. \n"
 "\n"
@@ -531,7 +530,7 @@ msgid "The company in the invoices do not match the company in this Export confi
 msgstr ""
 
 #. module: account_export
-#: code:addons/account_export/models/account_export.py:89
+#: code:addons/account_export/models/account_export.py:83
 #, python-format
 msgid "The company in the journals do not match the company in this Export configuration. \n"
 "\n"
@@ -587,11 +586,6 @@ msgstr ""
 #. module: account_export
 #: model:ir.model,name:account_export.model_account_export_config
 msgid "account.export.config"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model.fields,field_description:account_export.field_account_export_config__active
-msgid "active"
 msgstr ""
 
 #. module: account_export
