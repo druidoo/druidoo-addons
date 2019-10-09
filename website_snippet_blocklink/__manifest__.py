@@ -1,6 +1,5 @@
 {
     'name': 'Website Snippet Blocklink',
-    'description': 'Provides a blocklink snippet',
     'category': 'Website',
     'version': '12.0.1.0.0',
     'author': 'Druidoo',
