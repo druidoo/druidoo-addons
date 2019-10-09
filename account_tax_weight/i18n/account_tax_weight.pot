@@ -64,15 +64,15 @@ msgid "Tax"
 msgstr ""
 
 #. module: account_tax_weight
-#: model:ir.model.fields,field_description:account_tax_weight.field_account_tax__amount_type
-#: model:ir.model.fields,field_description:account_tax_weight.field_account_tax_template__amount_type
-msgid "Tax Computation"
+#: code:addons/account_tax_weight/models/account_tax.py:28
+#, python-format
+msgid "Tax %s requires product to compute amount based on product weight"
 msgstr ""
 
 #. module: account_tax_weight
-#: code:addons/account_tax_weight/models/account_tax.py:31
-#, python-format
-msgid "Tax {} requires product to compute amount based on product weight"
+#: model:ir.model.fields,field_description:account_tax_weight.field_account_tax__amount_type
+#: model:ir.model.fields,field_description:account_tax_weight.field_account_tax_template__amount_type
+msgid "Tax Computation"
 msgstr ""
 
 #. module: account_tax_weight
