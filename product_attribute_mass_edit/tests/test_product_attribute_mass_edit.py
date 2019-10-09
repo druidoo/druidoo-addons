@@ -76,7 +76,7 @@ class TestProductAttributeMassEdit(TransactionCase):
             attribute_line_id = self.product1.attribute_line_ids.filtered(
                 lambda l: l.attribute_id == self.attribute2)
             self.assertEqual(
-                attribute_line_id.value_ids,self.attribute2.value_ids)
+                attribute_line_id.value_ids, self.attribute2.value_ids)
 
         # Test removing values
         wizard = self.get_wizard()
