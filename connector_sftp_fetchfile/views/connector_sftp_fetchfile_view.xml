@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="connector_sftp_fetchfile_view_form" model="ir.ui.view">
+        <field name="name">connector.sftp.fetchfile.view.form</field>
+        <field name="model">connector.sftp.fetchfile</field>
+        <field name="arch" type="xml">
+            <form string="SFTP Connection">
+                <header>
+                    <button name="test_connection" string="Test Connection"
+                            type="object"/>
+                    <button name="fetch_files" string="Fetch Files"
+                            type="object"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;active&quot;}"/>
+                        </button>
+                    </div>
+                    <group name="data">
+                        <group name="main_data">
+                            <field name="name" />
+                            <field name="company_id" />
+                            <field name="ignore_host_key" />
+                            <field name="object_id"/>
+                            <field name="local_file_remove"/>
+                        </group>
+                        <group name="connection_data">
+                            <field name="host" />
+                            <field name="port" />
+                            <field name="username" />
+                            <field name="password" password="True"/>
+                            <field name="local_path"/>
+                            <field name="remote_path"/>
+                            <field name="remote_action"/>
+                            <field name="remote_move_path"
+                                   attrs="{'invisible':[('remote_action', '!=', 'move')],
+                                   'required':[('remote_action', '=', 'move')]}"/>
+                            <field name="file_ext"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Keys">
+                            <group>
+                                <group>
+                                    <field name="host_key" />
+                                </group>
+                                <group>
+                                    <field name="private_key" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="connector_sftp_fetchfile_view_tree" model="ir.ui.view">
+        <field name="name">connector.sftp.fetchfile.view.tree</field>
+        <field name="model">connector.sftp.fetchfile</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="company_id" />
+                <field name="host" />
+                <field name="port" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="connector_sftp_fetchfile_action" model="ir.actions.act_window">
+         <field name="name">SFTP Connections</field>
+         <field name="res_model">connector.sftp.fetchfile</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="view_type">form</field>
+         <field name="view_mode">tree,form</field>
+     </record>
+
+    <menuitem id="menu_ftp_main" parent="base.menu_custom" name="FTP"
+              sequence="1"/>
+    <menuitem id="menu_connector_sftp_fetchfile" name="SFTP Connection"
+              parent="menu_ftp_main" action="connector_sftp_fetchfile_action"/>
+
+    <record id="connector_sftp_fetchfile_file_form" model="ir.ui.view">
+        <field name="name">Connector Fetchfile File Form</field>
+        <field name="model">connector.sftp.fetchfile.file</field>
+        <field name="arch" type="xml">
+            <form string="Connector Fetchfile File">
+                <header>
+                    <button name="import_file" string="Import File"
+                            attrs="{'invisible': [('import_state', '!=', 'to_import')]}"
+                            type="object"/>
+                    <button name="btn_retry" string="Retry"
+                            attrs="{'invisible': [('import_state', 'not in', ('cancel', 'fail'))]}"
+                             type="object"/>
+                    <field name="import_state" widget="statusbar"
+                           statusbar_visible="to_import,imported"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="datas" filename="datas_fname"/>
+                            <field name="datas_fname" invisible="1"/>
+                            <field name="config_id"/>
+                            <field name="date_fetch"/>
+                            <field name="fail_reason" attrs="{'invisible':
+                            [('import_state', '!=', 'fail')]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread" options="{'display_log_button': True}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="connector_sftp_fetchfile_file_tree" model="ir.ui.view">
+        <field name="name">Connector Fetchfile File Tree</field>
+        <field name="model">connector.sftp.fetchfile.file</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="datas_fname"/>
+                <field name="config_id"/>
+                <field name="date_fetch"/>
+                <field name="import_state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="connector_sftp_fetchfile_file_search" model="ir.ui.view">
+        <field name="name">Connector Fetchfile File Search</field>
+        <field name="model">connector.sftp.fetchfile.file</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="date_fetch"/>
+                <group string="Group By" name="group_by">
+                    <filter name="date_fetch" string="Fetched on"
+                            context="{'group_by':'date_fetch'}"/>
+                    <filter name="config" string="Server Config."
+                            context="{'group_by':'config_id'}"/>
+                    <filter name="import_state" string="Import Status"
+                            context="{'group_by':'import_state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window"
+            id="act_connector_sftp_fetchfile_file">
+        <field name="name">Connector Fetchfile File</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">connector.sftp.fetchfile.file</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_connector_sftp_fetchfile_file" name="Imported Files"
+              parent="menu_ftp_main" action="act_connector_sftp_fetchfile_file"/>
+
+</odoo>

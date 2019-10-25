@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="ir_cron_import_cfonb_files" model="ir.cron">
+            <field name="name">Import CFONB Files</field>
+            <field name="model_id"
+                   ref="connector_sftp_fetchfile.model_connector_sftp_fetchfile_file"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_import_files()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+</odoo>
