@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        
+        <!-- Add Reference -->
+        <xpath expr="//table[hasclass('o_main_table')]//thead/tr/th[1]" position="before">
+            <th name="product_code">Reference</th>
+        </xpath>
+
+        <xpath expr="//table[hasclass('o_main_table')]//tbody//td[1]" position="before">
+            <td name="product_code"><span t-field="line.product_id.default_code"/></td>
+        </xpath>
+
+    </template>
+
+</odoo>

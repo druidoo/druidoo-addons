@@ -4,6 +4,11 @@ Purchase UX
 
 Druidoo Purchase UX Improvements
 
+- Purchase Order Report:
+	- Replace datetime fields with date
+	- Add product reference column
+	(use in combination with `sale_ux` to remove the code from the line name)
+
 
 Bug Tracker
 ===========

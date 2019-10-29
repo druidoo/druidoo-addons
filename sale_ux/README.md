@@ -4,6 +4,17 @@ Sale UX
 
 Druidoo Sale UX Improvements
 
+- Product Model:
+	- Overload `get_product_multiline_description_sale` to remove 
+	the product code from the lines description
+
+- Sale Order Report:
+	- Replace datetime fields with date
+	- Add product reference column
+
+- Account Invoice Report:
+	- Add product reference column
+
 
 Bug Tracker
 ===========

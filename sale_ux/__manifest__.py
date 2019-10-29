@@ -13,5 +13,6 @@
     ],
     "data": [
         'reports/sale_order.xml',
+        'reports/account_invoice.xml',
     ],
 }

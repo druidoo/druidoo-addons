@@ -12,6 +12,16 @@
             <attribute name="t-options">{"widget": "date"}</attribute>
         </span>
 
+        
+        <!-- Add product code -->
+        <xpath expr="//table[hasclass('o_main_table')]/thead/tr/th[1]" position="before">
+            <th name="product_code"><strong>Code</strong></th>
+        </xpath>
+
+        <xpath expr="//table[hasclass('o_main_table')]/tbody//tr/td[1]" position="before">
+            <td name="product_code"><span t-field="line.product_id.default_code"/></td>
+        </xpath>
+
     </template>
 
 </odoo>
