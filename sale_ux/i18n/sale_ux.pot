@@ -1,5 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+#	* sale_ux
 #
 msgid ""
 msgstr ""
@@ -11,4 +12,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_ux
+#: model:ir.model,name:sale_ux.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: sale_ux
+#: model_terms:ir.ui.view,arch_db:sale_ux.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:sale_ux.report_saleorder_document
+msgid "Reference"
+msgstr ""
 
