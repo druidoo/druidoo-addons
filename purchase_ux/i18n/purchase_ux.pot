@@ -1,5 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+#	* purchase_ux
 #
 msgid ""
 msgstr ""
@@ -11,4 +12,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: purchase_ux
+#: model_terms:ir.ui.view,arch_db:purchase_ux.report_purchaseorder
+msgid "<strong>Code</strong>"
+msgstr ""
 
