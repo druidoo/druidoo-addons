@@ -64,7 +64,7 @@ msgid "Tax"
 msgstr ""
 
 #. module: account_tax_weight
-#: code:addons/account_tax_weight/models/account_tax.py:28
+#: code:addons/account_tax_weight/models/account_tax.py:27
 #, python-format
 msgid "Tax %s requires product to compute amount based on product weight"
 msgstr ""
