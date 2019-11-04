@@ -21,7 +21,6 @@ class AccountTax(models.Model):
         Override native method to compute tax based on product weight
         """
         self.ensure_one()
-
         if self.amount_type == 'weight':
             if not product:
                 display_name = self.name_get()[0][1]
@@ -29,7 +28,9 @@ class AccountTax(models.Model):
                     'Tax %s requires product to compute amount '
                     'based on product weight') % display_name)
             product_uom_qty = self._context.get('product_uom_qty', quantity)
-            tax_amount = product.weight * self.amount * product_uom_qty
+            unit_tax_amount = product.weight * self.amount
+            unit_tax_amount = product.currency_id.round(unit_tax_amount)
+            tax_amount = unit_tax_amount * product_uom_qty
             return tax_amount
         return super(AccountTax, self)._compute_amount(
             base_amount=base_amount,
