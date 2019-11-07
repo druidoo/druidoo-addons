@@ -196,16 +196,14 @@ class AccountExport(models.Model):
         res = []
         if groupings:
             # Finding the move lines which can be grouped together
-            grouping_str = ", ".join(groupings)
             sql_query = """
-                SELECT %s, array_agg(aml.id) as move_line_ids
+                SELECT {groupings}, array_agg(aml.id) as move_line_ids
                 FROM account_move_line aml
                 WHERE aml.id IN %s
-                GROUP BY %s
-            """
-            self._cr.execute(sql_query, (grouping_str, tuple(move_line_ids),
-                                         grouping_str))
-            grouped_move_lines = self._cr.dictfetchall()
+                GROUP BY {groupings}
+            """.format(groupings=', '.join(groupings))
+            self.env.cr.execute(sql_query, (tuple(move_line_ids),))
+            grouped_move_lines = self.env.cr.dictfetchall()
 
             for g_mv_line in grouped_move_lines:
                 if not g_mv_line['move_line_ids']:
@@ -303,7 +301,7 @@ class AccountExport(models.Model):
                 LEFT JOIN account_account aa ON aml.account_id = aa.id
                 LEFT JOIN product_product pp ON aml.product_id = pp.id
                 LEFT JOIN product_template pt ON pp.product_tmpl_id = pt.id
-            WHERE aml.id IN (%s)
+            WHERE aml.id IN %s
         """
         self._cr.execute(sql_str, (tuple(move_line_ids),))
         move_line_data = self._cr.dictfetchall()
