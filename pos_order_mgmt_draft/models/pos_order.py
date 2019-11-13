@@ -13,6 +13,28 @@ class PosOrder(models.Model):
     _name = 'pos.order'
     _inherit = ['pos.order', 'mail.thread']
 
+    # We make the session_id not required on draft
+    # Otherwise we have issues when closing the session
+    # Draft orders shouldn't be link to a specific session
+    session_id = fields.Many2one(
+        required=False,
+        states={
+            'draft': [('readonly', False)],
+            'paid': [('required', True)],
+            'done': [('required', True)],
+            'invoiced': [('required', True)],
+        },
+    )
+
+    # We add a sql constraint to be safe
+    _sql_constraints = [
+        (
+            'session_required_non_draft',
+            "CHECK((session_id IS NOT NULL OR state = 'draft'))",
+            'Session is required for non-draft orders.'
+        ),
+    ]
+
     @api.multi
     @api.returns('mail.message', lambda value: value.id)
     def message_post(self, **kwargs):
@@ -41,19 +63,13 @@ class PosOrder(models.Model):
 
     @api.model
     def search_draft_orders_for_pos(self, query, pos_session_id):
-        session_obj = self.env['pos.session']
-        config = session_obj.browse(pos_session_id).config_id
-        condition = [('state', '=', 'draft')]
-        if not query:
-            # Search only this POS orders
-            condition += [('config_id', '=', config.id)]
-        else:
-            # Search globally by criteria
-            condition += self._prepare_filter_query_for_pos(
-                pos_session_id, query)
-        field_names = self._prepare_fields_for_pos_list()
+        session = self.env['pos.session'].browse(pos_session_id)
+        config = session.config_id
+        domain = [('state', '=', 'draft')]
+        domain += self._prepare_filter_query_for_pos(pos_session_id, query)
+        fields = self._prepare_fields_for_pos_list()
         return self.search_read(
-            condition, field_names, limit=config.iface_load_done_order_max_qty)
+            domain, fields, limit=config.iface_load_done_order_max_qty)
 
     @api.model
     def create_from_ui(self, orders):
@@ -96,6 +112,7 @@ class PosOrder(models.Model):
         odoo_id = pos_order.get('odoo_id')
         order = self.browse([odoo_id]).exists() if odoo_id else None
         vals = self._order_fields(pos_order)
+        vals.update({'session_id': False})
         if order:
             if 'lines' in vals:
                 vals['lines'] = [(5, 0, 0)] + (vals['lines'] or [])

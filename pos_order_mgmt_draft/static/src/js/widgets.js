@@ -40,7 +40,6 @@ pos_mgmt.OrderListScreenWidget.include({
         var self = this;
         return this._rpc({
             model: 'pos.order',
-            //method: 'search_draft_orders_for_pos',
             method: 'search_draft_orders_for_pos',
             args: [query || '', this.pos.pos_session.id],
         }).then(function (result) {
