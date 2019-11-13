@@ -100,10 +100,11 @@ DraftOrderScreenWidget.include({
                 because depending on the IoT Box settings the screen receipt could've been
                 closed and the order removed automatically. */
             self.pos.set('selectedOrder', order);
-            order.add_product(deposit_product_id, {quantity: 1, price: (-amount)})
+            order.add_product(deposit_product_id, {quantity: 1, price: (-amount)});
             if (self.pos.get('orders').contains(this)) {
                 self.pos.set('selectedOrder', this);
             }
+            order.trigger('change', order);
             self.push_draft_order(order);
         });
 
