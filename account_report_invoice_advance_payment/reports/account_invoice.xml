@@ -12,7 +12,8 @@
             Otherwise, means we are actually using the downpayments as discounts
             -->
             <t t-set="deposit_product_id" t-value="int(o.env['ir.config_parameter'].sudo().get_param('sale.default_deposit_product_id'))"/>
-            <t t-set="advance_payment" t-value="sum(o.invoice_line_ids.filtered(lambda l: l.product_id and l.product_id.id == deposit_product_id).mapped('price_subtotal')) or 0.00"/>
+            <t t-set="advance_payment_line_ids" t-value="o.invoice_line_ids.filtered(lambda l: l.product_id and l.product_id.id == deposit_product_id)"/>
+            <t t-set="advance_payment" t-value="sum(advance_payment_line_ids.mapped('price_subtotal')) or 0.00"/>
             <t t-set="is_deposit_invoice" t-value="advance_payment > 0"/>
         </xpath>
 
@@ -31,12 +32,17 @@
 
         <!-- We show the downpayments next to the untaxed_amount -->
         <xpath expr="//span[@t-field='o.amount_total']/parent::td/parent::tr" position="before">
-            <tr class="border-black o_advance_payment" t-if="not is_deposit_invoice and advance_payment">
-                <td><strong>Advance Payment</strong></td>
-                <td class="text-right"><span t-esc="advance_payment" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
-            </tr>
+            <t t-if="not is_deposit_invoice and advance_payment">
+                <tr class="border-black o_subtotal">
+                    <td><strong>Subtotal with Taxes</strong></td>
+                    <td class="text-right"><span t-esc="o.amount_total - advance_payment" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></td>
+                </tr>
+                <tr t-foreach="advance_payment_line_ids" t-as="line">
+                    <td><span t-field="line.name"/></td>
+                    <td class="text-right"><span t-field="line.price_subtotal"/></td>
+                </tr>
+            </t>
         </xpath>
-
 
     </template>
 
