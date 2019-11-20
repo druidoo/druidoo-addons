@@ -15,6 +15,6 @@ msgstr ""
 
 #. module: account_report_invoice_advance_payment
 #: model_terms:ir.ui.view,arch_db:account_report_invoice_advance_payment.report_invoice_document_advance_payment
-msgid "<strong>Advance Payment</strong>"
+msgid "<strong>Subtotal with Taxes</strong>"
 msgstr ""
 
