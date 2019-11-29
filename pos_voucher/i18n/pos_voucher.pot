@@ -1,16 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* pos_voucher
+#	* pos_voucher
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-28 16:00+0000\n"
-"PO-Revision-Date: 2019-11-28 16:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -18,31 +15,26 @@ msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_report
-msgid ""
-"<br/>\n"
+msgid "<br/>\n"
 "                        Tel:"
-msgstr "Tel : "
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_report
-msgid ""
-"<br/><br/>\n"
+msgid "<br/><br/>\n"
 "                        <span>Please Keep Your Voucher Code Safe</span><br/>"
 msgstr ""
-"<br/><br/>\n"
-"                        <span>Conservez à l'abri le code de votre avoir</"
-"span><br/>"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__currency_id
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__currency_id
 msgid "Account Currency"
-msgstr "Devise du compte"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_needaction
 msgid "Action Needed"
-msgstr "Action requise"
+msgstr ""
 
 #. module: pos_voucher
 #: code:addons/pos_voucher/models/pos_voucher.py:73
@@ -53,12 +45,12 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__amount
 msgid "Amount"
-msgstr "Montant"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_attachment_count
 msgid "Attachment Count"
-msgstr "Nombre de pièces jointes"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
@@ -67,14 +59,13 @@ msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model,name:pos_voucher.model_account_bank_statement
-#, fuzzy
 msgid "Bank Statement"
-msgstr "Pièce jointe principale"
+msgstr ""
 
 #. module: pos_voucher
 #: sql_constraint:pos.voucher:0
 msgid "Can not Apply more than allowed Amount!"
-msgstr "Montant supérieur au crédit disponible !"
+msgstr ""
 
 #. module: pos_voucher
 #: code:addons/pos_voucher/models/pos_voucher.py:106
@@ -88,12 +79,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 #, python-format
 msgid "Cancel"
-msgstr "Annuler"
+msgstr ""
 
 #. module: pos_voucher
 #: selection:pos.voucher,state:0
 msgid "Cancelled"
-msgstr "Annulé"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -114,7 +105,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__company_id
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "Company"
-msgstr "Société"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -128,115 +119,115 @@ msgstr ""
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "Consume Date"
-msgstr "Date d'utilisation"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Consume History"
-msgstr "historique de consommation"
+msgstr ""
 
 #. module: pos_voucher
 #: selection:pos.voucher,state:0
 msgid "Consumed"
-msgstr "Avoir consommé en totalité"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__consumed_date
 msgid "Consumed Date"
-msgstr "date de consommation"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__consume_date
 msgid "Consumed on"
-msgstr "Consommé le"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__create_uid
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__create_uid
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__create_date
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__create_date
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "Currency"
-msgstr "Devise"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__partner_id
 msgid "Customer"
-msgstr "Client"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__discount_type
 msgid "Discount Type"
-msgstr "Type de remise"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__display_name
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__display_name
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr ""
 
 #. module: pos_voucher
 #: selection:pos.voucher,state:0
 msgid "Draft"
-msgstr "Brouillon"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__end_date
 msgid "End Date"
-msgstr "Date de fin"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 #: selection:pos.voucher,state:0
 msgid "Expired"
-msgstr "Expiré"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_report
 msgid "Expiry Date:"
-msgstr "Date d'expiration"
+msgstr ""
 
 #. module: pos_voucher
 #: selection:pos.voucher,discount_type:0
 msgid "Fixed"
-msgstr "Fixé"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_follower_ids
 msgid "Followers"
-msgstr "Abonnés"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_channel_ids
 msgid "Followers (Channels)"
-msgstr "Abonnés (Canaux)"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Abonnés (Partenaires)"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Force Expiry"
-msgstr "Forcer l'expiration"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_type_search
 msgid "Group By"
-msgstr "Grouper par"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__id
@@ -248,22 +239,22 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_unread
 msgid "If checked new messages require your attention."
-msgstr "Si coché, de nouveaux messages demandent votre attention."
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si coché, de nouveaux messages demandent votre attention."
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si actif, certains messages ont une erreur de livraison."
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_is_follower
 msgid "Is Follower"
-msgstr "Est un abonné"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model,name:pos_voucher.model_account_journal
@@ -277,31 +268,31 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history____last_update
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type____last_update
 msgid "Last Modified on"
-msgstr "Dernière Modification le"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__write_uid
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__write_uid
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__write_date
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__write_date
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Pièce jointe principale"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_has_error
 msgid "Message Delivery error"
-msgstr "Erreur d'envoi du message"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_ids
@@ -311,27 +302,27 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Nombre d'actions"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_has_error_counter
 msgid "Number of error"
-msgstr "Nombre d'erreurs"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr "Nombre de messages exigeant une action"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Nombre de messages avec des erreurs d'envoi"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_unread_counter
 msgid "Number of unread messages"
-msgstr "Nombre de messages non lus"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.actions.act_window,name:pos_voucher.act_pos_voucher
@@ -340,27 +331,27 @@ msgstr "Nombre de messages non lus"
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "POS Voucher"
-msgstr "Avoir"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model,name:pos_voucher.model_pos_voucher_history
 msgid "POS Voucher History"
-msgstr "Historique de l'avoir"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model,name:pos_voucher.model_pos_voucher_type
 msgid "POS Voucher Type"
-msgstr "Type d'avoir"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.ui.menu,name:pos_voucher.menu_pos_voucher
 msgid "POS Vouchers"
-msgstr "Avoirs"
+msgstr ""
 
 #. module: pos_voucher
 #: selection:pos.voucher,state:0
 msgid "Partially Consumed"
-msgstr "Avoir consommé en partie"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -368,7 +359,7 @@ msgstr "Avoir consommé en partie"
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__pending_amount
 #, python-format
 msgid "Pending Amount"
-msgstr "Montant restant sur l'avoir"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -395,60 +386,60 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model,name:pos_voucher.model_pos_order
 msgid "Point of Sale Orders"
-msgstr "Commandes du point de vente"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.actions.act_window,name:pos_voucher.act_pos_voucher_type
 #: model:ir.ui.menu,name:pos_voucher.menu_pos_voucher_type
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_type_search
 msgid "Pos Voucher Types"
-msgstr "Types d'avoirs"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Print Voucher"
-msgstr "Imprimer l'avoir"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
 #: code:addons/pos_voucher/static/src/xml/pos.xml:40
-#, fuzzy, python-format
+#, python-format
 msgid "Select Voucher"
-msgstr "Avoir"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__sequence_id
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_type_search
 msgid "Sequence"
-msgstr "Séquence"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
 #: code:addons/pos_voucher/static/src/xml/pos.xml:54
-#, fuzzy, python-format
+#, python-format
 msgid "Set Voucher"
-msgstr "Avoir"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__start_date
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "Start Date"
-msgstr "Date de début"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__state
 msgid "State"
-msgstr "Région"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "Status"
-msgstr "État"
+msgstr ""
 
 #. module: pos_voucher
 #: sql_constraint:pos.voucher:0
 msgid "The Code of the Voucher must be unique!"
-msgstr "Le code d'un avoir doit être unique !"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -463,12 +454,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__total_amount
 #, python-format
 msgid "Total Amount"
-msgstr "Montant total"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Total Consumed"
-msgstr "Montant total consommé"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__type_id
@@ -480,31 +471,30 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_unread
 msgid "Unread Messages"
-msgstr "Messages non lus"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr "Compteur de messages non lus"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_account_bank_statement__is_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_account_journal__is_voucher
-#, fuzzy
 msgid "Use as a Voucher"
-msgstr "Justificatif"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.actions.server,name:pos_voucher.action_server_validate_vouchers
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Validate"
-msgstr "Valider"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 #: selection:pos.voucher,state:0
 msgid "Validated"
-msgstr "Validé"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -513,22 +503,22 @@ msgstr "Validé"
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__pos_voucher_id
 #, python-format
 msgid "Voucher"
-msgstr "Justificatif"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__history_ids
 msgid "Voucher History"
-msgstr "Historique de l'avoir"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_order__voucher_history_id
 msgid "Voucher Used"
-msgstr "Avoir utilisé"
+msgstr ""
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_report
 msgid "Voucher Value:"
-msgstr "Valeur de l'avoir"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -540,12 +530,12 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__website_message_ids
 msgid "Website Messages"
-msgstr "Messages du site web"
+msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__website_message_ids
 msgid "Website communication history"
-msgstr "Historique de communication du site web"
+msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
@@ -554,5 +544,3 @@ msgstr "Historique de communication du site web"
 msgid "Yes"
 msgstr ""
 
-#~ msgid "Barcode"
-#~ msgstr "Code Barre"
