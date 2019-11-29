@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="alert_input">
+        <div class="swal2-container swal2-fade swal2-in" style="overflow-y: auto;">
+            <div class="swal2-modal swal2-show"
+                 style="display: block; width: 500px; padding: 20px; background: #F0EEEE; min-height: 340px;"
+                 tabindex="-1">
+                <h2><t t-esc=" widget.options.title || 'Confirm ?' " /></h2>
+                <div class="swal2-content" style="display: block;"><t t-esc="  widget.options.body || '' "/>
+                </div>
+                <div class="row" style="padding-bottom: 40px; padding-top: 40px">
+                    <div class="form-group label-floating is-empty">
+                        <input type="text" class="input_form" style="font-size:25px;height:35px;width:275px;border:1px #c57272 !important;"
+                        t-att-id="widget.options.title == 'Voucher' ? 'txt_voucher_number' : 'txt_1'" />
+                    </div>
+                </div>
+                <div class="footer">
+                    <span type="button" class="btn btn-success button confirm">Yes</span>
+                    <span type="button" class="btn btn-danger button cancel">Close</span>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="PaymentScreen-Paymentmethods">
+        <t t-jquery=".paymentmethod" t-operation="replace">
+            <div class="button paymentmethod" t-att-data-id="cashregister.journal_id[0]">
+                <t t-if="!cashregister.is_voucher"
+                   t-esc="cashregister.journal_id[1]" />
+            </div>
+        </t>
+    </t>
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".payment-buttons" t-operation="append">
+            <div class='button voucher_redeem'>
+                <i class="fa fa-gift" aria-hidden="true"></i> Voucher
+            </div>
+            <div class='button customer_vouchers'>
+                <i class="fa fa-gift" aria-hidden="true"></i> Select Voucher
+            </div>
+        </t>
+    </t>
+
+    <!-- Voucher screen list -->
+    <t t-name="voucherListScreenWidget">
+        <div class="clientlist-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Cancel
+                    </span>
+                    <span class='button next highlight'>
+                        Set Voucher
+                        <i class='fa fa-angle-double-right'></i>
+                    </span>
+                </section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow collapsed'>
+                            <div class='subwindow-container collapsed'>
+                                <div class='subwindow-container-fix voucher-details-contents'>
+                                </div>
+                            </div>
+                        </section>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
+                                    <table class='client-list'>
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Total Amount</th>
+                                                <th>Pending Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class='voucher-list-contents'>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+    
+    <t t-name="voucherLine">
+        <tr class='client-list' t-att-data-id='voucher.id'>
+            <td><t t-esc='voucher.code' /></td>
+            <td><t t-esc='voucher.total_amount' /></td>
+            <td><t t-esc='voucher.pending_amount' /></td>
+        </tr>
+    </t>
+
+</templates>

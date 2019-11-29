@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/pos_voucher/static/src/js/pos.js"></script>
+            <script type="text/javascript" src="/pos_voucher/static/src/js/screens.js"></script>
+        </xpath>
+    </template>
+
+    <template id="pos_voucher_index" name="index pos ui" inherit_id="point_of_sale.index">
+        <xpath expr="//head" position="inside">
+            <link rel="stylesheet" href="/pos_voucher/static/src/libs/css/material-dashboard.css" />
+        </xpath>
+    </template>
+
+</odoo>

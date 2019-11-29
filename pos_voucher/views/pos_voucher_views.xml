@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+  <record id="pos_voucher_form" model="ir.ui.view">
+    <field name="name">POS Voucher Form</field>
+    <field name="model">pos.voucher</field>
+    <field name="arch" type="xml">
+      <form string="POS Voucher">
+        <header>
+          <button name="action_validate" string="Validate" type="object"
+                  class="btn-primary" states="draft"/>
+          <button name="%(action_report_pos_voucher)d" class="btn-primary"
+                  string="Print Voucher" type="action"
+                  states="validated,partially_consumed"/>
+          <button name="action_force_expired" string="Force Expiry"
+                  type="object" states="validated,partially_consumed"/>
+          <button name="action_cancel" string="Cancel" type="object"
+                  states="draft,validated"/>
+          <button name="action_draft" string="Back to Draft" type="object"
+                  states="cancelled"/>
+          <field name="state" widget="statusbar"
+                 statusbar_visible="draft,validated,consumed,expired"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+              <h2>
+                  <field name="code"
+                         attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              </h2>
+          </div>
+          <group>
+            <group>
+              <field name="start_date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="end_date"
+                     attrs="{'readonly':[('state', 'in', ('expired', 'consumed', 'cancelled'))]}"/>
+              <field name="type_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="consume_date"/>
+            </group>
+            <group>
+              <field name="partner_id"
+                     attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="discount_type" invisible="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="total_amount" attrs="{'readonly':[('state', '!=', 'draft')]}"
+                     options="{'currency_field': 'currency_id'}"/>
+              <field name="pending_amount" options="{'currency_field': 'currency_id'}"/>
+              <field name="company_id" groups="base.group_multi_company"
+                     options="{'no_open':1, 'no_create':1}" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="currency_id"
+                     options="{'no_open':1, 'no_create':1}"
+                     attrs="{'readonly':[('state', '!=', 'draft')]}"
+                     groups="base.group_multi_currency"
+                     invisible="1"/>
+            </group>
+          </group>
+          <notebook>
+            <page name="history" string="Consume History">
+              <field name="history_ids" readonly="0" nolabel="1">
+                <tree editable="bottom">
+                  <field name="consumed_date"/>
+                  <field name="amount" sum="Total Consumed"
+                         options="{'currency_field': 'currency_id'}"/>
+                  <field name="currency_id" invisible="1"/>
+                </tree>
+                <form>
+                  <group>
+                    <field name="consumed_date"/>
+                    <field name="amount" sum="Total Consumed"
+                           options="{'currency_field': 'currency_id'}"/>
+                    <field name="currency_id" invisible="1"/>
+                  </group>
+                </form>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+        <div class="oe_chatter">
+          <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+          <field name="message_ids" widget="mail_thread"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <record id="pos_voucher_tree" model="ir.ui.view">
+    <field name="name">POS Voucher Tree</field>
+    <field name="model">pos.voucher</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="code"/>
+        <field name="start_date"/>
+        <field name="end_date"/>
+        <field name="type_id"/>
+        <field name="total_amount" options="{'currency_field': 'currency_id'}"/>
+        <field name="pending_amount" options="{'currency_field': 'currency_id'}"/>
+        <field name="state"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="currency_id" groups="base.group_multi_currency"
+               invisible="1"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="pos_voucher_search" model="ir.ui.view">
+    <field name="name">POS Voucher Search</field>
+    <field name="model">pos.voucher</field>
+    <field name="arch" type="xml">
+      <search string="POS Voucher">
+        <field name="code"/>
+        <field name="type_id"/>
+        <filter name="filter_validated" string="Validated"
+                domain="[('state', '=', 'validated')]"/>
+        <filter name="filter_expired" string="Expired"
+                domain="[('state', '=', 'expired')]"/>
+        <group string="Group By" name="group_by">
+          <filter name="grp_state" string="Status"
+                  context="{'group_by':'state'}"/>
+          <filter name="grp_type" string="Type"
+                  context="{'group_by':'type_id'}"/>
+          <filter name="grp_start_date" string="Start Date"
+                  context="{'group_by':'start_date'}"/>
+          <filter name="grp_consume_date" string="Consume Date"
+                  context="{'group_by':'consume_date'}"/>
+          <filter name="grp_company" string="Company"
+                  context="{'group_by':'company_id'}"/>
+          <filter name="grp_currency" string="Currency"
+                  context="{'group_by':'currency_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="act_pos_voucher">
+    <field name="name">POS Voucher</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">pos.voucher</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="menu_pos_voucher" name="POS Vouchers"
+            parent="point_of_sale.menu_point_of_sale"
+            action="act_pos_voucher"/>
+
+  <record id="pos_voucher_type_form" model="ir.ui.view">
+    <field name="name">Pos Voucher Type Form</field>
+    <field name="model">pos.voucher.type</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="journal_id"/>
+              <field name="sequence_id"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="pos_voucher_type_tree" model="ir.ui.view">
+    <field name="name">Pos Voucher Types Tree</field>
+    <field name="model">pos.voucher.type</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="journal_id"/>
+        <field name="sequence_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="pos_voucher_type_search" model="ir.ui.view">
+    <field name="name">Pos Voucher Types Search</field>
+    <field name="model">pos.voucher.type</field>
+    <field name="arch" type="xml">
+      <search string="Pos Voucher Types">
+        <field name="name"/>
+        <group string="Group By" name="group_by">
+          <filter name="grp_journal" string="Journal" domain="[]"
+                  context="{'group_by':'journal_id'}"/>
+          <filter name="grp_sequence" string="Sequence" domain="[]"
+                  context="{'group_by':'sequence_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="act_pos_voucher_type">
+    <field name="name">Pos Voucher Types</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">pos.voucher.type</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="menu_pos_voucher_type" name="Pos Voucher Types"
+            parent="point_of_sale.menu_point_config_product"
+            action="act_pos_voucher_type"/>
+
+  <record id="account_journal_form" model="ir.ui.view">
+    <field name="name">Journal Form inherit</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
+    <field name="arch" type="xml">
+      <field name="journal_user" position="after">
+        <field name="is_voucher"
+               attrs="{'invisible': ['|', ('journal_user', '=', False), ('type', '!=', 'cash')]}"/>
+      </field>
+    </field>
+  </record>
+
+
+</odoo>

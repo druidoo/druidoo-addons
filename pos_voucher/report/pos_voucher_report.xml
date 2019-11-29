@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<template id="pos_voucher_report">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <div class="page">
+                <div class="row">
+                    <t t-set="company" t-value="res_company"/>
+                    <div style="text-align:center">
+                        <h2 t-esc="o.code"/>
+                        <span t-esc="company.name"/><br/>
+                        Tel:<span t-esc="company.phone"/><br/>
+                        <span t-esc="company.email"/><br/>
+                        <span t-esc="company.website"/><br/><br/>
+                        <span>Please Keep Your Voucher Code Safe</span><br/>
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', o.code, 600, 100)"
+                                  style="width:300px;height:50px"/>
+                        Voucher Value: <span t-field="o.pending_amount"/><br/>
+                        <span t-if="o.end_date">Expiry Date: </span><span t-if="o.end_date"
+                                           t-field="o.end_date"/><br/><br/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</template>
+
+</odoo>

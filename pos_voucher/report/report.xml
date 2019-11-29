@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="paperformat_pos_voucher" model="report.paperformat">
+        <field name="name">POS Voucher</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">60</field>
+        <field name="page_width">60</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">3</field>
+        <field name="margin_bottom">3</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">3</field>
+        <field name="dpi">130</field>
+    </record>
+
+    <report
+      id="action_report_pos_voucher"
+      string="POS Voucher"
+      model="pos.voucher"
+      report_type="qweb-pdf"
+      name="pos_voucher.pos_voucher_report"
+      file="pos_voucher.pos_voucher_report"
+      paperformat="pos_voucher.paperformat_pos_voucher"
+  />
+
+</odoo>

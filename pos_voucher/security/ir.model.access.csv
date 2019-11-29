@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_voucher_type,access_pos_voucher_type,model_pos_voucher_type,base.group_user,1,1,1,1
+access_pos_voucher,access_pos_voucher,model_pos_voucher,base.group_user,1,1,1,1
+access_pos_voucher_history,access_pos_voucher_history,model_pos_voucher_history,base.group_user,1,1,1,1
