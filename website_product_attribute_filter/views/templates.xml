@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assent_front" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link href="/website_product_attribute_filter/static/src/scss/website_product_filter.scss" rel="stylesheet"/>
+            <script type="text/javascript" src="/website_product_attribute_filter/static/src/js/attribute.js"></script>
+        </xpath>
+    </template>
+
+    <template id="filter_values" inherit_id="website_sale.products_attributes" priority="5">
+        <xpath expr="//form[hasclass('js_attributes')]/ul[hasclass('nav')]/t[@t-foreach='attributes']/li[@t-if]" position="replace">
+            <li t-if="a.value_ids and len(a.value_ids) &gt; 0">
+                <div>
+                    <strong t-field="a.name"/>
+                </div>
+                <t t-if="a.type == 'select'">
+                    <select class="form-control" name="attrib">
+                        <option value=""/>
+                        <t t-foreach="a.value_ids" t-as="v">
+                            <option t-att-value="'%s-%s' % (a.id,v.id)"
+                                    t-att-selected="v.id in attrib_set">
+                                <span t-esc="v.name"/>
+                                <span>
+                                    <t t-if="request.env['ir.ui.view'].search([('key','=','website_product_attribute_filter.product_count')]) and variant_counts">
+                                        (<t t-esc="variant_counts.get(v.id)"/>)
+                                    </t>
+                                </span>
+                            </option>
+                        </t>
+                    </select>
+                </t>
+                <t t-if="a.type == 'radio'">
+                    <ul class="nav nav-pills nav-stacked">
+                        <t t-foreach="a.value_ids" t-as="v">
+                            <li t-att-class="'active' if v.id in attrib_set else None">
+                                <label style="margin: 0 20px;">
+                                    <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
+                                    <span class="data" t-field="v.name"/>
+                                    <span>
+                                        <t t-if="request.env['ir.ui.view'].search([('key','=','website_product_attribute_filter.product_count')]) and variant_counts">
+                                            (
+                                            <t t-esc="variant_counts.get(v.id)"/>)
+                                        </t>
+                                    </span>
+                                </label>
+                            </li>
+                        </t>
+                    </ul>
+                </t>
+                <t t-if="a.type == 'color'">
+                    <t t-foreach="a.value_ids" t-as="v">
+                        <t t-if="variant_counts and variant_counts.get(v.id)">
+                            <label t-attf-style="background-color:#{v.html_color or v.name}" t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                                <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name"/>
+                            </label>
+                            <span>
+                                <t t-if="request.env['ir.ui.view'].search([('key','=','website_product_attribute_filter.product_count')]) and variant_counts">
+                                    (<t t-esc="variant_counts.get(v.id)"/>)
+                                </t>
+                            </span>
+                        </t>
+                    </t>
+                </t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="attribute_inner">
+        <li t-if="a.value_ids and len(a.value_ids) &gt; 0 ">
+            <div class="wpf-title">
+                <strong t-field="a.name"/>
+            </div>
+            <t t-if="a.type == 'select'">
+                <select class="form-control" name="attrib">
+                    <option value=""/>
+                    <t t-foreach="a.value_ids" t-as="v">
+                        <t t-if="variant_counts and variant_counts.get(v.id)">
+                            <option t-att-value="'%s-%s' % (a.id,v.id)" t-att-selected="v.id in attrib_set">
+                                <t t-esc="v.name"/>
+                                <t t-if="request.env['ir.ui.view'].search([('key','=','website_product_attribute_filter.product_count')]) and variant_counts">
+                                    (<t t-esc="variant_counts.get(v.id)"/>)
+                                </t>
+                            </option>
+                        </t>
+                    </t>
+                </select>
+            </t>
+            <t t-if="a.type == 'radio'">
+                <ul class="wpf-filter-inner nav nav-pills nav-stacked">
+                    <t t-foreach="a.value_ids" t-as="v">
+                        <t t-if="variant_counts and variant_counts.get(v.id)">
+                            <li t-att-class="'active' if v.id in attrib_set else None">
+                                <div class="wpf-row">
+                                    <label class="mt-checkbox">
+                                        <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
+                                        <span/>
+                                    </label>
+                                    <span class="data" t-field="v.name"/>
+                                    <t t-if="request.env['ir.ui.view'].search([('key','=','website_product_attribute_filter.product_count')]) and variant_counts">
+                                        (<t t-esc="variant_counts.get(v.id)"/>)
+                                    </t>
+                                </div>
+                            </li>
+                        </t>
+                    </t>
+                </ul>
+            </t>
+            <t t-if="a.type == 'color'">
+                <t t-foreach="a.value_ids" t-as="v">
+                    <t t-if="variant_counts and variant_counts.get(v.id)">
+                        <label t-attf-style="background-color:#{v.html_color or v.name}" t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                            <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name"/>
+                        </label>
+                        <span class="data"/>
+                        <t t-if="request.env['ir.ui.view'].search([('key','=','website_product_attribute_filter.product_count')]) and variant_counts">
+                            (<t t-esc="variant_counts.get(v.id)"/>)
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </li>
+    </template>
+
+    <template id="product_count" inherit_id="website_sale.products_attributes"
+              active="False" customize_show="True" name="Product Count">
+        <xpath expr="." position="inside">
+
+        </xpath>
+    </template>
+
+    <template id="products_attributes" inherit_id="website_sale.products_attributes" priority="5" active="False" customize_show="True" name="Product Attribute's Filters Category">
+        <xpath expr="//form[hasclass('js_attributes')]" position="replace">
+            <form class="js_attributes" method="get">
+                <input type="hidden" name="search" t-att-value="search"/>
+                <div class="wpf-groups">
+                    <ul class="nav nav-pills flex-column mt16">
+                        <t t-foreach="attrib_category" t-as="att_cate">
+                            <li t-if="att_cate.id in shop_category_ids"
+                                class="nav-item">
+                                <div class="wpf-head btn-secondary" t-field="att_cate.name"/>
+                                <ul class="wpf-filter nav nav-pills nav-stacked mt16">
+                                    <t t-foreach="request.env['product.attribute'].sudo().search([('id','in',attributes.ids),('category_id','=',att_cate.id)])" t-as="a">
+                                        <t t-call="website_product_attribute_filter.attribute_inner"/>
+                                    </t>
+                                </ul>
+                            </li>
+                        </t>
+                    </ul>
+                    <t t-set="category_not_assigned"
+                       t-value="request.env['product.attribute'].sudo().search([('id','in',attributes.ids),('category_id','=',False)])"/>
+
+                    <t t-if="category_not_assigned and category_not_assigned.ids">
+                        <div class="wpf-head btn-secondary">Unknown</div>
+                        <ul class="wpf-filter nav nav-pills nav-stacked mt16">
+                            <t t-foreach="category_not_assigned" t-as="a">
+                                <t t-call="website_product_attribute_filter.attribute_inner"/>
+                            </t>
+                        </ul>
+                    </t>
+                </div>
+            </form>
+        </xpath>
+        <xpath expr="//div[@id='products_grid_before']" position="attributes">
+            <attribute name="class">col-lg-3 d-none d-md-block</attribute>
+        </xpath>
+        <xpath expr="//div[@id='products_grid']" position="attributes">
+            <attribute name="class">col-lg-9</attribute>
+        </xpath>
+    </template>
+
+    <template id="products_filters" inherit_id="website_sale.products_attributes" active="False" customize_show="True" name="Applied Filters">
+        <xpath expr="//div[@id='products_grid_before']/*[1]" position="before">
+            <t t-if="attrib_values">
+                <div class="wpf-applied">
+                    <div class="wpf-h3 btn-secondary">Applied Filters</div>
+                    <form class="js_attributes_applied" method="get">
+                        <input type="hidden" name="search" t-att-value="search"/>
+                        <t t-foreach="attributes" t-as="a">
+                            <t t-if="a.id in appied_filter_result.ids">
+                                <div class="wpf-aply-row">
+                                    <div class="wpf-title">
+                                        <t t-esc="a.name"/>
+                                        :
+                                    </div>
+                                    <t t-foreach="a.value_ids" t-as="v">
+                                        <t t-if="v.id in attrib_set">
+                                            <div class="wpf-row">
+                                                <label class="mt-checkbox">
+                                                    <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name" t-att-id="'app_%s' %(v.id)"/>
+                                                    <span/>
+                                                </label>
+                                                <label t-att-for="'app_%s' %(v.id)">
+                                                    <span class="data" t-field="v.name"/>
+                                                </label>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
+                            </t>
+                        </t>
+                    </form>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='products_grid_before']" position="attributes">
+            <attribute name="class">col-lg-3 d-none d-md-block</attribute>
+        </xpath>
+        <xpath expr="//div[@id='products_grid']" position="attributes">
+            <attribute name="class">col-lg-9</attribute>
+        </xpath>
+    </template>
+</odoo>

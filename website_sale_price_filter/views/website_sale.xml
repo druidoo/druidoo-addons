@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" priority="1">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/css" href="/website_sale_price_filter/static/lib/jRange/jquery.range.scss"/>
+            <script type="text/javascript" src="/website_sale_price_filter/static/lib/jRange/jquery.range-min.js"></script>
+            <script type="text/javascript" src="/website_sale_price_filter/static/src/js/price_filter.js"></script>
+        </xpath>
+    </template>
+
+    <template id="products_attributes_price_filter" inherit_id="website_sale.products_attributes" priority="15" active="False" customize_show="True" name="Product Price Filter">
+        <!-- Add the hidden field that will be used as the actual price filter input -->
+        <xpath expr="//form[hasclass('js_attributes')]" position="inside">
+            <input type="hidden" name="price_filter" id="price_filter"/>
+        </xpath>
+        <!-- Add the price filter block with the widget -->
+        <!--<xpath expr="//div[@id='products_grid_before']/form" position="after">-->
+        <xpath expr="//div[@id='products_grid_before']/*[1]" position="before">
+            <div class="" id="navbarPriceFilters">
+                <ul class="nav nav-pills flex-column mt16">
+                    <li class="nav-item">
+                        <div class="nav-item-title">
+                            <strong >Price</strong>
+                        </div>
+                        <t t-set="price_min_limit" t-value="price_min_limit or 0"/>
+                        <t t-set="price_max_limit" t-value="price_max_limit or 10000"/>
+                        <input type="hidden" name="price_filter_copy" class="range-slider" t-att-value="'%d,%d' % (price_min or 0, price_max or price_max_limit)" t-att-data-range-min="'%d' % price_min_limit" t-att-data-range-max="'%d' % price_max_limit"/>
+                    </li>
+                </ul>
+            </div>
+        </xpath>
+    </template>
+    
+</odoo>
