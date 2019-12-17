@@ -196,6 +196,7 @@ class AccountExport(models.Model):
         res = []
         if groupings:
             # Finding the move lines which can be grouped together
+            # pylint: disable=E8103
             sql_query = """
                 SELECT {groupings}, array_agg(aml.id) as move_line_ids
                 FROM account_move_line aml
