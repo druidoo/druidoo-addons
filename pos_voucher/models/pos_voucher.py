@@ -1,5 +1,5 @@
 
-from odoo import api, fields, models, _, SUPERUSER_ID
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
