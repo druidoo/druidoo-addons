@@ -8,6 +8,7 @@
     "category": "Druidoo UX",
     "website": "https://github.com/druidoo/druidoo-addons",
     "author": "Druidoo",
+    'license': 'AGPL-3',
     "depends": [
         'sale',
     ],

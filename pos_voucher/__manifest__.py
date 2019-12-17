@@ -5,6 +5,7 @@
     'category': 'Druidoo POS',
     'website': 'https://github.com/druidoo/druidoo-addons',
     'author': 'Druidoo',
+    'license': 'AGPL-3',
     'depends': [
         'point_of_sale',
     ],
