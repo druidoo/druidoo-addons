@@ -68,7 +68,7 @@ msgid "Can not Apply more than allowed Amount!"
 msgstr ""
 
 #. module: pos_voucher
-#: code:addons/pos_voucher/models/pos_voucher.py:106
+#: code:addons/pos_voucher/models/pos_voucher.py:107
 #, python-format
 msgid "Can not set to Draft as Consume History is created for the voucher!"
 msgstr ""
