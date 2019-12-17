@@ -1,6 +1,6 @@
 
 from odoo import api, fields, models, _, SUPERUSER_ID
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 
 
 class PosVoucherType(models.Model):
@@ -70,7 +70,8 @@ class POSVoucher(models.Model):
     def action_validate(self):
         states = list(set(self.mapped('state')))
         if len(states) > 1 or states[0] != 'draft':
-            raise Warning(_('All selected records has to be in Draft State!'))
+            raise UserError(_(
+                'All selected records has to be in Draft State!'))
         for rec in self:
             vals = {'state': 'validated'}
             if not rec.code or rec.code == '/':
@@ -103,7 +104,7 @@ class POSVoucher(models.Model):
     def action_draft(self):
         self.ensure_one()
         if self.history_ids:
-            raise Warning(_('Can not set to Draft as Consume History is '
+            raise UserError(_('Can not set to Draft as Consume History is '
                             'created for the voucher!'))
         self.write({'state': 'draft'})
         return True
