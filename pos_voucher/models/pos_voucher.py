@@ -160,12 +160,11 @@ class PosOrder(models.Model):
                 for statement_list in statements:
                     stmt = statement_list[2]
                     if stmt['journal_id'] == voucher.type_id.journal_id.id:
-                        history = voucher_history_obj.create(
-                            {
-                             'pos_voucher_id': order_data.get('voucher_id'),
-                             'consumed_date': stmt['name'],
-                             'amount': stmt['amount'],
-                             })
+                        history = voucher_history_obj.create({
+                            'pos_voucher_id': order_data.get('voucher_id'),
+                            'consumed_date': stmt['name'],
+                            'amount': stmt['amount'],
+                        })
                         order_data['voucher_history_id'] = history.id
                         break
 
