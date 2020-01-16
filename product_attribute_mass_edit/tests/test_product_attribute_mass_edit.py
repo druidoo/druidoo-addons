@@ -44,13 +44,15 @@ class TestProductAttributeMassEdit(TransactionCase):
             }
         )
 
-        self.attribute2_1 = self.env["product.attribute.value"].create(
-            {"attribute_id": self.attribute2.id, "name": "Info Value 1",}
-        )
+        self.attribute2_1 = self.env["product.attribute.value"].create({
+            "attribute_id": self.attribute2.id,
+            "name": "Info Value 1",
+        })
 
-        self.attribute2_2 = self.env["product.attribute.value"].create(
-            {"attribute_id": self.attribute2.id, "name": "Info Value 2",}
-        )
+        self.attribute2_2 = self.env["product.attribute.value"].create({
+            "attribute_id": self.attribute2.id,
+            "name": "Info Value 2",
+        })
 
     def get_wizard(self):
         return (

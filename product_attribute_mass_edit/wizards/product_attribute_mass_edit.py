@@ -28,37 +28,29 @@ class ProductAttributeMassEditWizard(models.TransientModel):
     def default_get(self, fields):
         res = super().default_get(fields)
         res_ids = self._context.get("active_ids")
-        res.update(
-            {"product_tmpl_ids": res_ids,}
-        )
+        res.update({"product_tmpl_ids": res_ids})
         return res
 
     def validate_safe(self):
         self.ensure_one()
         for line in self.line_ids:
             if line.attribute_id.create_variant == "always":
-                raise UserError(
-                    _(
-                        "Unable to mass edit attributes that create variants\n"
-                        'You\'re trying to edit attribute "%s", which always '
-                        "creates new variants."
-                        "This is not recommended. If you really need to do it "
-                        "run the wizard in debug mode and enable the option."
-                    )
-                    % line.attribute_id.name
-                )
+                raise UserError(_(
+                    "Unable to mass edit attributes that create variants\n"
+                    'You\'re trying to edit attribute "%s", which always '
+                    "creates new variants."
+                    "This is not recommended. If you really need to do it "
+                    "run the wizard in debug mode and enable the option."
+                ) % line.attribute_id.name)
             elif line.attribute_id.create_variant == "dynamic":
                 if line.action != "add":
-                    raise UserError(
-                        _(
-                            "Unable to mass edit attributes that create variants\n"
-                            'You\'re trying to remove or replace values for "%s", '
-                            "which creates variants dynamically.\n"
-                            "This is not recommended. If you really need to do it "
-                            "run the wizard in debug mode and enable the option."
-                        )
-                        % line.attribute_id.name
-                    )
+                    raise UserError(_(
+                        "Unable to mass edit attributes that create variants\n"
+                        'You\'re trying to remove or replace values for "%s", '
+                        "which creates variants dynamically.\n"
+                        "This is not recommended. If you really need to do it "
+                        "run the wizard in debug mode and enable the option."
+                    ) % line.attribute_id.name)
 
     def confirm(self):
         self.ensure_one()
@@ -135,7 +127,9 @@ class ProductAttributeMassEditWizard(models.TransientModel):
                         (
                             1,
                             current_line.id,
-                            {"value_ids": [(6, 0, line.value_ids.ids)],},
+                            {
+                                "value_ids": [(6, 0, line.value_ids.ids)],
+                            },
                         )
                     ]
                 elif current_line and not line.value_ids:

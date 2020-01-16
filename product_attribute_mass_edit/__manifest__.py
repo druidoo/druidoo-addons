@@ -8,6 +8,10 @@
     "author": "Druidoo, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/product-attribute",
     "license": "AGPL-3",
-    "depends": ["product",],
-    "data": ["wizards/product_attribute_mass_edit.xml",],
+    "depends": [
+        "product",
+    ],
+    "data": [
+        "wizards/product_attribute_mass_edit.xml",
+    ],
 }
