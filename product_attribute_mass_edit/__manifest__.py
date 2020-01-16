@@ -3,7 +3,7 @@
 {
     "name": "Product Attribute Mass Edit",
     "summary": "Edit multiple product attributes at once",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Product",
     "author": "Druidoo, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/product-attribute",

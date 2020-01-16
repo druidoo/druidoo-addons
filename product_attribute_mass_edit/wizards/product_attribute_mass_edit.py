@@ -60,7 +60,6 @@ class ProductAttributeMassEditWizard(models.TransientModel):
                         % line.attribute_id.name
                     )
 
-    @api.multi
     def confirm(self):
         self.ensure_one()
         # prefetch

@@ -49,16 +49,13 @@
         </field>
     </record>
 
-   <act_window
+    <act_window
         name="Mass Edit Product Attributes"
         id="product_attribute_mass_edit_wizard_action"
-        multi="True"
-        key2="client_action_multi"
         res_model="product.attribute.mass.edit.wizard"
-        src_model="product.template"
+        binding_model="product.template"
         view_mode="form"
         target="new"
-        view_type="form"
         groups="base.group_user"/>
 
 </odoo>
