@@ -23,6 +23,7 @@ msgstr ""
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:44
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:52
 #, python-format
 msgid "Advance payment amount"
 msgstr ""
@@ -40,6 +41,22 @@ msgid "Deposit Product"
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model.fields,help:pos_order_mgmt_draft_downpayment.field_pos_order__downpayment_order_ids
+#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft_downpayment.view_pos_pos_form
+msgid "Downpayment Orders"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_order__downpayment_order_id
+msgid "Downpayment for Order"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_order__downpayment_order_ids
+msgid "Downpayments"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
 #: model:ir.model.fields,field_description:pos_order_mgmt_draft_downpayment.field_pos_config__iface_downpayment
 msgid "Enable Downpayments"
 msgstr ""
@@ -53,22 +70,16 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:52
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:60
 #, python-format
 msgid "Missing Deposit Product"
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:63
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:71
 #, python-format
 msgid "No Advance Payment Product"
-msgstr ""
-
-#. module: pos_order_mgmt_draft_downpayment
-#: code:addons/pos_order_mgmt_draft_downpayment/models/pos_order.py:150
-#, python-format
-msgid "No cash statement found for this session. Unable to record returned cash."
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
@@ -83,41 +94,47 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:45
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:53
 #, python-format
 msgid "The Advance Payment cannot be larger than the order amount"
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:64
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:45
+#, python-format
+msgid "The Advance Payment has to be larger than 0."
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#: model:ir.model.fields,help:pos_order_mgmt_draft_downpayment.field_pos_order__downpayment_order_id
+msgid "The order that is being paid"
+msgstr ""
+
+#. module: pos_order_mgmt_draft_downpayment
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:72
 #, python-format
 msgid "There's a product in the config, but it's not loaded on the POS. Try refreshing the browser. Also, make sure the deposit product is available on the POS"
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:53
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:61
 #, python-format
 msgid "There's no deposit product in the POS Configuration"
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
-#: code:addons/pos_order_mgmt_draft_downpayment/models/pos_order.py:155
-#, python-format
-msgid "return"
-msgstr ""
-
-#. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:117
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:131
 #, python-format
 msgid "temporary order"
 msgstr ""
 
 #. module: pos_order_mgmt_draft_downpayment
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:118
+#: code:addons/pos_order_mgmt_draft_downpayment/static/src/js/screens.js:132
 #, python-format
 msgid "temporary orders can not be saved as draft"
 msgstr ""
