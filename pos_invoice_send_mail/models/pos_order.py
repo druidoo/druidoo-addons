@@ -1,7 +1,7 @@
 # Copyright 2019 Druidoo - Iván Todorovich
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields
+from odoo import api, models
 
 
 class PosOrder(models.Model):
@@ -20,7 +20,7 @@ class PosOrder(models.Model):
                 order.config_id.iface_invoice_mail
                 and order.config_id.invoice_mail_template_id
                 and order.invoice_id
-                and order.invoice_id.sent == False
+                and not order.invoice_id.sent
                 and order.pos_reference in refs_to_send_mail
             ):
                 invoice_id = order.invoice_id.with_context(

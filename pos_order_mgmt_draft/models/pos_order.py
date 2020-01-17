@@ -1,9 +1,9 @@
 # Copyright 2019 Druidoo - Iván Todorovich
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields, _
-from odoo.tools import float_is_zero
+from odoo import api, models, fields, tools, _
 from odoo.exceptions import UserError
+import psycopg2
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -152,7 +152,7 @@ class PosOrder(models.Model):
         prec_acc = order.pricelist_id.currency_id.decimal_places
         journal_ids = set()
         for payments in pos_order['statement_ids']:
-            if not float_is_zero(
+            if not tools.float_is_zero(
                     payments[2]['amount'],
                     precision_digits=prec_acc):
                 order.add_payment(self._payment_fields(payments[2]))
@@ -164,7 +164,7 @@ class PosOrder(models.Model):
             })
             pos_session.refresh()
 
-        if not float_is_zero(pos_order['amount_return'], prec_acc):
+        if not tools.float_is_zero(pos_order['amount_return'], prec_acc):
             cash_journal_id = pos_session.cash_journal_id.id
             if not cash_journal_id:
                 # Select for change one of the cash journals used in this

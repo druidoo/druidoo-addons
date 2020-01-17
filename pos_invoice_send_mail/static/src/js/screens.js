@@ -9,14 +9,14 @@ var screens = require('point_of_sale.screens');
 var _t = core._t;
 
 screens.PaymentScreenWidget.include({
-	renderElement: function() {
+    renderElement: function() {
         var self = this;
-		this._super();
-		this.$('.js_send_mail').click(function(){
+        this._super();
+        this.$('.js_send_mail').click(function(){
             self.click_send_mail();
         });
-	},
-	click_send_mail: function() {
+    },
+    click_send_mail: function() {
         var order = this.pos.get_order();
         order.set_to_send_mail(!order.is_to_send_mail());
         if (order.is_to_send_mail()) {

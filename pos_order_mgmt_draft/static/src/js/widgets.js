@@ -11,32 +11,32 @@ var _t = core._t;
 
 pos_mgmt.OrderListScreenWidget.include({
 
-	init: function(parent, options) {
-		var self = this;
-		this._super(parent, options);
-		this.search_type_filter = 'done';
-	},
+    init: function(parent, options) {
+        var self = this;
+        this._super(parent, options);
+        this.search_type_filter = 'done';
+    },
 
-	show: function() {
-		var self = this;
-		this._super();
+    show: function() {
+        var self = this;
+        this._super();
         this.clear_search();
-		this.$('.order-type-selector .button').on('click', function() {
-			self.search_type_filter = $(this).data('filter');
+        this.$('.order-type-selector .button').on('click', function() {
+            self.search_type_filter = $(this).data('filter');
             self.perform_search();
-		})
-	},
+        })
+    },
 
-	perform_search: function() {
-		var self = this;
-		if (self.search_type_filter == 'done') { return this._super(); }
-		else if (self.search_type_filter == 'draft') {
-			return this.search_draft_orders(self.search_query)
-				.done(function() { self.render_list(); });
-		}
-	},
+    perform_search: function() {
+        var self = this;
+        if (self.search_type_filter == 'done') { return this._super(); }
+        else if (self.search_type_filter == 'draft') {
+            return this.search_draft_orders(self.search_query)
+                .done(function() { self.render_list(); });
+        }
+    },
 
-	search_draft_orders: function(query) {
+    search_draft_orders: function(query) {
         var self = this;
         return this._rpc({
             model: 'pos.order',
@@ -62,8 +62,8 @@ pos_mgmt.OrderListScreenWidget.include({
     },
 
     render_list: function() {
-    	var self = this;
-    	this._super();
+        var self = this;
+        this._super();
         this.$('.order-list-open').off('click');
         this.$('.order-list-open').click(function(event) {
             self.order_list_actions(event, 'open');
@@ -80,7 +80,7 @@ pos_mgmt.OrderListScreenWidget.include({
     },
 
     action_open: function(order_data, order) {
-		this.pos.get('orders').add(order);
+        this.pos.get('orders').add(order);
         this.pos.set('selectedOrder', order);
         return order;
     },
