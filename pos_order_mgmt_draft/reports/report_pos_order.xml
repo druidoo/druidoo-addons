@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_posorder_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+            <t t-set="address">
+                <div t-field="doc.partner_id"
+                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                <p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p>
+            </t>
+            
+            <div class="page">
+                <div class="oe_structure"/>
+
+                <h2>
+                    <t t-if="doc.state in ['draft']">Quotation </t>
+                    <span t-field="doc.pos_reference"/>
+                </h2>
+
+                <div class="row mt32 mb32" id="informations">
+                    <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto mw-100 mb-2">
+                        <strong>Date Ordered:</strong>
+                        <p class="m-0" t-field="doc.date_order" t-options="{'widget': 'date'}"/>
+                    </div>
+                    <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto mw-100 mb-2">
+                        <strong>Quotation Date:</strong>
+                        <p class="m-0" t-field="doc.date_order" t-options="{'widget': 'date'}"/>
+                    </div>
+                    <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                        <strong>Salesperson:</strong>
+                        <p class="m-0" t-field="doc.user_id"/>
+                    </div>
+                </div>
+
+                <!-- Is there a discount on at least one line? -->
+                <t t-set="display_discount" t-value="any([l.discount for l in doc.lines])"/>
+
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <!-- TODO: remove in master -->
+                            <t t-set="colspan" t-value="5"/>
+                            <th class="text-left">Description</th>
+                            <th class="text-right">Quantity</th>
+                            <th class="text-right">Unit Price</th>
+                            <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                <span>Disc.(%)</span>
+                                <!-- TODO: remove in master -->
+                                <t t-set="colspan" t-value="colspan+1"/>
+                            </th>
+                            <th class="text-right">Taxes</th>
+                            <th class="text-right">
+                                <t groups="account.group_show_line_subtotals_tax_excluded">Amount</t>
+                                <t groups="account.group_show_line_subtotals_tax_included">Total Price</t>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-foreach="doc.lines" t-as="line">
+                            <tr>
+                                <td><span t-field="line.product_id"/></td>
+                                <td class="text-right">
+                                    <span t-field="line.qty"/>
+                                    <span t-field="line.product_id.uom_id" groups="uom.group_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                    <span t-field="line.discount"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids_after_fiscal_position))"/>
+                                </td>
+                                <td class="text-right o_price_total">
+                                    <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_subtotal_incl" groups="account.group_show_line_subtotals_tax_included"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="clearfix">
+                    <div id="total" class="row" name="total">
+                        <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                            <table class="table table-sm">
+                                <tr class="border-black o_subtotal" style="">
+                                    <td><strong>Subtotal</strong></td>
+                                    <td class="text-right">
+                                        <span t-esc="'%0.2f' % (doc.amount_total - doc.amount_tax)"/>
+                                    </td>
+                                </tr>
+                                <tr class="" style="">
+                                    <td><strong>Taxes</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="doc.amount_tax"/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_total">
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="doc.amount_total"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                    <strong>Fiscal Position Remark:</strong>
+                    <span t-field="doc.fiscal_position_id.sudo().note"/>
+                </p>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="report_posorder">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="pos_order_mgmt_draft.report_posorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <report 
+        id="pos_order_report"
+        string="POS Quotation / Order"
+        model="pos.order" 
+        report_type="qweb-pdf"
+        file="pos_order_mgmt_draft.report_posorder" 
+        name="pos_order_mgmt_draft.report_posorder"
+        print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.pos_reference or object.name)) or 'Order - %s' % (object.pos_reference or object.name)"
+    />
+
+</odoo>

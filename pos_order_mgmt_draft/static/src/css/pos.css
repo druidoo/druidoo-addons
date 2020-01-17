@@ -1,0 +1,41 @@
+
+.screen .top-content .button-group {
+    position: absolute;
+    top: 0px;
+    line-height: 32px;
+    font-size: 20px;
+    margin: 12px;
+}
+
+.screen .top-content .button-group .button {
+	margin: 0;
+	position: relative;
+	height: 32px;
+}
+
+
+.screen .top-content .button-group .button.active {
+    background: #5c5c5c;
+    border-color: #5c5c5c;
+    color: white;
+}
+
+.screen .top-content .button-group.order-type-selector {
+	right: 20px;
+}
+
+.pos .actionpad .button.save-draft + .button.pay {
+    height: 108px !important;
+}
+
+.pos .actionpad .button.save-draft .fa {
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    margin-right: 8px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    line-height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_pos_pos_form" model="ir.ui.view">
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="downpayments" string="Downpayment Orders" attrs="{'invisible': [('downpayment_order_ids', '=', False)]}">
+                    <field name="downpayment_order_ids"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

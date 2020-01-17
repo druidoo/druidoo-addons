@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="DraftOrderScreenWidget">
+        <t t-jquery=".left-content.pc40" t-operation="append">
+            <div class="paymentmethods-container">
+                <div class="paymentmethods">
+                    <div class="button paymentmethod js_advance_payment">
+                        <i class="fa fa-money"/> Create Advance Payment
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+</templates>

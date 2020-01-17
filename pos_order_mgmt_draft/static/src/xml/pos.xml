@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="OrderListScreenWidget">
+        <t t-jquery=".top-content" t-operation="append">
+            <span class="button-group order-type-selector">
+                <span class="button active" data-filter="done">Orders</span>
+                <span class="button" data-filter="draft">Quotations</span>
+            </span>
+        </t>
+    </t>
+
+    <t t-extend="OrderLine">
+        <t t-jquery="span.button.order-list-return" t-operation="replace">
+            <span t-if="widget.pos.config.iface_return_done_order and order.amount_total >= 0 and order.state != 'draft'" class="button order-list-return" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
+                <i class='fa fa-fw fa-undo'/>
+            </span>
+        </t>
+        <t t-jquery="td[name='td_ol_reprint']" t-operation="append">
+            <span t-if="order.state == 'draft'" class="button order-list-open" t-att-data-order-id="order.id" t-att-data-Uid='order.uid'>
+                <i class='fa fa-fw fa-external-link'/>
+            </span>
+        </t>
+    </t>
+
+    <t t-extend="ActionpadWidget">
+        <t t-jquery="button.button.pay" t-operation="before">
+            <button t-if="widget.pos.config.iface_draft_order" class='button save-draft'>
+                <i class='fa fa-save' role="img" aria-label="Save" title="Save"/>
+                Save
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="PosTicket">
+        <t t-jquery="t[t-if='pos.reloaded_order'] div" t-operation="before">
+            <t t-if="order.state == 'draft'">
+                <div style='text-align:center'>QUOTATION</div>
+            </t>
+        </t>
+        <t t-jquery="table.receipt-change" t-operation="replace">
+            <table t-if="order.get_change()" class='receipt-change'>
+                <tr><td>Change:</td><td class="pos-right-align">
+                    <t t-esc="widget.format_currency(order.get_change())"/>
+                </td></tr>
+            </table>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery=".orderlines" t-operation="before">
+            <t t-if="order.state == 'draft'">
+                <div>QUOTATION</div>
+                <br/>
+            </t>
+        </t>        
+    </t>
+
+    <t t-name="DraftOrderScreenWidget">
+        <div class='payment-screen screen'>
+            <div class='screen-content'>
+                <div class='top-content'>
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Back
+                    </span>
+                    <h1>Draft Order</h1>
+                    <span class='button next highlight'>
+                        Save &amp; continue
+                        <i class='fa fa-angle-double-right'></i>
+                    </span>
+                </div>
+
+                <div class='left-content pc40 touch-scrollable scrollable-y'>
+                </div>
+
+                <div class='right-content pc60 touch-scrollable scrollable-y'>
+
+                    <div class='payment-buttons'>
+                        <div class='button js_set_customer'>
+                            <i class='fa fa-user' role="img" aria-label="Customer" title="Customer"/>
+                            <span class='js_customer_name'>
+                                <t t-if="widget.pos.get_client()">
+                                    <t t-esc="widget.pos.get_client().name" />
+                                </t>
+                                <t t-if="!widget.pos.get_client()">
+                                    Customer
+                                </t>
+                            </span>
+                        </div>
+                        <div t-attf-class="button js_print{{widget.pos.get_order().to_print ? ' highlight' : ''}}">
+                            <i class="fa fa-print"/> Print Quotation
+                        </div>
+                        <div class="button js_send_mail disabled{{widget.pos.get_order().to_send_mail ? ' highlight' : ''}}">
+                            <i class="fa fa-envelope-o"/> Send by Email
+                        </div>
+                    </div>
+
+                    <div class='payment-buttons' style='padding: 16px;'>
+                        <div class="button js_cancel altlight">
+                            <i class="fa fa-trash"/> Remove Quotation
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

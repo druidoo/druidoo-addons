@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="OrderWidget">
+        <t t-jquery=".order .summary" t-operation="after">
+            <div class="orderNote">
+                <p t-if="order.get_note()" t-esc="order.get_note()"/>
+                <p t-else=""><i class="fa fa-pencil"/>Add comments..</p>
+            </div>
+        </t>
+    </t>
+
+</templates>
