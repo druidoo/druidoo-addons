@@ -94,7 +94,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:116
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:105
 #, python-format
 msgid "Are you sure you want to cancel the order?"
 msgstr ""
@@ -108,16 +108,16 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:135
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:221
-#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:58
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:124
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:210
+#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:57
 #, python-format
 msgid "Can not execute this action because the POS is currently offline"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:115
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:104
 #, python-format
 msgid "Cancel the order"
 msgstr ""
@@ -131,9 +131,9 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:134
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:220
-#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:57
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:123
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:209
+#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:56
 #, python-format
 msgid "Connection error"
 msgstr ""
@@ -166,20 +166,15 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:181
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:170
 #, python-format
 msgid "Empty Order"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
-#: code:addons/pos_order_mgmt_draft/models/pos_order.py:153
+#: code:addons/pos_order_mgmt_draft/models/pos_order.py:183
 #, python-format
 msgid "No cash statement found for this session. Unable to record returned cash."
-msgstr ""
-
-#. module: pos_order_mgmt_draft
-#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
-msgid "Order #"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
@@ -196,7 +191,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:188
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:177
 #, python-format
 msgid "Please select the Customer"
 msgstr ""
@@ -233,7 +228,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
-msgid "Quotation #"
+msgid "Quotation"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
@@ -272,13 +267,23 @@ msgid "Send by Email"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
+#: model:ir.model.fields,field_description:pos_order_mgmt_draft.field_pos_order__session_id
+msgid "Session"
+msgstr ""
+
+#. module: pos_order_mgmt_draft
+#: sql_constraint:pos.order:0
+msgid "Session is required for non-draft orders."
+msgstr ""
+
+#. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
 msgid "Taxes"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:182
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:171
 #, python-format
 msgid "There must be at least one product in your order before it can be saved"
 msgstr ""
@@ -295,13 +300,13 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:189
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:178
 #, python-format
 msgid "You need to select the customer before you can save a quotation."
 msgstr ""
 
 #. module: pos_order_mgmt_draft
-#: code:addons/pos_order_mgmt_draft/models/pos_order.py:158
+#: code:addons/pos_order_mgmt_draft/models/pos_order.py:190
 #, python-format
 msgid "return"
 msgstr ""
