@@ -15,6 +15,7 @@
         'report/pos_voucher_report.xml',
         'report/report.xml',
         'views/pos_voucher_views.xml',
+        'views/res_partner_views.xml',
         'data/data.xml',
         'views/templates.xml',
     ],

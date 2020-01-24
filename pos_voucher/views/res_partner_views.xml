@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="partner_view_buttons">
+        <field name="name">partner pending voucher</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority" eval="11"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button type="object" class="oe_stat_button" icon="fa-gift" name="action_view_vouchers"
+                        context="{'default_partner_id': active_id}">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="voucher_count" widget="statinfo" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Pending Vouchers</span>
+                    </div>
+                </button>
+            </button>
+        </field>
+    </record>
+
+</odoo>

@@ -89,6 +89,7 @@
         <field name="code"/>
         <field name="start_date"/>
         <field name="end_date"/>
+        <field name="partner_id"/>
         <field name="type_id"/>
         <field name="total_amount" options="{'currency_field': 'currency_id'}"/>
         <field name="pending_amount" options="{'currency_field': 'currency_id'}"/>
@@ -107,13 +108,18 @@
       <search string="POS Voucher">
         <field name="code"/>
         <field name="type_id"/>
+        <field name="partner_id"/>
         <filter name="filter_validated" string="Validated"
                 domain="[('state', '=', 'validated')]"/>
+        <filter name="filter_partially_consumed" string="Partially Consumed"
+                domain="[('state', '=', 'partially_consumed')]"/>
         <filter name="filter_expired" string="Expired"
                 domain="[('state', '=', 'expired')]"/>
         <group string="Group By" name="group_by">
           <filter name="grp_state" string="Status"
                   context="{'group_by':'state'}"/>
+          <filter name="grp_partner" string="Customer"
+                  context="{'group_by':'partner_id'}"/>
           <filter name="grp_type" string="Type"
                   context="{'group_by':'type_id'}"/>
           <filter name="grp_start_date" string="Start Date"
