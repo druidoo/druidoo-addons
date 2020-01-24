@@ -26,6 +26,11 @@ msgid "<br/><br/>\n"
 msgstr ""
 
 #. module: pos_voucher
+#: model_terms:ir.ui.view,arch_db:pos_voucher.partner_view_buttons
+msgid "<span class=\"o_stat_text\">Pending Vouchers</span>"
+msgstr ""
+
+#. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__currency_id
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__currency_id
 msgid "Account Currency"
@@ -142,6 +147,11 @@ msgid "Consumed on"
 msgstr ""
 
 #. module: pos_voucher
+#: model:ir.model,name:pos_voucher.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__create_uid
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__create_uid
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__create_uid
@@ -162,6 +172,7 @@ msgstr ""
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__partner_id
+#: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "Customer"
 msgstr ""
 
@@ -349,6 +360,7 @@ msgid "POS Vouchers"
 msgstr ""
 
 #. module: pos_voucher
+#: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 #: selection:pos.voucher,state:0
 msgid "Partially Consumed"
 msgstr ""
@@ -503,6 +515,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__pos_voucher_id
 #, python-format
 msgid "Voucher"
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model.fields,field_description:pos_voucher.field_res_partner__voucher_count
+#: model:ir.model.fields,field_description:pos_voucher.field_res_users__voucher_count
+msgid "Voucher Count"
 msgstr ""
 
 #. module: pos_voucher
