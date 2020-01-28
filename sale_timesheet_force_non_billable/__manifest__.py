@@ -13,6 +13,7 @@
     ],
     "data": [
         'views/account_analytic_line_views.xml',
+        'views/task_timesheet_portal_templates.xml',
     ],
     "installable": True,
 }
