@@ -54,11 +54,9 @@ class WebsiteSale(WebsiteSale):
         else:
             attributes_ids_all = res.qcontext['attributes']
 
-        # Compute attribute count
-        # TODO: Disable if not needed
         domain = self._get_search_domain(search, category, attrib_values)
-        domain = [('id', 'in', Product.search(domain).ids)]
 
+        # Compute attribute count
         for i in range(len(attributes_ids_all)):
             if attributes_ids_all[i].category_id and \
                     attributes_ids_all[i].value_ids and \
@@ -67,11 +65,32 @@ class WebsiteSale(WebsiteSale):
                     attrib_category_ids:
                 attrib_category_ids.append(
                     attributes_ids_all[i].category_id.id)
-            for v in attributes_ids_all[i].value_ids:
-                actual_domain = domain + \
-                    [('attribute_line_ids.value_ids', 'in', [v.id])]
-                variant_count.update(
-                    {v.id: Product.search_count(actual_domain)})
+
+        value_ids = request.env['product.attribute.value'].search(
+            [('attribute_id', 'in', attributes_ids_all.mapped('id'))])
+        if value_ids:
+            attributes_ids = value_ids.mapped('id')
+            request.env.cr.execute("""
+                SELECT
+                    pavpp.product_attribute_value_id,
+                    count(distinct pt.id) AS pr_count
+                FROM product_product pp
+                INNER JOIN product_attribute_value_product_product_rel pavpp
+                ON pavpp.product_product_id = pp.id
+                INNER JOIN product_template pt
+                ON pt.id = pp.product_tmpl_id
+                WHERE
+                        pt.sale_ok IS TRUE
+                    AND pt.is_published IS TRUE
+                    AND pp.active IS TRUE
+                    AND pavpp.product_attribute_value_id in %s
+                    AND pt.id in %s
+                GROUP BY pavpp.product_attribute_value_id
+            """, [
+                tuple(attributes_ids),
+                tuple(Product.search(domain).ids),
+            ])
+            variant_count = dict(request.env.cr.fetchall())
 
         res.qcontext['attrib_category'] = request.env[
             'product.attribute.category'].browse(set(attrib_category_ids))
