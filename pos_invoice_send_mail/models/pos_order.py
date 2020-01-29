@@ -9,7 +9,7 @@ class PosOrder(models.Model):
 
     @api.model
     def create_from_ui(self, orders):
-        """ Inherit method to handle continuing workflow of draft orders """
+        """ Inherit method to send by email """
         order_ids = super().create_from_ui(orders)
         refs_to_send_mail = [
             o['data']['name'] for o in orders
