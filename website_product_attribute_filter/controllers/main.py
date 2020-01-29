@@ -68,8 +68,8 @@ class WebsiteSale(WebsiteSale):
 
         value_ids = request.env['product.attribute.value'].search(
             [('attribute_id', 'in', attributes_ids_all.mapped('id'))])
-        if value_ids:
-            attributes_ids = value_ids.mapped('id')
+        products = Product.search(domain)
+        if value_ids and products:
             request.env.cr.execute("""
                 SELECT
                     pavpp.product_attribute_value_id,
@@ -87,8 +87,8 @@ class WebsiteSale(WebsiteSale):
                     AND pt.id in %s
                 GROUP BY pavpp.product_attribute_value_id
             """, [
-                tuple(attributes_ids),
-                tuple(Product.search(domain).ids),
+                tuple(value_ids.ids),
+                tuple(products.ids),
             ])
             variant_count = dict(request.env.cr.fetchall())
 
