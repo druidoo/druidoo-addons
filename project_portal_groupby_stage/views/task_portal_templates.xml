@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_task_group_by_stage" inherit_id="project.portal_my_tasks"
+              name="My Tasks for stage group by">
+        <xpath expr="//t[@t-foreach='grouped_tasks']/thead/tr/th[@t-else='']"
+               position="replace">
+            <t t-if="groupby == 'project'">
+                <th>
+                    <em class="font-weight-normal text-muted">
+                        <span t-field="tasks[0].sudo().project_id.label_tasks"/>
+                        for project:
+                    </em>
+                    <span t-field="tasks[0].sudo().project_id.name"/>
+                </th>
+            </t>
+            <t t-if="groupby == 'stage'">
+                <th>
+                    <em class="font-weight-normal text-muted">
+                        <span t-field="tasks[0].sudo().project_id.label_tasks"/>
+                        for stage:
+                    </em>
+                    <span t-field="tasks[0].sudo().stage_id.name"/>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='grouped_tasks']/thead/tr/th[2]"
+               position="replace">
+            <th class="text-center">
+                <t t-if="groupby in ('project','none')">Stage</t>
+                <t t-if="groupby == 'stage'">Project</t>
+            </th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='grouped_tasks']/tbody/t/tr/td[2]"
+               position="replace">
+            <td class="text-center">
+                <t t-if="groupby in ('project','none')">
+                    <span class="badge badge-pill badge-info" title="Current stage of the task"
+                          t-esc="task.stage_id.name"/>
+                </t>
+                <t t-if="groupby == 'stage'">
+                    <span class="badge badge-pill badge-info" title="Project"
+                          t-esc="task.project_id.name"/>
+                </t>
+            </td>
+        </xpath>
+    </template>
+
+</odoo>
