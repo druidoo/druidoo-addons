@@ -11,6 +11,9 @@ class PosVoucherType(models.Model):
     journal_id = fields.Many2one('account.journal', 'Journal', required=True,
                                  domain="[('is_voucher', '=', True)]")
     sequence_id = fields.Many2one('ir.sequence', required=True)
+    product_id = fields.Many2one('product.product', 'Product',
+                                 domain="[('available_in_pos', '=', True),\
+                                 ('type', '=', 'service')]")
 
 
 class POSVoucher(models.Model):
@@ -123,6 +126,33 @@ class POSVoucher(models.Model):
             else:
                 return -1, 'Voucher is %s!' % str(voucher.state).title()
 
+    @api.model
+    def get_pos_voucher_print(self, pos_ref=''):
+        ret_list = []
+        if pos_ref:
+            pos_order = self.env['pos.order'].search([('pos_reference',
+                                                       '=', pos_ref)])
+            if pos_order:
+                pos_voucher_ids = pos_order.mapped('lines.pos_voucher_id')
+                for pos_voucher in pos_voucher_ids:
+                    pos_vals = {
+                        'code': pos_voucher.code,
+                        'pending_amount': pos_voucher.pending_amount,
+                        'end_date': pos_voucher.end_date,
+                    }
+                    if pos_voucher.company_id:
+                        pos_vals.update({
+                            'company_name': pos_voucher.company_id.name,
+                            'company_phone':
+                            pos_voucher.company_id.phone or '',
+                            'company_email':
+                            pos_voucher.company_id.email or '',
+                            'company_website':
+                            pos_voucher.company_id.website or '',
+                        })
+                    ret_list.append(pos_vals)
+        return ret_list
+
 
 class POSVoucherHistory(models.Model):
     _name = 'pos.voucher.history'
@@ -167,8 +197,25 @@ class PosOrder(models.Model):
                         })
                         order_data['voucher_history_id'] = history.id
                         break
-
-        return super().create_from_ui(orders)
+        order_ids = super().create_from_ui(orders)
+        for order in self.browse(order_ids):
+            if order.partner_id:
+                for line in order.lines:
+                    if line.voucher_type_id:
+                        code = line.voucher_type_id.sequence_id.next_by_code(
+                            line.voucher_type_id.sequence_id.code)
+                        pos_voucher_vals = {
+                            'code': code,
+                            'start_date': order.date_order,
+                            'partner_id': order.partner_id.id,
+                            'type_id': line.voucher_type_id.id,
+                            'total_amount': line.price_subtotal_incl,
+                            'company_id': line.company_id.id,
+                        }
+                        pos_voucher_id = pos_voucher_obj.create(
+                            pos_voucher_vals)
+                        line.pos_voucher_id = pos_voucher_id.id
+        return order_ids
 
 
 class AccountJournal(models.Model):
@@ -185,3 +232,10 @@ class AccountBankStatement(models.Model):
     _inherit = 'account.bank.statement'
 
     is_voucher = fields.Boolean(related='journal_id.is_voucher', store=True)
+
+
+class PosOrderLine(models.Model):
+    _inherit = 'pos.order.line'
+
+    voucher_type_id = fields.Many2one('pos.voucher.type', 'Voucher Type')
+    pos_voucher_id = fields.Many2one('pos.voucher', 'POS Voucher')

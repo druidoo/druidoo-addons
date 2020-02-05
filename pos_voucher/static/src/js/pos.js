@@ -8,6 +8,8 @@ var models = require('point_of_sale.models');
 var PopupWidget = require('point_of_sale.popups');
 var rpc = require('web.rpc');
 var _t = core._t;
+var QWeb = core.qweb;
+
 models.load_fields("account.bank.statement", ['is_voucher']);
 
     models.load_models({
@@ -33,7 +35,7 @@ models.load_fields("account.bank.statement", ['is_voucher']);
 
     models.load_models({
         model: 'pos.voucher.type',
-        fields: ['name', 'journal_id'],
+        fields: ['name', 'journal_id','product_id'],
         domain: [],
         context: {'pos': true},
         loaded: function (self, vouchers_type) {
@@ -232,6 +234,85 @@ models.load_fields("account.bank.statement", ['is_voucher']);
                 payment_line.destroy();
             }
             return this._super();
+        },
+    });
+
+    var _super_orderline = models.Orderline.prototype;
+    models.Orderline = models.Orderline.extend({
+        initialize: function() {
+            var res = _super_orderline.initialize.apply(this,arguments);
+            this.voucher_type_id = false;
+            return res;
+        },
+        export_as_JSON: function(){
+            var json = _super_orderline.export_as_JSON.apply(this,arguments);
+            if (this.voucher_type_id){
+                json.voucher_type_id = this.voucher_type_id;
+            }
+            return json;
+        },
+        init_from_JSON: function(json){
+            var res = _super_orderline.init_from_JSON.apply(this,arguments);
+            if (json.voucher_type_id){
+                this.voucher_type_id = json.voucher_type_id;
+            }
+            return res;
+        },
+    });
+
+    screens.ReceiptScreenWidget.include({
+        renderElement: function() {
+            this._super();
+            var self = this;
+            this.$('.print_voucher').click(function(){
+                self.print_voucher_xml();
+            });
+        },
+        print_voucher_xml: function() {
+            var self = this;
+            var order = this.pos.get_order();
+            var def  = new $.Deferred();
+            rpc.query({
+                    model: 'pos.voucher',
+                    method: 'get_pos_voucher_print',
+                    args: [order.name],
+                }, {
+                    timeout: 3000,
+                    shadow: true,
+                })
+                .then(function(pos_voucher){
+                    self.$('.pos-receipt-container').html(QWeb.render('PosTicketVoucher', {pos_voucher: pos_voucher}));
+                    self.lock_screen(true);
+                    setTimeout(function(){
+                        self.lock_screen(false);
+                    }, 1000);
+                    self.print_web();
+                    //window.print();
+                }, function(type,err){ def.reject(); });
+            return def;
+        },
+        render_change: function() {
+            this._super();
+            var self = this;
+            var order = this.pos.get_order();
+            if (!order) {
+                return;
+            }
+            var orderlines = order.get_orderlines();
+            var is_voucher_line = 0;
+            for(var i = 0, len = orderlines.length; i < len; i++){
+                var orderline = orderlines[i];
+                if (orderline && orderline.voucher_type_id){
+                    is_voucher_line = 1;
+                    break;
+                }
+            }
+            var button_print_voucher = this.$('.button.print_voucher');
+            if (is_voucher_line == 1) {
+                button_print_voucher.show();
+            } else {
+                button_print_voucher.hide();
+            }
         },
     });
 });

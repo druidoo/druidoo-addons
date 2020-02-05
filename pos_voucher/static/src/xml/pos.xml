@@ -95,4 +95,77 @@
         </tr>
     </t>
 
+    <t t-name="VoucherGenerateButton">
+        <div class='control-button js_voucher_generate'>
+            <i class='fa fa-tag' />Generate Voucher
+        </div>
+    </t>
+
+    <t t-name="popup_voucher_generate">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-text">
+                <header class="title"><t t-esc=" widget.options.title || '' " /></header>
+                <main class='packlot-lines'>
+                    <div class="row">
+                        <span class='label'>Voucher Type</span>
+                        <select class='detail needsclick' name='voucher_type_selection' id='voucher_type_selection'>
+                            <t t-foreach="widget.options.list || []" t-as="item">
+                                <option t-att-value='item.id'>
+                                    <t t-esc='item.name' />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <span class='label'>Amount</span>
+                        <input type="text" class="input_form" name="voucher_amount" id="voucher_amount"
+                               style="font-size:12px;height:15px;width:125px;border:1px #c57272 !important;" />
+                    </div>
+                </main>
+                <footer class="footer">
+                    <div class="button confirm">
+                        Ok
+                    </div>
+                    <div class="button cancel">
+                        Cancel
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="ReceiptScreenWidget">
+        <t t-jquery=".button.print" t-operation="after">
+            <div class='button print_voucher'>
+                <i class='fa fa-print'></i> Print Voucher
+            </div>
+        </t>
+    </t>
+
+    <t t-name="PosTicketVoucher">
+        <div class="pos-sale-ticket" style="display:block;">
+            <t t-set="count" t-value="" />
+            <t t-foreach="pos_voucher" t-as="o">
+                <div style="width: 100%;height: 100%;page-break-before: always;top: 100%;">
+                    <div style="text-align:center">
+                        <h2 t-esc="o.code"/>
+                        <span t-esc="o.company_name"/><br/>
+                        Tel:<span t-esc="o.company_phone"/><br/>
+                        <span t-esc="o.company_email"/><br/>
+                        <span t-esc="o.company_website"/><br/><br/>
+                        <span>Please Keep Your Voucher Code Safe</span><br/>
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', o.code, 600, 100)"
+                                  style="width:300px;height:50px"/>
+                        Voucher Value: <span t-esc="o.pending_amount"/><br/>
+                        <t t-if="o.end_date">
+                            <span>Expiry Date: </span>
+                            <span t-esc="o.end_date"/><br/><br/>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
 </templates>
