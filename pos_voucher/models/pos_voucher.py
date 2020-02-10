@@ -158,10 +158,10 @@ class POSVoucher(models.Model):
     def generate_code_voucher_for_print(self, voucher_type_id=False):
         voucher_code = ''
         voucher_type_id_brw = self.env['pos.voucher.type'].browse(
-                                voucher_type_id)
+            voucher_type_id)
         if voucher_type_id_brw:
             voucher_code = voucher_type_id_brw.sequence_id.next_by_code(
-                            voucher_type_id_brw.sequence_id.code)
+                voucher_type_id_brw.sequence_id.code)
         return voucher_code
 
 
@@ -215,8 +215,9 @@ class PosOrder(models.Model):
                     if line.voucher_type_id:
                         code = line.pos_voucher_code
                         if not code:
-                            code = line.voucher_type_id.sequence_id.next_by_code(
-                                line.voucher_type_id.sequence_id.code)
+                            code = line.voucher_type_id.sequence_id\
+                                .next_by_code(line.voucher_type_id
+                                              .sequence_id.code)
                         pos_voucher_vals = {
                             'code': code,
                             'start_date': order.date_order,
@@ -253,5 +254,5 @@ class PosOrderLine(models.Model):
     voucher_type_id = fields.Many2one('pos.voucher.type', 'Voucher Type')
     pos_voucher_id = fields.Many2one('pos.voucher', 'POS Voucher')
     pos_voucher_code = fields.Char('POS voucher code', default='/', copy=False,
-                                   help='this is for update from pos screen to \
-                                   display in pos voucher ticket')
+                                   help='this is for update from pos screen \
+                                   to display in pos voucher ticket')
