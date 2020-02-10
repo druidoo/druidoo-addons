@@ -17,7 +17,7 @@ var VoucherGenerateButton = screens.ActionButtonWidget.extend({
                         body: _t('Please select customer!'),
             });
         }
-        this.gui.show_popup('popup_voucher_generate',{
+        this.gui.show_popup('popupVoucherGenerate',{
             'title': _t('Generate Voucher'),
             'list': voucher_type_lines,
         });

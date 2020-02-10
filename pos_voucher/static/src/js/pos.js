@@ -56,6 +56,24 @@ models.load_fields("account.bank.statement", ['is_voucher']);
             }
             return json;
         },
+        is_voucher_order: function(){
+            var is_voucher = 0;
+            var self = this;
+            var order = this.pos.get_order();
+            if (!order) {
+                return is_voucher;
+            }
+            var orderlines = order.get_orderlines();
+            var is_voucher_line = 0;
+            for(var i = 0, len = orderlines.length; i < len; i++){
+                var orderline = orderlines[i];
+                if (orderline && orderline.voucher_type_id){
+                    is_voucher = 1;
+                    break;
+                }
+            }
+            return is_voucher;
+        },
     });
 
     var alert_input = PopupWidget.extend({
@@ -221,7 +239,33 @@ models.load_fields("account.bank.statement", ['is_voucher']);
                     }
                 }
             }
-            this._super(force_validation);
+            if (current_order.is_voucher_order() == 1) {
+                this.update_voucher_code();
+                setTimeout(function(){
+                    if (this.order_is_valid(force_validation)) {
+                        this.finalize_validation();
+                    }
+                }.bind(this),2000);
+            } else {
+                this._super(force_validation);
+            }
+        },
+        update_voucher_code: function() {
+            var self = this;
+            var order = self.pos.get_order();
+            _.each(order.orderlines.models, function (line) {
+                if (line && line.voucher_type_id && line.pos_voucher_code == ''){
+                    var records = self._rpc({
+                            model: 'pos.voucher',
+                            method: 'generate_code_voucher_for_print',
+                            args: [line.voucher_type_id],
+                        });
+                    records.then(function (pos_voucher_code) {
+                        line['pos_voucher_code']=pos_voucher_code;
+                    });
+                }
+            });
+            order.trigger('change');
         },
     });
 
@@ -242,12 +286,16 @@ models.load_fields("account.bank.statement", ['is_voucher']);
         initialize: function() {
             var res = _super_orderline.initialize.apply(this,arguments);
             this.voucher_type_id = false;
+            this.pos_voucher_code = '';
             return res;
         },
         export_as_JSON: function(){
             var json = _super_orderline.export_as_JSON.apply(this,arguments);
             if (this.voucher_type_id){
                 json.voucher_type_id = this.voucher_type_id;
+            }
+            if (this.pos_voucher_code){
+                json.pos_voucher_code = this.pos_voucher_code;
             }
             return json;
         },
@@ -256,7 +304,17 @@ models.load_fields("account.bank.statement", ['is_voucher']);
             if (json.voucher_type_id){
                 this.voucher_type_id = json.voucher_type_id;
             }
+            if (json.pos_voucher_code){
+                this.pos_voucher_code = json.pos_voucher_code;
+            }
             return res;
+        },
+        set_pos_voucher_code: function(pos_voucher_code){
+            this.pos_voucher_code = pos_voucher_code;
+            this.trigger('change',this);
+        },
+        get_pos_voucher_code: function(){
+            return this.pos_voucher_code;
         },
     });
 
@@ -267,6 +325,53 @@ models.load_fields("account.bank.statement", ['is_voucher']);
             this.$('.print_voucher').click(function(){
                 self.print_voucher_xml();
             });
+        },
+        get_voucher_receipt_render_env: function() {
+            var self = this;
+            var order = this.pos.get_order();
+            var company = this.pos.company;
+            var pos_voucher_data  = [];
+            var orderlines = order.get_orderlines();
+            for(var i = 0, len = orderlines.length; i < len; i++){
+                var orderline = orderlines[i];
+                if (orderline && orderline.voucher_type_id){
+                    var line_dict = {
+                        'code': orderline.pos_voucher_code,
+                        'company_name': company.name,
+                        'company_phone': company.phone,
+                        'company_email': company.email,
+                        'company_website': company.website,
+                        'pending_amount': orderline.price,
+                    }
+                    pos_voucher_data.push(line_dict);
+                }
+            }
+            return {
+                widget: this,
+                pos_voucher: pos_voucher_data,
+            }
+        },
+        print_xml: function() {
+            var order = this.pos.get_order();
+            if (order.is_voucher_order() == 1) {
+                var receipt = QWeb.render('XmlReceiptvoucher', this.get_voucher_receipt_render_env());
+            } else {
+                var receipt = QWeb.render('XmlReceipt', this.get_receipt_render_env());
+            }
+            this.pos.proxy.print_receipt(receipt);
+            this.pos.get_order()._printed = true;
+        },
+        render_receipt: function() {
+            var self = this;
+            var order = this.pos.get_order();
+            if (!order) {
+                return;
+            }
+            if (order.is_voucher_order() == 1) {
+                this.$('.pos-receipt-container').html(QWeb.render('PosTicketVoucher', this.get_voucher_receipt_render_env()));
+            } else {
+                this.$('.pos-receipt-container').html(QWeb.render('PosTicket', this.get_receipt_render_env()));
+            }
         },
         print_voucher_xml: function() {
             var self = this;
@@ -287,7 +392,6 @@ models.load_fields("account.bank.statement", ['is_voucher']);
                         self.lock_screen(false);
                     }, 1000);
                     self.print_web();
-                    //window.print();
                 }, function(type,err){ def.reject(); });
             return def;
         },
@@ -298,17 +402,8 @@ models.load_fields("account.bank.statement", ['is_voucher']);
             if (!order) {
                 return;
             }
-            var orderlines = order.get_orderlines();
-            var is_voucher_line = 0;
-            for(var i = 0, len = orderlines.length; i < len; i++){
-                var orderline = orderlines[i];
-                if (orderline && orderline.voucher_type_id){
-                    is_voucher_line = 1;
-                    break;
-                }
-            }
             var button_print_voucher = this.$('.button.print_voucher');
-            if (is_voucher_line == 1) {
+            if (order.is_voucher_order() == 1) {
                 button_print_voucher.show();
             } else {
                 button_print_voucher.hide();

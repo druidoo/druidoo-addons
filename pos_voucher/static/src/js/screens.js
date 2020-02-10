@@ -16,6 +16,7 @@ var _t = core._t;
 
 var round_pr = utils.round_precision;
 
+
 var voucherListScreenWidget = screens.ScreenWidget.extend({
     template: 'voucherListScreenWidget',
 
@@ -192,9 +193,8 @@ var voucherListScreenWidget = screens.ScreenWidget.extend({
 });
 gui.define_screen({name:'voucherlist', widget: voucherListScreenWidget});
 
-
-var popup_voucher_generate = PopupWidget.extend({
-        template: 'popup_voucher_generate',
+var popupVoucherGenerate = PopupWidget.extend({
+        template: 'popupVoucherGenerate',
         init: function (parent, options) {
             this._super(parent, options);
         },
@@ -224,7 +224,7 @@ var popup_voucher_generate = PopupWidget.extend({
                         if (product){
                             order.add_product(product, {
                                 price: voucher_amount,
-                                extras: { voucher_type_id: select_voucher.id },
+                                extras: { voucher_type_id: select_voucher.id},
                             });
                         }
                     }
@@ -233,13 +233,15 @@ var popup_voucher_generate = PopupWidget.extend({
         }
     });
     gui.define_popup({
-        name: 'popup_voucher_generate',
-        widget: popup_voucher_generate
+        name: 'popupVoucherGenerate',
+        widget: popupVoucherGenerate
     });
 
 
 return {
     voucherListScreenWidget: voucherListScreenWidget,
+    popupVoucherGenerate: popupVoucherGenerate,
 };
+
 
 });

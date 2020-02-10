@@ -101,7 +101,7 @@
         </div>
     </t>
 
-    <t t-name="popup_voucher_generate">
+    <t t-name="popupVoucherGenerate">
         <div role="dialog" class="modal-dialog">
             <div class="popup popup-text">
                 <header class="title"><t t-esc=" widget.options.title || '' " /></header>
@@ -158,14 +158,33 @@
                         <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', o.code, 600, 100)"
                                   style="width:300px;height:50px"/>
                         Voucher Value: <span t-esc="o.pending_amount"/><br/>
-                        <t t-if="o.end_date">
-                            <span>Expiry Date: </span>
-                            <span t-esc="o.end_date"/><br/><br/>
-                        </t>
                     </div>
                 </div>
             </t>
         </div>
+    </t>
+
+    <t t-name="XmlReceiptvoucher">
+        <receipt align='center' width='32' value-thousands-separator='' >
+            <div class='orderlines' line-ratio='0.6'>
+                <t t-foreach='pos_voucher' t-as='voucher'>
+                    <div style="width: 100%;height: 100%;page-break-before: always;top: 100%;">
+                        <div style="text-align:center">
+                            <h2 t-esc="voucher.code"/>
+                            <span t-esc="voucher.company_name"/><br/>
+                            Tel:<span t-esc="voucher.company_phone"/><br/>
+                            <span t-esc="voucher.company_email"/><br/>
+                            <span t-esc="voucher.company_website"/><br/><br/>
+                            <span>Please Keep Your Voucher Code Safe</span><br/>
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', voucher.code, 600, 100)"
+                                      style="width:300px;height:50px"/>
+                            Voucher Value: <span t-esc="voucher.pending_amount"/><br/>
+                        </div>
+                    </div>
+                    <cut/>
+                </t>
+            </div>
+        </receipt>
     </t>
 
 </templates>
