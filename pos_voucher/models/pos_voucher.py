@@ -229,6 +229,7 @@ class PosOrder(models.Model):
                         pos_voucher_id = pos_voucher_obj.create(
                             pos_voucher_vals)
                         line.pos_voucher_id = pos_voucher_id.id
+                        pos_voucher_id.action_validate()
         return order_ids
 
 
