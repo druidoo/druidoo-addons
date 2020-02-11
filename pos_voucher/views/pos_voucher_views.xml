@@ -24,15 +24,13 @@
         <sheet>
           <div class="oe_title">
               <h2>
-                  <field name="code"
-                         attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                  <field name="code" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
               </h2>
           </div>
           <group>
             <group>
               <field name="start_date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-              <field name="end_date"
-                     attrs="{'readonly':[('state', 'in', ('expired', 'consumed', 'cancelled'))]}"/>
+              <field name="end_date" attrs="{'readonly':[('state', 'in', ('expired', 'consumed', 'cancelled'))]}"/>
               <field name="type_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
               <field name="consume_date"/>
             </group>
@@ -148,7 +146,6 @@
             action="act_pos_voucher"/>
 
   <record id="pos_voucher_type_form" model="ir.ui.view">
-    <field name="name">Pos Voucher Type Form</field>
     <field name="model">pos.voucher.type</field>
     <field name="arch" type="xml">
       <form>
@@ -157,8 +154,8 @@
             <group>
               <field name="name"/>
               <field name="journal_id"/>
-              <field name="sequence_id"/>
-              <field name="product_id" context="{'default_available_in_pos':'true','default_type':'service'}"/>
+              <field name="sequence_id" context="{'default_name': name}"/>
+              <field name="product_id"/>
             </group>
           </group>
         </sheet>
@@ -185,10 +182,8 @@
       <search string="Pos Voucher Types">
         <field name="name"/>
         <group string="Group By" name="group_by">
-          <filter name="grp_journal" string="Journal" domain="[]"
-                  context="{'group_by':'journal_id'}"/>
-          <filter name="grp_sequence" string="Sequence" domain="[]"
-                  context="{'group_by':'sequence_id'}"/>
+          <filter name="grp_journal" string="Journal" domain="[]" context="{'group_by':'journal_id'}"/>
+          <filter name="grp_sequence" string="Sequence" domain="[]" context="{'group_by':'sequence_id'}"/>
         </group>
       </search>
     </field>
@@ -212,8 +207,7 @@
     <field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
     <field name="arch" type="xml">
       <field name="journal_user" position="after">
-        <field name="is_voucher"
-               attrs="{'invisible': ['|', ('journal_user', '=', False), ('type', '!=', 'cash')]}"/>
+        <field name="is_voucher" attrs="{'invisible': ['|', ('journal_user', '=', False), ('type', '!=', 'cash')]}"/>
       </field>
     </field>
   </record>
