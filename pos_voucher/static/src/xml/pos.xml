@@ -134,56 +134,101 @@
         </div>
     </t>
 
-    <t t-extend="ReceiptScreenWidget">
-        <t t-jquery=".button.print" t-operation="after">
-            <div class='button print_voucher'>
-                <i class='fa fa-print'></i> Print Voucher
-            </div>
-        </t>
-    </t>
-
     <t t-name="PosTicketVoucher">
-        <div class="pos-sale-ticket" style="display:block;">
-            <t t-set="count" t-value="" />
-            <t t-foreach="pos_voucher" t-as="o">
-                <div style="width: 100%;height: 100%;page-break-before: always;top: 100%;">
-                    <div style="text-align:center">
-                        <h2 t-esc="o.code"/>
-                        <span t-esc="o.company_name"/><br/>
-                        Tel:<span t-esc="o.company_phone"/><br/>
-                        <span t-esc="o.company_email"/><br/>
-                        <span t-esc="o.company_website"/><br/><br/>
-                        <span>Please Keep Your Voucher Code Safe</span><br/>
-                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', o.code, 600, 100)"
-                                  style="width:300px;height:50px"/>
-                        Voucher Value: <span t-esc="o.pending_amount"/><br/>
-                    </div>
+        <div style="page-break-before: always; padding-top: 15px;">
+            <hr/>
+            <div style="text-align: center;">
+                <!-- Receipt header -->
+                <br />
+                <t t-esc="widget.pos.company.name"/><br />
+                <div class="receipt-phone">
+                    Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
                 </div>
-            </t>
+                <div class="receipt-user">
+                    User: <t t-esc="widget.pos.get_cashier().name"/><br />
+                </div>
+                <br />
+                <t t-if="receipt.header">
+                    <div style='text-align:center'>
+                        <t t-esc="receipt.header" />
+                    </div>
+                    <br />
+                </t>
+                <!-- End of receipt header -->
+                <h2 style="font-size: 1.5em;"><span t-esc="widget.format_currency(o.pending_amount)"/></h2>
+                <img t-att-src="'/report/barcode/?type=Code128&amp;value=' + o.code + '&amp;width=600&amp;height=100&amp;humanreadable=0'" style="width:300px; height:50px"/>
+                <div><span t-esc="o.code"/><br/></div>
+                <div>Please Keep Your Voucher Code Safe</div>
+            </div>
         </div>
     </t>
 
-    <t t-name="XmlReceiptvoucher">
-        <receipt align='center' width='32' value-thousands-separator='' >
-            <div class='orderlines' line-ratio='0.6'>
-                <t t-foreach='pos_voucher' t-as='voucher'>
-                    <div style="width: 100%;height: 100%;page-break-before: always;top: 100%;">
-                        <div style="text-align:center">
-                            <h2 t-esc="voucher.code"/>
-                            <span t-esc="voucher.company_name"/><br/>
-                            Tel:<span t-esc="voucher.company_phone"/><br/>
-                            <span t-esc="voucher.company_email"/><br/>
-                            <span t-esc="voucher.company_website"/><br/><br/>
-                            <span>Please Keep Your Voucher Code Safe</span><br/>
-                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', voucher.code, 600, 100)"
-                                      style="width:300px;height:50px"/>
-                            Voucher Value: <span t-esc="voucher.pending_amount"/><br/>
-                        </div>
-                    </div>
-                    <cut/>
-                </t>
-            </div>
-        </receipt>
+    <t t-name="PosTicketVoucherXML">
+        <br/>
+        <div>--------------------------------</div>
+        <br/>
+        <br/>
+        <!-- Company Header -->
+        <t t-if='receipt.company.logo'>
+            <img t-att-src='receipt.company.logo' alt="Logo"/>
+            <br/>
+        </t>
+        <t t-if='!receipt.company.logo'>
+            <h1><t t-esc='receipt.company.name' /></h1>
+            <br/>
+        </t>
+        <div font='b'>
+            <t t-if='receipt.company.contact_address'>
+                <div><t t-esc='receipt.company.contact_address' /></div>
+            </t>
+            <t t-if='receipt.company.phone'>
+                <div>Tel:<t t-esc='receipt.company.phone' /></div>
+            </t>
+            <t t-if='receipt.company.vat'>
+                <div>VAT:<t t-esc='receipt.company.vat' /></div>
+            </t>
+            <t t-if='receipt.company.email'>
+                <div><t t-esc='receipt.company.email' /></div>
+            </t>
+            <t t-if='receipt.company.website'>
+                <div><t t-esc='receipt.company.website' /></div>
+            </t>
+            <t t-if='receipt.cashier'>
+                <div class='cashier'>
+                    <div>--------------------------------</div>
+                    <div>Served by <t t-esc='receipt.cashier' /></div>
+                </div>
+            </t>
+        </div>
+        <br /><br />
+        <!-- End of receipt header -->
+        <line class="total" size="double-height">
+            <left><pre><t t-esc="widget.format_currency(o.pending_amount)"/></pre></left>
+        </line>
+        <div>
+            <img t-att-src="'/report/barcode/?type=Code128&amp;value=' + o.code + '&amp;width=600&amp;height=100&amp;humanreadable=0'" style="width:300px; height:50px"/>
+            <div><span t-esc="o.code"/><br/></div>
+        </div>
+        <div font='b'>
+            <div>Please Keep Your Voucher Code Safe</div>
+        </div>
     </t>
+
+    <t t-extend="PosTicket">
+        <t t-jquery=".pos-sale-ticket" t-operation="append">
+            <t t-foreach="vouchers" t-as="o">
+                <t t-call="PosTicketVoucher"/>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery="receipt" t-operation="append">
+            <t t-foreach="vouchers" t-as="o">
+                <t t-call="PosTicketVoucherXML"/>
+            </t>
+        </t>
+    </t>
+
 
 </templates>

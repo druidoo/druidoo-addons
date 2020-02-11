@@ -49,28 +49,54 @@ class POSVoucher(models.Model):
     end_date = fields.Datetime()
     type_id = fields.Many2one('pos.voucher.type', 'Type', required=True)
     partner_id = fields.Many2one('res.partner', 'Customer', required=True)
-    consume_date = fields.Datetime('Consumed on',
-                                   compute='_compute_date_amount', store=True)
-    discount_type = fields.Selection([('fixed', 'Fixed')], default='fixed')
+    consume_date = fields.Datetime(
+        'Consumed on',
+        compute='_compute_date_amount',
+        store=True,
+    )
+    discount_type = fields.Selection([
+        ('fixed', 'Fixed')
+        ],
+        default='fixed',
+    )
     total_amount = fields.Monetary()
-    pending_amount = fields.Monetary(compute='_compute_date_amount',
-                                     store=True)
-    history_ids = fields.One2many('pos.voucher.history',
-                                  'pos_voucher_id',
-                                  'Voucher History')
-    state = fields.Selection([('draft', 'Draft'),
-                              ('validated', 'Validated'),
-                              ('partially_consumed', 'Partially Consumed'),
-                              ('consumed', 'Consumed'),
-                              ('expired', 'Expired'),
-                              ('cancelled', 'Cancelled')], default='draft',
-                             required=True, copy=False)
-    company_id = fields.Many2one('res.company', string='Company',
-                                 default=lambda self:
-                                 self.env.user.company_id.id)
-    currency_id = fields.Many2one('res.currency', string='Account Currency',
-                                  default=lambda self:
-                                  self.env.user.company_id.currency_id.id)
+    pending_amount = fields.Monetary(
+        compute='_compute_date_amount',
+        store=True,
+    )
+    history_ids = fields.One2many(
+        'pos.voucher.history',
+        'pos_voucher_id',
+        string='Voucher History',
+    )
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('validated', 'Validated'),
+        ('partially_consumed', 'Partially Consumed'),
+        ('consumed', 'Consumed'),
+        ('expired', 'Expired'),
+        ('cancelled', 'Cancelled'),
+        ],
+        default='draft',
+        required=True,
+        copy=False,
+    )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        default=lambda self: self.env.user.company_id.id,
+    )
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Account Currency',
+        default=lambda self: self.env.user.company_id.currency_id.id,
+    )
+    pos_order_line_id = fields.Many2one(
+        'pos.order.line',
+        string='POS Order Line',
+        help='If this voucher was created from POS, it stores the line '
+             'that created this voucher',
+    )
 
     _sql_constraints = [
         ('unique_code', 'unique (code)',
@@ -229,28 +255,29 @@ class PosOrder(models.Model):
                         })
                         order_data['voucher_history_id'] = history.id
                         break
+        # Generate vouchers
         order_ids = super().create_from_ui(orders)
         for order in self.browse(order_ids):
-            if order.partner_id:
-                for line in order.lines:
-                    if line.voucher_type_id:
-                        code = line.pos_voucher_code
-                        if not code:
-                            code = line.voucher_type_id.sequence_id\
-                                .next_by_code(line.voucher_type_id
-                                              .sequence_id.code)
-                        pos_voucher_vals = {
-                            'code': code,
-                            'start_date': order.date_order,
-                            'partner_id': order.partner_id.id,
-                            'type_id': line.voucher_type_id.id,
-                            'total_amount': line.price_subtotal_incl,
-                            'company_id': line.company_id.id,
-                        }
-                        pos_voucher_id = pos_voucher_obj.create(
-                            pos_voucher_vals)
-                        line.pos_voucher_id = pos_voucher_id.id
-                        pos_voucher_id.action_validate()
+            for line in order.lines.filtered('voucher_type_id'):
+                code = line.pos_voucher_code
+                if not code:
+                    raise ValidationError(_(
+                        'Trying to create a voucher but the code is missing'))
+                pos_voucher_vals = {
+                    'code': code,
+                    'start_date': order.date_order,
+                    'type_id': line.voucher_type_id.id,
+                    'total_amount': line.price_subtotal_incl,
+                    'company_id': line.company_id.id,
+                    'pos_order_line_id': line.id,
+                }
+                if order.partner_id:
+                    pos_voucher_vals.update({
+                        'partner_id': order.partner_id.id,
+                    })
+                pos_voucher_id = pos_voucher_obj.create(pos_voucher_vals)
+                line.pos_voucher_id = pos_voucher_id.id
+                pos_voucher_id.action_validate()
         return order_ids
 
 

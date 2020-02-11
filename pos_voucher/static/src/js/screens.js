@@ -1,20 +1,14 @@
 odoo.define('pos_voucher.screens', function (require) {
 "use strict";
 
-var PosBaseWidget = require('point_of_sale.BaseWidget');
+var popups = require('pos_voucher.popups');
+var screens = require('point_of_sale.screens');
 var gui = require('point_of_sale.gui');
 var models = require('point_of_sale.models');
-var core = require('web.core');
 var rpc = require('web.rpc');
-var utils = require('web.utils');
-var field_utils = require('web.field_utils');
-var BarcodeEvents = require('barcodes.BarcodeEvents').BarcodeEvents;
-var screens = require('point_of_sale.screens');
-var PopupWidget = require('point_of_sale.popups');
+var core = require('web.core');
 var QWeb = core.qweb;
 var _t = core._t;
-
-var round_pr = utils.round_precision;
 
 
 var voucherListScreenWidget = screens.ScreenWidget.extend({
@@ -75,7 +69,7 @@ var voucherListScreenWidget = screens.ScreenWidget.extend({
                 }
             }
             var amount = voucher.pending_amount;
-            
+
             var paymentlines = current_order.paymentlines;
             for (var i = 0; i < paymentlines.models.length; i++) {
                 var payment_line = paymentlines.models[i];
@@ -193,54 +187,277 @@ var voucherListScreenWidget = screens.ScreenWidget.extend({
 });
 gui.define_screen({name:'voucherlist', widget: voucherListScreenWidget});
 
-var popupVoucherGenerate = PopupWidget.extend({
-        template: 'popupVoucherGenerate',
-        init: function (parent, options) {
-            this._super(parent, options);
-        },
-        show: function (options) {
-            var self = this;
-            this._super(options);
-            this.$(".cancel").click(function (e) {
-                self.pos.gui.close_popup();
+screens.PaymentScreenWidget.include({
+    renderElement: function () {
+        var self = this;
+        this._super();
+        this.$('.customer_vouchers').click(function(){
+            self.pos.gui.show_screen('voucherlist');
+        });
+        this.$('.voucher_redeem').click(function () { // input manual voucher
+            self.hide();
+            return self.pos.gui.show_popup('alert_input', {
+                title: _t('Voucher'),
+                body: _t('Please input code of a voucher.'),
+                confirm: function (code) {
+                    self.show();
+                    self.renderElement();
+                    if (!code) {
+                        return false;
+                    } else {
+                        var current_order = self.pos.get('selectedOrder');
+                        var partner_id = false;
+                        if (current_order.get_client()){
+                            var partner_id = current_order.get_client().id;
+                            }
+                        return rpc.query({
+                            model: 'pos.voucher',
+                            method: 'get_voucher_by_code',
+                            args: [code, partner_id],
+                        }).then(function (voucher) {
+                            if (voucher[0] == -1) {
+                                return self.gui.show_popup('confirm', {
+                                    title: 'Warning',
+                                    body: voucher[1],
+                                });
+                            } else {
+                                voucher = voucher[1]
+                                current_order.voucher_id = voucher.id;
+                                var voucher_register = null;
+                                if (voucher.type_id)
+                                {
+                                    var voucher_type_search = self.pos.voucher_type_by_id[voucher.type_id[0]];
+                                    if(voucher_type_search)
+                                    {
+                                        voucher_register = _.find(self.pos.cashregisters, function (cashregister) {
+                                            return cashregister.journal['id'] == voucher_type_search['journal_id'][0];
+                                        });
+                                    }
+                                }
+                                if (!voucher_register){
+                                    return self.gui.show_popup('alert', {
+                                                title: _t('Configuration Warning'),
+                                                body: _t('Please configure '+ voucher_type_search['journal_id'][1] + ' as a payment method in your POS.'),
+                                            });
+
+                                }
+                                if (voucher['partner_id'] && voucher['partner_id'][0]) {
+                                    var client = self.pos.db.get_partner_by_id(voucher['partner_id'][0]);
+                                    if (client) {
+                                        current_order.set_client(client)
+                                    }
+                                }
+                                var amount = voucher.pending_amount;
+                                
+                                var paymentlines = current_order.paymentlines;
+                                for (var i = 0; i < paymentlines.models.length; i++) {
+                                    var payment_line = paymentlines.models[i];
+                                    if (payment_line.cashregister.journal['id'] == voucher_register['journal'].id) {
+                                        payment_line.destroy();
+                                    }
+                                }
+                                var voucher_paymentline = new models.Paymentline({}, {
+                                    order: current_order,
+                                    cashregister: voucher_register,
+                                    pos: self.pos
+                                });
+                                var due = current_order.get_due();
+                                if (amount >= due) {
+                                    voucher_paymentline.set_amount(due);
+                                } else {
+                                    voucher_paymentline.set_amount(amount);
+                                }
+                                voucher_paymentline['voucher_id'] = voucher['id'];
+                                voucher_paymentline['voucher_code'] = voucher['code'];
+                                current_order.paymentlines.add(voucher_paymentline);
+                                current_order.trigger('change', current_order);
+                                self.render_paymentlines();
+                                self.$('.paymentline.selected .edit').text(self.format_currency_no_symbol(amount));
+                            }
+                        }).fail(function (type, error) {
+                            return self.pos.query_backend_fail(type, error);
+                        });
+                    }
+                },
+                cancel: function () {
+                    self.show();
+                    self.renderElement();
+                }
             });
-            this.$('.input_form').focus();
-            this.list = options.list || [];
-        },
-        renderElement: function () {
-            var self = this;
-            this._super();
-            this.$('.cancel').click(function () {
-                self.gui.close_popup();
-            });
-            this.$('.confirm').click(function () {
-                var voucher_amount = $('#voucher_amount').val();
-                var voucher_type_selection = $('#voucher_type_selection').val();
-                var order    = self.pos.get_order();
-                if (voucher_amount > 0 && voucher_type_selection){
-                    var select_voucher = self.pos.voucher_type_by_id[voucher_type_selection];
-                    if (select_voucher){
-                        var product  = self.pos.db.get_product_by_id(select_voucher['product_id'][0]);
-                        if (product){
-                            order.add_product(product, {
-                                price: voucher_amount,
-                                extras: { voucher_type_id: select_voucher.id},
-                            });
+        });
+    },
+
+    /*
+        Hide voucher journals from available payment lines
+    */
+    render_paymentlines: function () {
+        this._super();
+        var voucher_journal = _.find(this.pos.cashregisters, function (cashregister) {
+            return cashregister.journal['pos_method_type'] == 'voucher';
+        });
+        if (voucher_journal) {
+            var voucher_journal_id = voucher_journal.journal.id;
+            var voucher_journal_content = $("[data-id='" + voucher_journal_id + "']");
+            voucher_journal_content.addClass('oe_hidden');
+        }
+    },
+
+    validate_order: function(force_validation) {
+        var current_order = this.pos.get_order();
+        if (current_order.is_paid() && current_order.voucher_id) {
+            var voucher = this.pos.voucher_by_id[current_order.voucher_id];
+            if (voucher)
+            {
+                if (current_order.get_client())
+                {
+                    var voucher_type_search = this.pos.voucher_type_by_id[voucher.type_id[0]];
+                    var voucher_amount = 0;
+                    var paymentlines = current_order.paymentlines;
+                    for (var i = 0; i < paymentlines.models.length; i++) {
+                        var payment_line = paymentlines.models[i];
+                        if (payment_line.cashregister.journal['id'] == voucher_type_search['journal_id'][0]) {
+                            if (payment_line.amount > this.pos.voucher_by_id[current_order.voucher_id].pending_amount)
+                            {
+                                return this.gui.show_popup('alert', {
+                                            title: _t('Configuration Warning'),
+                                            body: _t('The amount of ' + voucher_type_search['journal_id'][1] + ' must be less than a voucher amount!'),
+                                        });
+                            }
+                            voucher_amount = payment_line.amount
                         }
                     }
+                    this.pos.voucher_by_customer[current_order.get_client().id].pending_amount -= voucher_amount;
+                    this.pos.voucher_by_id[current_order.voucher_id].pending_amount -= voucher_amount;
+                    if (this.gui.screen_instances['voucherlist'])
+                    {
+                        this.gui.screen_instances['voucherlist'].voucher_cache.clear_node(voucher.id);
+                    }
                 }
-            })
+            }
         }
-    });
-    gui.define_popup({
-        name: 'popupVoucherGenerate',
-        widget: popupVoucherGenerate
-    });
+
+        // Get code for generated vouchers. This currently means nothing
+        // because it's just getting a sequence, but not really creating the voucher
+        // that will happen after.
+        if (current_order.is_voucher_order() == 1) {
+            this.update_voucher_code();
+            setTimeout(function(){
+                if (this.order_is_valid(force_validation)) {
+                    this.finalize_validation();
+                }
+            }.bind(this),2000);
+        } else {
+            this._super(force_validation);
+        }
+    },
+
+    /*
+        Updates order line information with voucher code
+    */
+    update_voucher_code: function() {
+        var self = this;
+        var order = self.pos.get_order();
+        _.each(order.orderlines.models, function (line) {
+            if (line && line.voucher_type_id && line.pos_voucher_code == ''){
+                var records = self._rpc({
+                        model: 'pos.voucher',
+                        method: 'generate_code_voucher_for_print',
+                        args: [line.voucher_type_id],
+                    });
+                records.then(function (pos_voucher_code) {
+                    line['pos_voucher_code'] = pos_voucher_code;
+                });
+            }
+        });
+        order.trigger('change');
+    },
+});
+
+screens.ClientListScreenWidget.include({
+
+    /*
+        When changing a customer, we want to destroy the voucher payment lines
+        because they could be linked to another customer.
+
+        Just in case we destroy all
+    */
+    has_client_changed: function(){
+        var current_order = this.pos.get('selectedOrder');
+        var paymentlines = current_order.paymentlines;
+        for (var i = 0; i < paymentlines.models.length; i++) {
+            var payment_line = paymentlines.models[i];
+            payment_line.destroy();
+        }
+        return this._super();
+    },
+});
+
+
+screens.ReceiptScreenWidget.include({
+
+    /*
+        Extend to add voucher data
+
+        Notes: This happens after update_voucher_code()
+        TODO: Try to fetch voucher real data instead of using order lines
+    */
+    get_receipt_render_env: function() {
+        var self = this;
+        var res = this._super.apply(this, arguments);
+
+        var order = this.pos.get_order();
+        var orderlines = order.get_orderlines();
+        var vouchers = [];
+
+        for (var i = 0, len = orderlines.length; i < len; i++) {
+            var orderline = orderlines[i];
+            if (orderline && orderline.voucher_type_id){
+                var line_dict = {
+                    'code': orderline.pos_voucher_code,
+                    'pending_amount': orderline.get_price_with_tax(),
+                }
+                vouchers.push(line_dict);
+            }
+        }
+
+        res['vouchers'] = vouchers;
+        return res;
+    },
+
+});
+
+
+var VoucherGenerateButton = screens.ActionButtonWidget.extend({
+    template: 'VoucherGenerateButton',
+    button_click: function(){
+        var self = this;
+        var voucher_type_lines = self.pos.vouchers_type;
+        var order = self.pos.get_order();
+        if (!order.get_client()) {
+            return self.gui.show_popup('alert', {
+                title: _t('Warning'),
+                body: _t('Please select customer!'),
+            });
+        }
+        this.gui.show_popup('popupVoucherGenerate',{
+            'title': _t('Generate Voucher'),
+            'list': voucher_type_lines,
+        });
+    },
+});
+
+screens.define_action_button({
+    'name': 'discount',
+    'widget': VoucherGenerateButton,
+    'condition': function(){
+        return true;
+    },
+});
 
 
 return {
     voucherListScreenWidget: voucherListScreenWidget,
-    popupVoucherGenerate: popupVoucherGenerate,
+    VoucherGenerateButton: VoucherGenerateButton,
 };
 
 
