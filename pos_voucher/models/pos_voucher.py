@@ -95,7 +95,12 @@ class POSVoucher(models.Model):
         'pos.order.line',
         string='POS Order Line',
         help='If this voucher was created from POS, it stores the line '
-             'that created this voucher',
+             'that created this voucher.',
+    )
+    pos_order_id = fields.Many2one(
+        related='pos_order_line_id.order_id',
+        help='If this voucher was created from POS, it stores the order '
+             'that created this voucher.',
     )
 
     _sql_constraints = [
@@ -148,6 +153,9 @@ class POSVoucher(models.Model):
 
     @api.multi
     def action_cancel(self):
+        if self.filtered('pos_order_line_id'):
+            raise ValidationError(_(
+                'You can\'t cancel a voucher generated from a POS Order'))
         self.write({'state': 'cancelled'})
         return True
 

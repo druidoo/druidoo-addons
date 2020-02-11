@@ -35,19 +35,13 @@
               <field name="consume_date"/>
             </group>
             <group>
-              <field name="partner_id"
-                     attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="partner_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
               <field name="discount_type" invisible="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-              <field name="total_amount" attrs="{'readonly':[('state', '!=', 'draft')]}"
-                     options="{'currency_field': 'currency_id'}"/>
+              <field name="total_amount" attrs="{'readonly':[('state', '!=', 'draft')]}" options="{'currency_field': 'currency_id'}"/>
               <field name="pending_amount" options="{'currency_field': 'currency_id'}"/>
-              <field name="company_id" groups="base.group_multi_company"
-                     options="{'no_open':1, 'no_create':1}" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-              <field name="currency_id"
-                     options="{'no_open':1, 'no_create':1}"
-                     attrs="{'readonly':[('state', '!=', 'draft')]}"
-                     groups="base.group_multi_currency"
-                     invisible="1"/>
+              <field name="company_id" groups="base.group_multi_company" options="{'no_open':1, 'no_create':1}" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+              <field name="currency_id" options="{'no_open':1, 'no_create':1}" attrs="{'readonly':[('state', '!=', 'draft')]}" groups="base.group_multi_currency" invisible="1"/>
+              <field name="pos_order_id" groups="base.group_no_one" attrs="{'invisible': [('pos_order_id', '=', False)]}"/>
             </group>
           </group>
           <notebook>
