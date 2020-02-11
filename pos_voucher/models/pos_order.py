@@ -55,5 +55,5 @@ class PosOrder(models.Model):
                         break
         # Generate vouchers
         order_ids = super().create_from_ui(orders)
-        order_ids._create_pos_vouchers()
+        self.browse(order_ids)._create_pos_vouchers()
         return order_ids
