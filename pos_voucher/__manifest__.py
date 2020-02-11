@@ -17,7 +17,7 @@
         'views/pos_voucher_views.xml',
         'views/res_partner_views.xml',
         'data/data.xml',
-        'views/templates.xml',
+        'views/assets.xml',
     ],
     'qweb': [
         'static/src/xml/pos.xml',
