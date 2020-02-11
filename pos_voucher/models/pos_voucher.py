@@ -1,41 +1,5 @@
-
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
-
-
-class PosVoucherType(models.Model):
-    _name = 'pos.voucher.type'
-    _description = 'POS Voucher Type'
-
-    name = fields.Char('Type', required=True)
-    journal_id = fields.Many2one(
-        'account.journal',
-        string='Journal',
-        required=True,
-        domain=[('is_voucher', '=', True)],
-        context={
-            'default_type': 'cash',
-            'default_is_voucher': True,
-            'default_journal_user': True,
-        },
-    )
-    sequence_id = fields.Many2one(
-        'ir.sequence',
-        string='Sequence',
-        required=True,
-    )
-    product_id = fields.Many2one(
-        'product.product',
-        string='Product',
-        domain=[
-            ('available_in_pos', '=', True),
-            ('type', '=', 'service')
-        ],
-        context={
-            'default_available_in_pos': True,
-            'default_type': 'service',
-        }
-    )
+from odoo.exceptions import ValidationError
 
 
 class POSVoucher(models.Model):
@@ -126,7 +90,7 @@ class POSVoucher(models.Model):
     def action_validate(self):
         states = list(set(self.mapped('state')))
         if len(states) > 1 or states[0] != 'draft':
-            raise UserError(_(
+            raise ValidationError(_(
                 'All selected records has to be in Draft State!'))
         for rec in self:
             vals = {'state': 'validated'}
@@ -161,10 +125,10 @@ class POSVoucher(models.Model):
 
     @api.multi
     def action_draft(self):
-        self.ensure_one()
-        if self.history_ids:
-            raise UserError(_('Can not set to Draft as Consume History is '
-                            'created for the voucher!'))
+        if self.filtered('history_ids'):
+            raise ValidationError(_(
+                'Can not set to Draft as Consume History is '
+                'created for the voucher!'))
         self.write({'state': 'draft'})
         return True
 
@@ -218,98 +182,3 @@ class POSVoucher(models.Model):
             voucher_code = voucher_type_id_brw.sequence_id.next_by_code(
                 voucher_type_id_brw.sequence_id.code)
         return voucher_code
-
-
-class POSVoucherHistory(models.Model):
-    _name = 'pos.voucher.history'
-    _description = 'POS Voucher History'
-
-    pos_voucher_id = fields.Many2one('pos.voucher', 'Voucher', required=True,
-                                     ondelete='cascade')
-    consumed_date = fields.Datetime(required=True)
-    amount = fields.Monetary(required=True)
-    currency_id = fields.Many2one(related='pos_voucher_id.currency_id',
-                                  comodel_relation='res.currency',
-                                  string='Account Currency')
-
-    @api.model
-    def create(self, vals):
-        history = super().create(vals)
-        history.pos_voucher_id.action_consume()
-        return history
-
-
-class PosOrder(models.Model):
-    _inherit = "pos.order"
-
-    voucher_history_id = fields.Many2one('pos.voucher.history', 'Voucher Used')
-
-    @api.model
-    def create_from_ui(self, orders):
-        pos_voucher_obj = self.env['pos.voucher']
-        voucher_history_obj = self.env['pos.voucher.history']
-        for order in orders:
-            order_data = order['data']
-            if order_data.get('voucher_id'):
-                voucher = pos_voucher_obj.browse(order_data.get('voucher_id'))
-                statements = order_data['statement_ids']
-                for statement_list in statements:
-                    stmt = statement_list[2]
-                    if stmt['journal_id'] == voucher.type_id.journal_id.id:
-                        history = voucher_history_obj.create({
-                            'pos_voucher_id': order_data.get('voucher_id'),
-                            'consumed_date': stmt['name'],
-                            'amount': stmt['amount'],
-                        })
-                        order_data['voucher_history_id'] = history.id
-                        break
-        # Generate vouchers
-        order_ids = super().create_from_ui(orders)
-        for order in self.browse(order_ids):
-            for line in order.lines.filtered('voucher_type_id'):
-                code = line.pos_voucher_code
-                if not code:
-                    raise ValidationError(_(
-                        'Trying to create a voucher but the code is missing'))
-                pos_voucher_vals = {
-                    'code': code,
-                    'start_date': order.date_order,
-                    'type_id': line.voucher_type_id.id,
-                    'total_amount': line.price_subtotal_incl,
-                    'company_id': line.company_id.id,
-                    'pos_order_line_id': line.id,
-                }
-                if order.partner_id:
-                    pos_voucher_vals.update({
-                        'partner_id': order.partner_id.id,
-                    })
-                pos_voucher_id = pos_voucher_obj.create(pos_voucher_vals)
-                line.pos_voucher_id = pos_voucher_id.id
-                pos_voucher_id.action_validate()
-        return order_ids
-
-
-class AccountJournal(models.Model):
-    _inherit = 'account.journal'
-
-    is_voucher = fields.Boolean('Use as a Voucher', default=False)
-
-    @api.onchange('journal_user', 'type')
-    def onchange_journal_user_type(self):
-        self.is_voucher = False
-
-
-class AccountBankStatement(models.Model):
-    _inherit = 'account.bank.statement'
-
-    is_voucher = fields.Boolean(related='journal_id.is_voucher', store=True)
-
-
-class PosOrderLine(models.Model):
-    _inherit = 'pos.order.line'
-
-    voucher_type_id = fields.Many2one('pos.voucher.type', 'Voucher Type')
-    pos_voucher_id = fields.Many2one('pos.voucher', 'POS Voucher')
-    pos_voucher_code = fields.Char('POS voucher code', default='/', copy=False,
-                                   help='this is for update from pos screen \
-                                   to display in pos voucher ticket')
