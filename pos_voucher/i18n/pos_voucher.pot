@@ -42,13 +42,16 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: pos_voucher
-#: code:addons/pos_voucher/models/pos_voucher.py:73
+#: code:addons/pos_voucher/models/pos_voucher.py:93
 #, python-format
 msgid "All selected records has to be in Draft State!"
 msgstr ""
 
 #. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:120
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__amount
+#, python-format
 msgid "Amount"
 msgstr ""
 
@@ -73,14 +76,15 @@ msgid "Can not Apply more than allowed Amount!"
 msgstr ""
 
 #. module: pos_voucher
-#: code:addons/pos_voucher/models/pos_voucher.py:107
+#: code:addons/pos_voucher/models/pos_voucher.py:129
 #, python-format
 msgid "Can not set to Draft as Consume History is created for the voucher!"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:51
+#: code:addons/pos_voucher/static/src/xml/pos.xml:50
+#: code:addons/pos_voucher/static/src/xml/pos.xml:129
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 #, python-format
 msgid "Cancel"
@@ -100,7 +104,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:73
+#: code:addons/pos_voucher/static/src/xml/pos.xml:72
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__code
 #, python-format
 msgid "Code"
@@ -114,9 +118,9 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/pos.js:126
-#: code:addons/pos_voucher/static/src/js/pos.js:206
-#: code:addons/pos_voucher/static/src/js/screens.js:65
+#: code:addons/pos_voucher/static/src/js/screens.js:61
+#: code:addons/pos_voucher/static/src/js/screens.js:239
+#: code:addons/pos_voucher/static/src/js/screens.js:322
 #, python-format
 msgid "Configuration Warning"
 msgstr ""
@@ -235,6 +239,14 @@ msgid "Force Expiry"
 msgstr ""
 
 #. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/js/screens.js:443
+#: code:addons/pos_voucher/static/src/xml/pos.xml:99
+#, python-format
+msgid "Generate Voucher"
+msgstr ""
+
+#. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_type_search
 msgid "Group By"
@@ -260,6 +272,16 @@ msgstr ""
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__message_has_error
 msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model.fields,help:pos_voucher.field_pos_voucher__pos_order_line_id
+msgid "If this voucher was created from POS, it stores the line that created this voucher."
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model.fields,help:pos_voucher.field_pos_voucher__pos_order_id
+msgid "If this voucher was created from POS, it stores the order that created this voucher."
 msgstr ""
 
 #. module: pos_voucher
@@ -293,6 +315,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__write_date
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:173
+#, python-format
+msgid "Logo"
 msgstr ""
 
 #. module: pos_voucher
@@ -336,9 +365,27 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:126
+#, python-format
+msgid "Ok"
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__pos_order_id
+msgid "Order Ref"
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__pos_order_line_id
+msgid "POS Order Line"
+msgstr ""
+
+#. module: pos_voucher
 #: model:ir.actions.act_window,name:pos_voucher.act_pos_voucher
 #: model:ir.actions.report,name:pos_voucher.action_report_pos_voucher
 #: model:ir.model,name:pos_voucher.model_pos_voucher
+#: model:ir.model.fields,field_description:pos_voucher.field_pos_order_line__pos_voucher_id
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 msgid "POS Voucher"
@@ -360,6 +407,11 @@ msgid "POS Vouchers"
 msgstr ""
 
 #. module: pos_voucher
+#: model:ir.model.fields,field_description:pos_voucher.field_pos_order_line__pos_voucher_code
+msgid "POS voucher code"
+msgstr ""
+
+#. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_search
 #: selection:pos.voucher,state:0
 msgid "Partially Consumed"
@@ -367,7 +419,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:75
+#: code:addons/pos_voucher/static/src/xml/pos.xml:74
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__pending_amount
 #, python-format
 msgid "Pending Amount"
@@ -375,24 +427,51 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/pos.js:127
-#: code:addons/pos_voucher/static/src/js/screens.js:66
+#: code:addons/pos_voucher/static/src/xml/pos.xml:144
+#, python-format
+msgid "Phone:"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:161
+#: code:addons/pos_voucher/static/src/xml/pos.xml:213
+#, python-format
+msgid "Please Keep Your Voucher Code Safe"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/js/screens.js:62
+#: code:addons/pos_voucher/static/src/js/screens.js:240
 #, python-format
 msgid "Please configure journal_id as a payment method in your POS."
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/pos.js:88
+#: code:addons/pos_voucher/static/src/js/screens.js:201
 #, python-format
 msgid "Please input code of a voucher."
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:48
+#: code:addons/pos_voucher/static/src/js/screens.js:44
 #, python-format
 msgid "Please select a Voucher"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/js/screens.js:439
+#, python-format
+msgid "Please select customer!"
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model,name:pos_voucher.model_pos_order_line
+msgid "Point of Sale Order Lines"
 msgstr ""
 
 #. module: pos_voucher
@@ -413,8 +492,13 @@ msgid "Print Voucher"
 msgstr ""
 
 #. module: pos_voucher
+#: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__product_id
+msgid "Product"
+msgstr ""
+
+#. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:40
+#: code:addons/pos_voucher/static/src/xml/pos.xml:39
 #, python-format
 msgid "Select Voucher"
 msgstr ""
@@ -427,7 +511,14 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:54
+#: code:addons/pos_voucher/static/src/xml/pos.xml:199
+#, python-format
+msgid "Served by"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:53
 #, python-format
 msgid "Set Voucher"
 msgstr ""
@@ -449,20 +540,27 @@ msgid "Status"
 msgstr ""
 
 #. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:185
+#, python-format
+msgid "Tel:"
+msgstr ""
+
+#. module: pos_voucher
 #: sql_constraint:pos.voucher:0
 msgid "The Code of the Voucher must be unique!"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/pos.js:207
+#: code:addons/pos_voucher/static/src/js/screens.js:323
 #, python-format
 msgid "The amount of journal_id must be less than a voucher amount!"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:74
+#: code:addons/pos_voucher/static/src/xml/pos.xml:73
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__total_amount
 #, python-format
 msgid "Total Amount"
@@ -471,6 +569,12 @@ msgstr ""
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Total Consumed"
+msgstr ""
+
+#. module: pos_voucher
+#: code:addons/pos_voucher/models/pos_order.py:19
+#, python-format
+msgid "Trying to create a voucher but the code is missing"
 msgstr ""
 
 #. module: pos_voucher
@@ -497,6 +601,20 @@ msgid "Use as a Voucher"
 msgstr ""
 
 #. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:147
+#, python-format
+msgid "User:"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:188
+#, python-format
+msgid "VAT:"
+msgstr ""
+
+#. module: pos_voucher
 #: model:ir.actions.server,name:pos_voucher.action_server_validate_vouchers
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Validate"
@@ -510,8 +628,8 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/pos.js:87
-#: code:addons/pos_voucher/static/src/xml/pos.xml:37
+#: code:addons/pos_voucher/static/src/js/screens.js:200
+#: code:addons/pos_voucher/static/src/xml/pos.xml:36
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__pos_voucher_id
 #, python-format
 msgid "Voucher"
@@ -529,6 +647,14 @@ msgid "Voucher History"
 msgstr ""
 
 #. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:109
+#: model:ir.model.fields,field_description:pos_voucher.field_pos_order_line__voucher_type_id
+#, python-format
+msgid "Voucher Type"
+msgstr ""
+
+#. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_order__voucher_history_id
 msgid "Voucher Used"
 msgstr ""
@@ -540,7 +666,8 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:47
+#: code:addons/pos_voucher/static/src/js/screens.js:43
+#: code:addons/pos_voucher/static/src/js/screens.js:438
 #, python-format
 msgid "Warning"
 msgstr ""
@@ -560,5 +687,16 @@ msgstr ""
 #: code:addons/pos_voucher/static/src/xml/pos.xml:19
 #, python-format
 msgid "Yes"
+msgstr ""
+
+#. module: pos_voucher
+#: code:addons/pos_voucher/models/pos_voucher.py:121
+#, python-format
+msgid "You can't cancel a voucher generated from a POS Order"
+msgstr ""
+
+#. module: pos_voucher
+#: model:ir.model.fields,help:pos_voucher.field_pos_order_line__pos_voucher_code
+msgid "this is for update from pos screen to display in pos voucher ticket"
 msgstr ""
 
