@@ -339,7 +339,7 @@ screens.PaymentScreenWidget.include({
         // Get code for generated vouchers. This currently means nothing
         // because it's just getting a sequence, but not really creating the voucher
         // that will happen after.
-        if (current_order.is_voucher_order() == 1) {
+        /*if (current_order.is_voucher_order() == 1) {
             this.update_voucher_code();
             setTimeout(function(){
                 if (this.order_is_valid(force_validation)) {
@@ -348,13 +348,45 @@ screens.PaymentScreenWidget.include({
             }.bind(this),2000);
         } else {
             this._super(force_validation);
+        }*/
+        var self = this;
+        var order = self.pos.get_order();
+        if (order.is_voucher_order() == 1) {
+            var done_ret = new $.Deferred();
+            var _super=this._super.bind(this);
+            var count = 0;
+            _.each(order.orderlines.models, function (line) {
+                if (line && line.voucher_type_id && line.pos_voucher_code == ''){
+                    count += 1;
+                    var records = self._rpc({
+                            model: 'pos.voucher',
+                            method: 'generate_code_voucher_for_print',
+                            args: [line.voucher_type_id],
+                        });
+                    $.when(records.then(function (pos_voucher_code) {
+                        line['pos_voucher_code']=pos_voucher_code;
+                    })).done(function(){
+                        count -= 1;
+                        if (count==0){
+                            done_ret.resolve();
+                        }
+                    });
+                }
+            });
+            order.trigger('change');
+            $.when(done_ret).done(function(){
+                return _super(force_validation);
+            })
+        }
+        else {
+            this._super();
         }
     },
 
     /*
         Updates order line information with voucher code
     */
-    update_voucher_code: function() {
+    /*update_voucher_code: function() {
         var self = this;
         var order = self.pos.get_order();
         _.each(order.orderlines.models, function (line) {
@@ -370,7 +402,7 @@ screens.PaymentScreenWidget.include({
             }
         });
         order.trigger('change');
-    },
+    },*/
 });
 
 screens.ClientListScreenWidget.include({
