@@ -240,7 +240,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:443
+#: code:addons/pos_voucher/static/src/js/screens.js:475
 #: code:addons/pos_voucher/static/src/xml/pos.xml:99
 #, python-format
 msgid "Generate Voucher"
@@ -464,7 +464,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:439
+#: code:addons/pos_voucher/static/src/js/screens.js:471
 #, python-format
 msgid "Please select customer!"
 msgstr ""
@@ -667,7 +667,7 @@ msgstr ""
 #. module: pos_voucher
 #. openerp-web
 #: code:addons/pos_voucher/static/src/js/screens.js:43
-#: code:addons/pos_voucher/static/src/js/screens.js:438
+#: code:addons/pos_voucher/static/src/js/screens.js:470
 #, python-format
 msgid "Warning"
 msgstr ""
