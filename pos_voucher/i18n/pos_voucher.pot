@@ -48,10 +48,7 @@ msgid "All selected records has to be in Draft State!"
 msgstr ""
 
 #. module: pos_voucher
-#. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:120
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__amount
-#, python-format
 msgid "Amount"
 msgstr ""
 
@@ -63,6 +60,13 @@ msgstr ""
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 msgid "Back to Draft"
+msgstr ""
+
+#. module: pos_voucher
+#. openerp-web
+#: code:addons/pos_voucher/static/src/xml/pos.xml:152
+#, python-format
+msgid "Backspace"
 msgstr ""
 
 #. module: pos_voucher
@@ -84,7 +88,7 @@ msgstr ""
 #. module: pos_voucher
 #. openerp-web
 #: code:addons/pos_voucher/static/src/xml/pos.xml:50
-#: code:addons/pos_voucher/static/src/xml/pos.xml:129
+#: code:addons/pos_voucher/static/src/xml/pos.xml:157
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 #, python-format
 msgid "Cancel"
@@ -319,7 +323,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:173
+#: code:addons/pos_voucher/static/src/xml/pos.xml:204
 #, python-format
 msgid "Logo"
 msgstr ""
@@ -366,7 +370,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:126
+#: code:addons/pos_voucher/static/src/xml/pos.xml:160
 #, python-format
 msgid "Ok"
 msgstr ""
@@ -427,15 +431,15 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:144
+#: code:addons/pos_voucher/static/src/xml/pos.xml:175
 #, python-format
 msgid "Phone:"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:161
-#: code:addons/pos_voucher/static/src/xml/pos.xml:213
+#: code:addons/pos_voucher/static/src/xml/pos.xml:192
+#: code:addons/pos_voucher/static/src/xml/pos.xml:244
 #, python-format
 msgid "Please Keep Your Voucher Code Safe"
 msgstr ""
@@ -511,7 +515,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:199
+#: code:addons/pos_voucher/static/src/xml/pos.xml:230
 #, python-format
 msgid "Served by"
 msgstr ""
@@ -541,7 +545,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:185
+#: code:addons/pos_voucher/static/src/xml/pos.xml:216
 #, python-format
 msgid "Tel:"
 msgstr ""
@@ -602,14 +606,14 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:147
+#: code:addons/pos_voucher/static/src/xml/pos.xml:178
 #, python-format
 msgid "User:"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:188
+#: code:addons/pos_voucher/static/src/xml/pos.xml:219
 #, python-format
 msgid "VAT:"
 msgstr ""
@@ -647,10 +651,7 @@ msgid "Voucher History"
 msgstr ""
 
 #. module: pos_voucher
-#. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:109
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_order_line__voucher_type_id
-#, python-format
 msgid "Voucher Type"
 msgstr ""
 
