@@ -7,44 +7,39 @@ var core = require('web.core');
 var QWeb = core.qweb;
 var _t = core._t;
 
+
 var popupVoucherGenerate = PopupWidget.extend({
     template: 'popupVoucherGenerate',
-    init: function (parent, options) {
-        this._super(parent, options);
-    },
-    show: function (options) {
-        var self = this;
+    show: function(options){
+        options = options || {};
         this._super(options);
-        this.$(".cancel").click(function (e) {
-            self.pos.gui.close_popup();
-        });
-        this.$('.input_form').focus();
+        this.inputbuffer = '' + (options.value   || '');
+        this.decimal_separator = _t.database.parameters.decimal_point;
+        this.renderElement();
+        this.firstinput = true;
         this.list = options.list || [];
     },
-    renderElement: function () {
-        var self = this;
-        this._super();
-        this.$('.cancel').click(function () {
-            self.gui.close_popup();
-        });
-        this.$('.confirm').click(function () {
-            var voucher_amount = $('#voucher_amount').val();
-            var voucher_type_selection = $('#voucher_type_selection').val();
-            var order    = self.pos.get_order();
-            if (voucher_amount > 0 && voucher_type_selection){
-                var select_voucher = self.pos.voucher_type_by_id[voucher_type_selection];
-                if (select_voucher){
-                    var product  = self.pos.db.get_product_by_id(select_voucher['product_id'][0]);
-                    if (product){
-                        order.add_product(product, {
-                            price: voucher_amount,
-                            extras: { voucher_type_id: select_voucher.id},
-                        });
-                    }
-                }
-            }
-        })
-    }
+    click_numpad: function(event){
+        var newbuf = this.gui.numpad_input(
+            this.inputbuffer,
+            $(event.target).data('action'),
+            {'firstinput': this.firstinput});
+        this.firstinput = (newbuf.length === 0);
+        if (newbuf !== this.inputbuffer) {
+            this.inputbuffer = newbuf;
+            this.$('.value').text(this.inputbuffer);
+        }
+    },
+    click_confirm: function() {
+        this.gui.close_popup();
+        if (this.options.confirm) {
+            this.options.confirm.call(
+                this,
+                $('#voucher_type_selection').val(),
+                this.inputbuffer,
+            );
+        }
+    },
 });
 
 gui.define_popup({name: 'popupVoucherGenerate', widget: popupVoucherGenerate});

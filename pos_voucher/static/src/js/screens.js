@@ -474,6 +474,21 @@ var VoucherGenerateButton = screens.ActionButtonWidget.extend({
         this.gui.show_popup('popupVoucherGenerate',{
             'title': _t('Generate Voucher'),
             'list': voucher_type_lines,
+            'confirm': function(voucher_type, amount) {
+                console.log(voucher_type, amount)
+                if (amount > 0 && voucher_type) {
+                    var select_voucher = self.pos.voucher_type_by_id[voucher_type];
+                    if (select_voucher){
+                        var product  = self.pos.db.get_product_by_id(select_voucher['product_id'][0]);
+                        if (product){
+                            order.add_product(product, {
+                                price: amount,
+                                extras: { voucher_type_id: select_voucher.id},
+                            });
+                        }
+                    }
+                }
+            }
         });
     },
 });

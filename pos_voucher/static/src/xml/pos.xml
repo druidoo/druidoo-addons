@@ -102,32 +102,63 @@
 
     <t t-name="popupVoucherGenerate">
         <div role="dialog" class="modal-dialog">
-            <div class="popup popup-text">
+            <div class="popup popup-number" style="height: 520px;">
                 <header class="title"><t t-esc=" widget.options.title || '' " /></header>
-                <main class='packlot-lines'>
-                    <div class="row">
-                        <span class='label'>Voucher Type</span>
-                        <select class='detail needsclick' name='voucher_type_selection' id='voucher_type_selection'>
-                            <t t-foreach="widget.options.list || []" t-as="item">
-                                <option t-att-value='item.id'>
-                                    <t t-esc='item.name' />
-                                </option>
-                            </t>
-                        </select>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <span class='label'>Amount</span>
-                        <input type="text" class="input_form" name="voucher_amount" id="voucher_amount"
-                               style="font-size:12px;height:15px;width:125px;border:1px #c57272 !important;" />
-                    </div>
-                </main>
-                <footer class="footer">
-                    <div class="button confirm">
-                        Ok
-                    </div>
+                <div class="row">
+                    <select class='detail needsclick' style="font-size: 1.5em;" name='voucher_type_selection' id='voucher_type_selection'>
+                        <t t-foreach="widget.options.list || []" t-as="item">
+                            <option t-att-value='item.id'>
+                                <t t-esc='item.name' />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <hr/>
+                <div class='popup-input value active'>
+                    <t t-esc='widget.inputbuffer' />
+                </div>
+                <div class='popup-numpad'>
+                    <button class="input-button number-char" data-action='1'>1</button>
+                    <button class="input-button number-char" data-action='2'>2</button>
+                    <button class="input-button number-char" data-action='3'>3</button>
+                    <t t-if="widget.options.cheap">
+                        <button class="mode-button add" data-action='+1'>+1</button>
+                    </t><t t-if="!widget.options.cheap">
+                        <button class="mode-button add" data-action='+10'>+10</button>
+                    </t>
+                    <br />
+                    <button class="input-button number-char" data-action='4'>4</button>
+                    <button class="input-button number-char" data-action='5'>5</button>
+                    <button class="input-button number-char" data-action='6'>6</button>
+                    <t t-if="widget.options.cheap">
+                        <button class="mode-button add" data-action='+2'>+2</button>
+                    </t><t t-if="!widget.options.cheap">
+                        <button class="mode-button add" data-action='+20'>+20</button>
+                    </t>
+                    <br />
+                    <button class="input-button number-char" data-action='7'>7</button>
+                    <button class="input-button number-char" data-action='8'>8</button>
+                    <button class="input-button number-char" data-action='9'>9</button>
+                    <t t-if="widget.options.cheap">
+                        <button class="mode-button add" data-action='+5'>+5</button>
+                    </t><t t-if="!widget.options.cheap">
+                        <button class="mode-button add" data-action='+50'>+50</button>
+                    </t>
+                    <br />
+                    <button class="input-button numpad-char" data-action='CLEAR' >C</button>
+                    <button class="input-button number-char" data-action='0'>0</button>
+                    <button class="input-button number-char dot" t-att-data-action='widget.decimal_separator'><t t-esc='widget.decimal_separator'/></button>
+                    <button class="input-button numpad-backspace" data-action='BACKSPACE' >
+                        <img style="pointer-events: none;" src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" alt="Backspace"/>
+                    </button>
+                    <br />
+                </div>
+                <footer class="footer centered">
                     <div class="button cancel">
                         Cancel
+                    </div>
+                    <div class="button confirm">
+                        Ok
                     </div>
                 </footer>
             </div>
