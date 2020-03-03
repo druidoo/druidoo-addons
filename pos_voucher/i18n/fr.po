@@ -470,7 +470,7 @@ msgstr "Sélection d'un avoir"
 #: code:addons/pos_voucher/static/src/js/screens.js:439
 #, python-format
 msgid "Please select customer!"
-msgstr "Sélection d'un avoir"
+msgstr "Sélection d'un client"
 
 #. module: pos_voucher
 #: model:ir.model,name:pos_voucher.model_pos_order_line
