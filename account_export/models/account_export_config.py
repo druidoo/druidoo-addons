@@ -3,7 +3,8 @@ from odoo.tools import safe_eval
 
 
 class AccountExportConfig(models.Model):
-    _name = 'account.export.config'
+    _name = "account.export.config"
+    _description = "Account Export Config"
 
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
