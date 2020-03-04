@@ -9,6 +9,7 @@ import base64
 
 class AccountExport(models.Model):
     _name = "account.export"
+    _description = "Account Export"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(
