@@ -21,6 +21,7 @@ msgstr ""
 
 #. module: account_export
 #: model:ir.actions.act_window,name:account_export.action_account_export
+#: model:ir.model,name:account_export.model_account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_search
 #: model:res.groups,name:account_export.group_account_export
@@ -28,6 +29,7 @@ msgid "Account Export"
 msgstr ""
 
 #. module: account_export
+#: model:ir.model,name:account_export.model_account_export_config
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
 msgid "Account Export Config"
 msgstr ""
@@ -521,7 +523,7 @@ msgid "Status based on activities\n"
 msgstr ""
 
 #. module: account_export
-#: code:addons/account_export/models/account_export.py:91
+#: code:addons/account_export/models/account_export.py:92
 #, python-format
 msgid "The company in the invoices do not match the company in this Export configuration. \n"
 "\n"
@@ -530,7 +532,7 @@ msgid "The company in the invoices do not match the company in this Export confi
 msgstr ""
 
 #. module: account_export
-#: code:addons/account_export/models/account_export.py:83
+#: code:addons/account_export/models/account_export.py:84
 #, python-format
 msgid "The company in the journals do not match the company in this Export configuration. \n"
 "\n"
@@ -576,16 +578,6 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,help:account_export.field_account_export__website_message_ids
 msgid "Website communication history"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model,name:account_export.model_account_export
-msgid "account.export"
-msgstr ""
-
-#. module: account_export
-#: model:ir.model,name:account_export.model_account_export_config
-msgid "account.export.config"
 msgstr ""
 
 #. module: account_export
