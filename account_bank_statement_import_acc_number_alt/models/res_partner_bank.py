@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class Bank(models.Model):
-    _inherit = 'res.partner.bank'
+    _inherit = "res.partner.bank"
 
     acc_number_alt = fields.Char(
         "Alternative Account Number",
