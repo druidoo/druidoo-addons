@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_attribute_mass_edit
+# 	* product_attribute_mass_edit
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgid "Action"
 msgstr ""
 
 #. module: product_attribute_mass_edit
-#: selection:product.attribute.mass.edit.wizard.line,action:0
+#: model:ir.model.fields.selection,name:product_attribute_mass_edit.selection__product_attribute_mass_edit_wizard_line__action__add
 msgid "Add values"
 msgstr ""
 
@@ -36,7 +36,8 @@ msgstr ""
 
 #. module: product_attribute_mass_edit
 #: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
-msgid "By default, it will not allow to edit attributes that will trigger a variant create/deletion. This is dangerous and not recommended.<br/>\n"
+msgid ""
+"By default, it will not allow to edit attributes that will trigger a variant create/deletion. This is dangerous and not recommended.<br/>\n"
 "                But, if you need it, open this wizard in Debug mode and enable <i>Allow to modify attributes that create/delete variants</i>"
 msgstr ""
 
@@ -76,7 +77,8 @@ msgstr ""
 
 #. module: product_attribute_mass_edit
 #: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
-msgid "If the line doesn't exist and you're trying to add new values, it will be created.<br/>\n"
+msgid ""
+"If the line doesn't exist and you're trying to add new values, it will be created.<br/>\n"
 "                If you remove all the values of a line, the line will be removed"
 msgstr ""
 
@@ -125,33 +127,38 @@ msgid "Product Templates"
 msgstr ""
 
 #. module: product_attribute_mass_edit
-#: selection:product.attribute.mass.edit.wizard.line,action:0
+#: model:ir.model.fields.selection,name:product_attribute_mass_edit.selection__product_attribute_mass_edit_wizard_line__action__remove
 msgid "Remove values"
 msgstr ""
 
 #. module: product_attribute_mass_edit
-#: selection:product.attribute.mass.edit.wizard.line,action:0
+#: model:ir.model.fields.selection,name:product_attribute_mass_edit.selection__product_attribute_mass_edit_wizard_line__action__replace
 msgid "Replace values"
 msgstr ""
 
 #. module: product_attribute_mass_edit
-#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:41
+#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:0
 #, python-format
-msgid "Unable to mass edit attributes that create variants\n"
+msgid ""
+"Unable to mass edit attributes that create variants\n"
 "You're trying to edit attribute \"%s\", which always creates new variants.This is not recommended. If you really need to do it run the wizard in debug mode and enable the option."
 msgstr ""
 
 #. module: product_attribute_mass_edit
-#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:50
+#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:0
 #, python-format
-msgid "Unable to mass edit attributes that create variants\n"
+msgid ""
+"Unable to mass edit attributes that create variants\n"
 "You're trying to remove or replace values for \"%s\", which creates variants dynamically.\n"
 "This is not recommended. If you really need to do it run the wizard in debug mode and enable the option."
 msgstr ""
 
 #. module: product_attribute_mass_edit
 #: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
-msgid "Use this to wizard to <strong>Add</strong>, <strong>Remove</strong> or <strong>Replace</strong> product attributes values to the product's variants."
+msgid ""
+"Use this to wizard to <strong>Add</strong>, <strong>Remove</strong> or "
+"<strong>Replace</strong> product attributes values to the product's "
+"variants."
 msgstr ""
 
 #. module: product_attribute_mass_edit
@@ -163,4 +170,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__wizard_id
 msgid "Wizard"
 msgstr ""
-
