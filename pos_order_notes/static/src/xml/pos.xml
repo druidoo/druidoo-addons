@@ -14,7 +14,7 @@
         <t t-jquery="tr[class='emph']" t-operation="after">
             <t t-if="order.get_note()">
                 <tr>
-                    <td colspan="2"><br />Note: <t t-esc="order.get_note()"/></td>
+                    <td colspan="2"><br /><t t-esc="order.get_note()"/></td>
                 </tr>
             </t>
         </t>
@@ -24,7 +24,7 @@
         <t t-jquery="[t-foreach='paymentlines']" t-operation="before">
             <t t-if="receipt.note">
                 <line line-ratio="2.0">
-                    <left>Note:<t t-esc="receipt.note"/></left>
+                    <left><t t-esc="receipt.note"/></left>
                 </line>
             </t>
         </t>
