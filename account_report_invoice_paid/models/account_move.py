@@ -2,19 +2,18 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from odoo import api, models
+from odoo import models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
-    @api.model
-    def _get_payments_vals(self):
-        res = super(AccountInvoice, self)._get_payments_vals()
+    def _get_reconciled_info_JSON_values(self):
+        res = super()._get_reconciled_info_JSON_values()
         payment_id = False
         for data in res:
-            payment_id = data.get('account_payment_id')
-            payment_obj = self.env['account.payment']
+            payment_id = data.get("account_payment_id")
+            payment_obj = self.env["account.payment"]
             if payment_id:
                 for pay in payment_obj.browse(payment_id):
                     data.update(code=pay.journal_id.code)

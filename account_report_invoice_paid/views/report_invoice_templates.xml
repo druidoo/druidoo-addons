@@ -2,9 +2,9 @@
 <odoo>
 
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
-        <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')" position="replace">
-            <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment')">Invoice</span>
-            <span t-if="o.type == 'out_invoice' and o.state == 'paid'">Paid Invoice</span>
+        <span t-if="o.type == 'out_invoice' and o.state == 'posted'" position="replace">
+            <span t-if="o.type == 'out_invoice' and o.state == 'posted' and o.invoice_payment_state != 'paid'">Invoice</span>
+            <span t-if="o.type == 'out_invoice' and o.state == 'posted' and o.invoice_payment_state == 'paid'">Paid Invoice</span>
         </span>
     </template>
 
