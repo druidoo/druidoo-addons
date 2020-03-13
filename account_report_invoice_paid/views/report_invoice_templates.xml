@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <span t-if="o.type == 'out_invoice' and o.state == 'posted'" position="replace">
+            <span t-if="o.type == 'out_invoice' and o.state == 'posted' and o.invoice_payment_state != 'paid'">Invoice</span>
+            <span t-if="o.type == 'out_invoice' and o.state == 'posted' and o.invoice_payment_state == 'paid'">Paid Invoice</span>
+        </span>
+    </template>
+
+    <template id="arip_report_invoice_document_with_payments" inherit_id="account.report_invoice_document_with_payments">
+        <xpath expr="//div[@id='total']/div/table/t[@t-as='payment_vals']/tr/td/i[hasclass('text-right')]" position="replace">
+            <i class="oe_form_field text-right oe_payment_label">
+                Paid
+                <t t-esc="payment_vals['code']" />
+                <t t-esc="payment_vals['date']" t-options='{"widget": "date"}' />
+            </i>
+        </xpath>
+    </template>
+
+</odoo>
