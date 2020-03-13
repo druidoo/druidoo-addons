@@ -22,6 +22,12 @@ models.Order = models.Order.extend({
         return res;
     },
 
+    export_for_printing: function () {
+        var res = OrderSuper.export_for_printing.apply(this, arguments);
+        res.note = this.get_note();
+        return res;
+    },
+
     set_note: function(value) {
         this.assert_editable();
         this.set('note', value);
