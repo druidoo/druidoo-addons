@@ -22,7 +22,7 @@ msgstr ""
 
 #. module: pos_order_notes
 #. openerp-web
-#: code:addons/pos_order_notes/static/src/js/models.js:37
+#: code:addons/pos_order_notes/static/src/js/models.js:43
 #, python-format
 msgid "Notes and comments"
 msgstr ""
