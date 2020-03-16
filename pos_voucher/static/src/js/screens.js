@@ -192,7 +192,30 @@ screens.PaymentScreenWidget.include({
         var self = this;
         this._super();
         this.$('.customer_vouchers').click(function(){
-            self.pos.gui.show_screen('voucherlist');
+            //Reload vouchers
+            self._rpc({
+                model: 'pos.voucher',
+                method: 'search_read',
+                fields: ['code', 'type_id', 'partner_id', 'start_date', 'end_date', 'pending_amount', 'total_amount'],
+                domain: [['state', 'in', ['validated', 'partially_consumed']]],
+            })
+            .then(function(vouchers) {
+                self.pos.vouchers = vouchers;
+                self.pos.voucher_by_id = {};
+                self.pos.voucher_by_customer = {};
+                for (var x = 0; x < vouchers.length; x++) {
+                    self.pos.voucher_by_id[vouchers[x].id] = vouchers[x];
+                    if (!self.pos.voucher_by_customer[vouchers[x].partner_id[0]]) {
+                        self.pos.voucher_by_customer[vouchers[x].partner_id[0]] = [vouchers[x]];
+                    }
+                    else{
+                        self.pos.voucher_by_customer[vouchers[x].partner_id[0]].push(vouchers[x]);
+                    }
+                }
+                self.pos.gui.show_screen('voucherlist');
+            }).fail(function (error, event) {
+                self.pos.gui.show_screen('voucherlist');
+            });
         });
         this.$('.voucher_redeem').click(function () { // input manual voucher
             self.hide();
