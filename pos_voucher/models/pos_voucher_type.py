@@ -34,3 +34,4 @@ class PosVoucherType(models.Model):
             'default_type': 'service',
         }
     )
+    available_in_pos = fields.Boolean()

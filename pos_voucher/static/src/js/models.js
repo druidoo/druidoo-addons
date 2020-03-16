@@ -34,7 +34,7 @@ odoo.define('pos_voucher.pos_voucher', function (require) {
     models.load_models({
         model: 'pos.voucher.type',
         fields: ['name', 'journal_id','product_id'],
-        domain: [],
+        domain: [['available_in_pos','=',true]],
         context: {'pos': true},
         loaded: function (self, vouchers_type) {
             self.vouchers_type = vouchers_type;
