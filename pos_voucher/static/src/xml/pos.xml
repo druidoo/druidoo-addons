@@ -251,6 +251,12 @@
                 <t t-call="PosTicketVoucher"/>
             </t>
         </t>
+        <t t-jquery=".receipt-user" t-operation="append">
+            <t t-set="client" t-value="order.get_client()"/>
+            <div class="receipt-customer" t-if="client">
+                Customer: <t t-esc="client['name']"/><br />
+            </div>
+        </t>
     </t>
 
     <t t-extend="XmlReceipt">
@@ -258,6 +264,12 @@
             <t t-foreach="vouchers" t-as="o">
                 <t t-call="PosTicketVoucherXML"/>
             </t>
+        </t>
+        <t t-jquery=".cashier" t-operation="append">
+            <t t-set="client" t-value="order.get_client()"/>
+            <div class="receipt-customer" t-if="client">
+                Customer: <t t-esc="client['name']"/><br />
+            </div>
         </t>
     </t>
 

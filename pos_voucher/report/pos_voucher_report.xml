@@ -11,7 +11,10 @@
                         <span t-esc="company.name"/><br/>
                         Tel:<span t-esc="company.phone"/><br/>
                         <span t-esc="company.email"/><br/>
-                        <span t-esc="company.website"/><br/><br/>
+                        <span t-esc="company.website"/>
+                        <t t-if="o.partner_id"><br/>
+                            <span t-esc="o.partner_id.name"/>
+                        </t><br/><br/>
                         <span>Please Keep Your Voucher Code Safe</span><br/>
                         <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=0' % ('Code128', o.code, 600, 100)"
                                   style="width:300px;height:50px"/>
