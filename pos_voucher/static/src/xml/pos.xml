@@ -247,8 +247,10 @@
 
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="append">
-            <t t-foreach="vouchers" t-as="o">
-                <t t-call="PosTicketVoucher"/>
+            <t t-if="vouchers">
+                <t t-foreach="vouchers" t-as="o">
+                    <t t-call="PosTicketVoucher"/>
+                </t>
             </t>
         </t>
         <t t-jquery=".receipt-user" t-operation="append">
