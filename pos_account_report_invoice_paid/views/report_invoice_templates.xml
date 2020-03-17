@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account_report_invoice_paid.report_invoice_document">
+        <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment')" position="replace">
+            <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment') and o.pos_order_id">Paid Invoice</span>
+            <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment') and not o.pos_order_id">Invoice</span>
+        </span>
+        <xpath expr="//div[@id='total']/div/table" position="inside">
+            <div t-if="o.state == 'open' and o.pos_order_id">
+                <t t-foreach="o.pos_order_id.statement_ids" t-as="pos_payments_vals">
+                    <tr>
+                        <td>
+                            <i class="oe_form_field text-right oe_payment_label">
+                                Paid
+                                <t t-esc="pos_payments_vals.journal_id.code" />
+                                <t t-esc="pos_payments_vals.date" t-options='{"widget": "date"}' />
+                            </i>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="pos_payments_vals.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                        </td>
+                    </tr>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
