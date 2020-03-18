@@ -9,7 +9,7 @@ class POSVoucher(models.Model):
     _description = 'POS Voucher'
 
     code = fields.Char(required=True, default='/', copy=False)
-    start_date = fields.Datetime(required=True)
+    start_date = fields.Datetime(required=True, default=fields.Datetime.now)
     end_date = fields.Datetime()
     type_id = fields.Many2one('pos.voucher.type', 'Type', required=True)
     partner_id = fields.Many2one('res.partner', 'Customer', required=True)

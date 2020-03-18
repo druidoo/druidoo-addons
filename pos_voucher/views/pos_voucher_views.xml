@@ -24,14 +24,14 @@
         <sheet>
           <div class="oe_title">
               <h2>
-                  <field name="code" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                  <field name="code" readonly="1" />
               </h2>
           </div>
           <group>
             <group>
+              <field name="type_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
               <field name="start_date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
               <field name="end_date" attrs="{'readonly':[('state', 'in', ('expired', 'consumed', 'cancelled'))]}"/>
-              <field name="type_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
               <field name="consume_date"/>
             </group>
             <group>
