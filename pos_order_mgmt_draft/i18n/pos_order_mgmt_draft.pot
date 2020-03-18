@@ -94,7 +94,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:105
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:93
 #, python-format
 msgid "Are you sure you want to cancel the order?"
 msgstr ""
@@ -108,16 +108,28 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:124
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:210
-#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:57
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:198
 #, python-format
-msgid "Can not execute this action because the POS is currently offline"
+msgid "Can not execute this action because thePOS is currently offline"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:104
+#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:56
+#, python-format
+msgid "Can not execute this action becausethe POS is currently offline"
+msgstr ""
+
+#. module: pos_order_mgmt_draft
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:113
+#, python-format
+msgid "Can not execute this actionbecause the POS is currently offline"
+msgstr ""
+
+#. module: pos_order_mgmt_draft
+#. openerp-web
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:92
 #, python-format
 msgid "Cancel the order"
 msgstr ""
@@ -131,9 +143,9 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:123
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:209
-#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:56
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:112
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:197
+#: code:addons/pos_order_mgmt_draft/static/src/js/widgets.js:55
 #, python-format
 msgid "Connection error"
 msgstr ""
@@ -145,7 +157,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:65
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:58
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:81
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:86
 #, python-format
@@ -166,7 +178,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:170
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:157
 #, python-format
 msgid "Empty Order"
 msgstr ""
@@ -191,7 +203,7 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:177
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:165
 #, python-format
 msgid "Please select the Customer"
 msgstr ""
@@ -283,9 +295,9 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:171
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:158
 #, python-format
-msgid "There must be at least one product in your order before it can be saved"
+msgid "There must be at least one product in yourorder before it can be saved"
 msgstr ""
 
 #. module: pos_order_mgmt_draft
@@ -300,9 +312,9 @@ msgstr ""
 
 #. module: pos_order_mgmt_draft
 #. openerp-web
-#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:178
+#: code:addons/pos_order_mgmt_draft/static/src/js/screens.js:166
 #, python-format
-msgid "You need to select the customer before you can save a quotation."
+msgid "You need to select the customer before youcan save a quotation."
 msgstr ""
 
 #. module: pos_order_mgmt_draft
