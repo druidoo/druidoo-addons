@@ -191,8 +191,8 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:256
-#: code:addons/pos_voucher/static/src/xml/pos.xml:270
+#: code:addons/pos_voucher/static/src/xml/pos.xml:258
+#: code:addons/pos_voucher/static/src/xml/pos.xml:272
 #, python-format
 msgid "Customer:"
 msgstr ""
