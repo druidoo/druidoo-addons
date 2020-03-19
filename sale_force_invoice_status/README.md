@@ -23,7 +23,7 @@ Authors
 
 * Ivan Todorovich <ivan.todorovich@druidoo.io>
 
-Based on https://github.com/ingadhoc/sale/blob/12.0/sale_ux/
+Inspired by https://github.com/ingadhoc/sale/blob/12.0/sale_ux/
 
 Maintainers
 
