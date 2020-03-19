@@ -636,7 +636,7 @@ msgstr "Validé"
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__pos_voucher_id
 #, python-format
 msgid "Voucher"
-msgstr "Justificatif"
+msgstr "Scan avoir"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_res_partner__voucher_count
