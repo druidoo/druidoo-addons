@@ -190,6 +190,11 @@ msgid "No cash statement found for this session. Unable to record returned cash.
 msgstr ""
 
 #. module: pos_order_mgmt_draft
+#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
+msgid "Order"
+msgstr ""
+
+#. module: pos_order_mgmt_draft
 #. openerp-web
 #: code:addons/pos_order_mgmt_draft/static/src/xml/pos.xml:7
 #, python-format
@@ -323,12 +328,3 @@ msgstr ""
 msgid "return"
 msgstr ""
 
-#. module: pos_order_mgmt_draft
-#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
-msgid "Quotation "
-msgstr "Devis "
-
-#. module: pos_order_mgmt_draft
-#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
-msgid "Order "
-msgstr "Commande "
