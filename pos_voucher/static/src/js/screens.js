@@ -39,8 +39,9 @@ odoo.define('pos_voucher.screens', function (require) {
                 }
                 current_order.voucher_id = voucher.id;
                 var voucher_register = null;
+                var voucher_type_search = null;
                 if (voucher.type_id) {
-                    var voucher_type_search = self.pos.voucher_type_by_id[
+                    voucher_type_search = self.pos.voucher_type_by_id[
                         voucher.type_id[0]];
                     if (voucher_type_search) {
                         voucher_register = _.find(self.pos.cashregisters,
@@ -49,6 +50,12 @@ odoo.define('pos_voucher.screens', function (require) {
                                 voucher_type_search.journal_id[0];
                             });
                     }
+                }
+                if (!voucher_type_search) {
+                    return self.gui.show_popup('alert', {
+                        title: _t('Configuration Warning'),
+                        body: _t('Please configure Voucher Type available in POS.'),
+                    });
                 }
                 if (!voucher_register) {
                     return self.gui.show_popup('alert', {
@@ -131,6 +138,7 @@ odoo.define('pos_voucher.screens', function (require) {
                 i < len; i++) {
                 var voucher = vouchers[i];
                 var voucherline_node = this.voucher_cache.get_node(voucher.id);
+                var voucherline = null;
                 if (!voucherline_node) {
                     var voucherline_html = QWeb.render('voucherLine',
                         {widget: this, voucher:vouchers[i]});
@@ -139,12 +147,14 @@ odoo.define('pos_voucher.screens', function (require) {
                     voucherline = voucherline.childNodes[1];
                     this.voucher_cache.cache_node(voucher.id, voucherline);
                 }
-                if (voucher.id === this.old_voucher) {
-                    voucherline.classList.add('highlight');
-                } else {
-                    voucherline.classList.remove('highlight');
+                if (voucherline) {
+                    if (voucher.id === this.old_voucher) {
+                        voucherline.classList.add('highlight');
+                    } else {
+                        voucherline.classList.remove('highlight');
+                    }
+                    contents.appendChild(voucherline);
                 }
-                contents.appendChild(voucherline);
             }
         },
         has_voucher_changed: function () {
