@@ -35,4 +35,4 @@ msgstr "Payé"
 #. module: pos_account_report_invoice_paid
 #: model_terms:ir.ui.view,arch_db:pos_account_report_invoice_paid.report_invoice_document
 msgid "Paid Invoice"
-msgstr "Facture Acquittée"
+msgstr "Facture acquittée"
