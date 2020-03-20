@@ -323,3 +323,12 @@ msgstr ""
 msgid "return"
 msgstr ""
 
+#. module: pos_order_mgmt_draft
+#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
+msgid "Quotation "
+msgstr "Devis "
+
+#. module: pos_order_mgmt_draft
+#: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
+msgid "Order "
+msgstr "Commande "

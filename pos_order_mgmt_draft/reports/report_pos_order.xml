@@ -15,7 +15,8 @@
 
                 <h2>
                     <t t-if="doc.state in ['draft']">Quotation </t>
-                    <span t-field="doc.pos_reference"/>
+                    <t t-else="">Order </t>
+                    <span t-if="doc.pos_reference" t-esc="doc.pos_reference.split(' ')[-1]"/>
                 </h2>
 
                 <div class="row mt32 mb32" id="informations">
