@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_config_view_form_invoice" model="ir.ui.view">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='iface_invoicing']//div[hasclass('content-group')]" position="inside">
+                <div class="row mt16">
+                    <label for="iface_invoice_order_confirm" class="col-lg-3 o_light_label"/>
+                    <field name="iface_invoice_order_confirm" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
