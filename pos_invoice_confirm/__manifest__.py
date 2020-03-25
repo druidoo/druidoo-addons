@@ -14,5 +14,4 @@
         'views/assets.xml',
         'views/pos_config.xml',
     ],
-    'qweb': [],
 }
