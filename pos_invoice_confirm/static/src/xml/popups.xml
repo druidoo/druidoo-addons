@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery="span[class*='button next']" t-operation="replace">
+            <span class='button next1' id="button_next" style="right:0px;margin-right:16px;">
+                Validate
+                <i class='fa fa-angle-double-right'></i>
+            </span>
+        </t>
+    </t>
+
+</templates>
