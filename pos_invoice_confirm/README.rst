@@ -1,6 +1,6 @@
-==========================
-POS Order Invoice Reminder
-==========================
+=========================
+POS Invoice Order Confirm
+=========================
 Shows a confirmation reminder before validating the order, asking the
 user if he wants to invoice the it.
 
