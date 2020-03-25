@@ -1,7 +1,7 @@
 # Copyright 2019 Druidoo - Iván Todorovich
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    'name': 'POS Invoice Order Reminder',
+    'name': 'POS Invoice Order Confirm',
     'version': '12.0.1.0.0',
     'category': 'Point of Sale',
     'website': 'https://www.druidoo.io',
