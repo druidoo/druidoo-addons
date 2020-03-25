@@ -4,7 +4,7 @@
     'name': 'POS Invoice Order Reminder',
     'version': '12.0.1.0.0',
     'category': 'Point of Sale',
-    'website': 'https://druidoo.io',
+    'website': 'https://www.druidoo.io',
     'author': 'Druidoo',
     'license': 'AGPL-3',
     'depends': [
@@ -14,5 +14,5 @@
         'views/assets.xml',
         'views/pos_config.xml',
     ],
-    'qweb': ['static/src/xml/*.xml'],
+    'qweb': [],
 }

@@ -12,15 +12,13 @@ odoo.define('pos_invoice_confirm.screens', function (require) {
         renderElement: function () {
             var self = this;
             this._super();
-            this.$('#button_next').click(function () {
+            this.$('.next').off('click').click(function() {
                 var order = self.pos.get_order();
-                if (self.pos.config.module_account &&
-                    self.pos.config.iface_invoice_order_reminder &&
+                if (self.pos.config.iface_invoice_order_confirm &&
                     order.is_to_invoice() === false && order.get_client()) {
                     self.gui.show_popup('confirm', {
                         'title': _t('Invoice Reminder'),
-                        'body': _t('This order will not be invoiced, are'+
-                        ' you sure you want to continue?'),
+                        'body': _t('This order will not be invoiced, are you sure you want to continue?'),
                         confirm: function () {
                             self.validate_order();
                         },
@@ -29,18 +27,6 @@ odoo.define('pos_invoice_confirm.screens', function (require) {
                     self.validate_order();
                 }
             });
-        },
-        order_changes: function () {
-            var self = this;
-            this._super();
-            var order = this.pos.get_order();
-            if (!order) {
-                return;
-            } else if (order.is_paid()) {
-                self.$('.next1').addClass('highlight');
-            } else {
-                self.$('.next1').removeClass('highlight');
-            }
         },
     });
 

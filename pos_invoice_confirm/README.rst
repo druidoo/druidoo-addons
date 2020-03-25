@@ -1,7 +1,8 @@
 ==========================
 POS Order Invoice Reminder
 ==========================
-Allow to Order Invoice Reminder.
+Shows a confirmation reminder before validating the order, asking the
+user if he wants to invoice the it.
 
 Configure the Point of Sale
 ---------------------------
