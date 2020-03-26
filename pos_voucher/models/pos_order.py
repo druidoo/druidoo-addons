@@ -43,8 +43,8 @@ class PosOrder(models.Model):
                 statements = order_data['statement_ids']
                 for statement_list in statements:
                     stmt = statement_list[2]
-                    voucher = self.env['pos.voucher'].browse(
-                    stmt.get('voucher_id', False))
+                    voucher = self.env['pos.voucher'].browse(stmt.get(
+                                                        'voucher_id', False))
                     if voucher:
                         history = voucher_history_obj.create({
                             'pos_voucher_id': voucher.id,
