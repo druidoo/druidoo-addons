@@ -40,19 +40,18 @@ class PosOrder(models.Model):
         for order in orders:
             order_data = order['data']
             if order_data.get('voucher_id'):
-                voucher = self.env['pos.voucher'].browse(
-                    order_data.get('voucher_id'))
                 statements = order_data['statement_ids']
                 for statement_list in statements:
                     stmt = statement_list[2]
-                    if stmt['journal_id'] == voucher.type_id.journal_id.id:
+                    voucher = self.env['pos.voucher'].browse(
+                    stmt.get('voucher_id', False))
+                    if voucher:
                         history = voucher_history_obj.create({
-                            'pos_voucher_id': order_data.get('voucher_id'),
+                            'pos_voucher_id': voucher.id,
                             'consumed_date': stmt['name'],
                             'amount': stmt['amount'],
                         })
                         order_data['voucher_history_id'] = history.id
-                        break
         # Generate vouchers
         order_ids = super().create_from_ui(orders)
         self.browse(order_ids)._create_pos_vouchers()
