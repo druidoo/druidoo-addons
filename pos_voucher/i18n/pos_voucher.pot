@@ -69,7 +69,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:156
+#: code:addons/pos_voucher/static/src/xml/pos.xml:152
 #, python-format
 msgid "Backspace"
 msgstr ""
@@ -93,7 +93,7 @@ msgstr ""
 #. module: pos_voucher
 #. openerp-web
 #: code:addons/pos_voucher/static/src/xml/pos.xml:50
-#: code:addons/pos_voucher/static/src/xml/pos.xml:161
+#: code:addons/pos_voucher/static/src/xml/pos.xml:157
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_form
 #, python-format
 msgid "Cancel"
@@ -113,7 +113,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:73
+#: code:addons/pos_voucher/static/src/xml/pos.xml:72
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__code
 #, python-format
 msgid "Code"
@@ -127,10 +127,9 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:62
-#: code:addons/pos_voucher/static/src/js/screens.js:69
-#: code:addons/pos_voucher/static/src/js/screens.js:245
-#: code:addons/pos_voucher/static/src/js/screens.js:336
+#: code:addons/pos_voucher/static/src/js/screens.js:54
+#: code:addons/pos_voucher/static/src/js/screens.js:268
+#: code:addons/pos_voucher/static/src/js/screens.js:359
 #, python-format
 msgid "Configuration Warning"
 msgstr ""
@@ -192,8 +191,8 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:262
-#: code:addons/pos_voucher/static/src/xml/pos.xml:276
+#: code:addons/pos_voucher/static/src/xml/pos.xml:258
+#: code:addons/pos_voucher/static/src/xml/pos.xml:272
 #, python-format
 msgid "Customer:"
 msgstr ""
@@ -258,8 +257,8 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:486
-#: code:addons/pos_voucher/static/src/xml/pos.xml:103
+#: code:addons/pos_voucher/static/src/js/screens.js:509
+#: code:addons/pos_voucher/static/src/xml/pos.xml:99
 #, python-format
 msgid "Generate Voucher"
 msgstr ""
@@ -337,7 +336,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:208
+#: code:addons/pos_voucher/static/src/xml/pos.xml:204
 #, python-format
 msgid "Logo"
 msgstr ""
@@ -384,7 +383,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:164
+#: code:addons/pos_voucher/static/src/xml/pos.xml:160
 #, python-format
 msgid "Ok"
 msgstr ""
@@ -437,7 +436,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:75
+#: code:addons/pos_voucher/static/src/xml/pos.xml:74
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__pending_amount
 #, python-format
 msgid "Pending Amount"
@@ -445,57 +444,50 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:179
+#: code:addons/pos_voucher/static/src/xml/pos.xml:175
 #, python-format
 msgid "Phone:"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:196
-#: code:addons/pos_voucher/static/src/xml/pos.xml:248
+#: code:addons/pos_voucher/static/src/xml/pos.xml:192
+#: code:addons/pos_voucher/static/src/xml/pos.xml:244
 #, python-format
 msgid "Please Keep Your Voucher Code Safe"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:70
-#, python-format
-msgid "Please configure  as a payment method in your POS."
-msgstr ""
-
-#. module: pos_voucher
-#. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:246
+#: code:addons/pos_voucher/static/src/js/screens.js:269
 #, python-format
 msgid "Please configure  as a payment methodin your POS."
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:63
+#: code:addons/pos_voucher/static/src/js/screens.js:55
 #, python-format
-msgid "Please configure Voucher Type available in POS."
+msgid "Please configure journal_id as a payment method in your POS."
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:204
+#: code:addons/pos_voucher/static/src/js/screens.js:227
 #, python-format
 msgid "Please input code of a voucher."
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:42
+#: code:addons/pos_voucher/static/src/js/screens.js:37
 #, python-format
 msgid "Please select a Voucher"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:482
+#: code:addons/pos_voucher/static/src/js/screens.js:505
 #, python-format
 msgid "Please select customer!"
 msgstr ""
@@ -542,7 +534,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:234
+#: code:addons/pos_voucher/static/src/xml/pos.xml:230
 #, python-format
 msgid "Served by"
 msgstr ""
@@ -572,7 +564,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:220
+#: code:addons/pos_voucher/static/src/xml/pos.xml:216
 #, python-format
 msgid "Tel:"
 msgstr ""
@@ -584,14 +576,14 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:337
+#: code:addons/pos_voucher/static/src/js/screens.js:360
 #, python-format
 msgid "The amount of  must be less than a voucher amount!"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:74
+#: code:addons/pos_voucher/static/src/xml/pos.xml:73
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__total_amount
 #, python-format
 msgid "Total Amount"
@@ -633,14 +625,14 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:182
+#: code:addons/pos_voucher/static/src/xml/pos.xml:178
 #, python-format
 msgid "User:"
 msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/xml/pos.xml:223
+#: code:addons/pos_voucher/static/src/xml/pos.xml:219
 #, python-format
 msgid "VAT:"
 msgstr ""
@@ -659,7 +651,7 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:203
+#: code:addons/pos_voucher/static/src/js/screens.js:226
 #: code:addons/pos_voucher/static/src/xml/pos.xml:36
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_history__pos_voucher_id
 #, python-format
@@ -694,8 +686,8 @@ msgstr ""
 
 #. module: pos_voucher
 #. openerp-web
-#: code:addons/pos_voucher/static/src/js/screens.js:41
-#: code:addons/pos_voucher/static/src/js/screens.js:481
+#: code:addons/pos_voucher/static/src/js/screens.js:36
+#: code:addons/pos_voucher/static/src/js/screens.js:504
 #, python-format
 msgid "Warning"
 msgstr ""
