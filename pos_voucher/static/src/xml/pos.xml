@@ -69,7 +69,6 @@
                                     <table class='client-list'>
                                         <thead>
                                             <tr>
-                                                <th></th>
                                                 <th>Code</th>
                                                 <th>Total Amount</th>
                                                 <th>Pending Amount</th>
@@ -89,9 +88,6 @@
     
     <t t-name="voucherLine">
         <tr class='client-list' t-att-data-id='voucher.id'>
-            <td>
-                <input class="line-voucher" type="checkbox" name="optionsCheckboxes" t-att-data-id="voucher.id" />
-            </td>
             <td><t t-esc='voucher.code' /></td>
             <td><t t-esc='voucher.total_amount' /></td>
             <td><t t-esc='voucher.pending_amount' /></td>
