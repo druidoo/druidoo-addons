@@ -107,4 +107,23 @@ odoo.define('pos_voucher.pos_voucher', function (require) {
         },
     });
 
+    var _super_paymentline = models.Paymentline.prototype;
+    models.Paymentline = models.Paymentline.extend({
+        initialize: function () {
+            var res = _super_paymentline.initialize.apply(this, arguments);
+            this.voucher_id = false;
+            return res;
+        },
+        export_as_JSON: function () {
+            var json = _super_paymentline.export_as_JSON.apply(this, arguments);
+            json.voucher_id = this.voucher_id;
+            return json;
+        },
+        init_from_JSON: function (json) {
+            var res = _super_paymentline.init_from_JSON.apply(this, arguments);
+            this.voucher_id = json.voucher_id;
+            return res;
+        },
+    });
+
 });
