@@ -29,16 +29,17 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: website_sale_adwords_conversion
-#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwords_event_key
-#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwords_event_key
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwords_conversion_event_key
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwords_conversion_event_key
 #: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
 msgid "Event ID"
 msgstr ""
 
 #. module: website_sale_adwords_conversion
-#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwards_conversoin_tracking
-#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwards_conversoin_tracking
-msgid "Google Adwards Conversoin Tracking"
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwords_conversion_tracking
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwords_conversion_tracking
+#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
+msgid "Google Adwords Conversion Tracking"
 msgstr ""
 
 #. module: website_sale_adwords_conversion
@@ -46,11 +47,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwords_conversion_key
 #: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
 msgid "Tracking ID"
-msgstr ""
-
-#. module: website_sale_adwords_conversion
-#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
-msgid "Use Google Adwards"
 msgstr ""
 
 #. module: website_sale_adwords_conversion
