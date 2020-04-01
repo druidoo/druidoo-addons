@@ -7,25 +7,23 @@
         <field name="inherit_id" ref="website.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@id='google_analytics_setting']" position="after">
-                <div class="col-12 col-lg-6 o_setting_box" id="google_adwards" attrs="{'invisible': [('has_google_analytics', '=', False)]}">
+                <div class="col-12 col-lg-6 o_setting_box" id="google_adwords">
                     <div class="o_setting_left_pane">
-                        <field name="google_adwards_conversoin_tracking"/>
+                        <field name="google_adwords_conversion_tracking"/>
                     </div>
                     <div class="o_setting_right_pane">
-                        <label for="google_adwards_conversoin_tracking" string="Use Google Adwards"/>
+                        <label for="google_adwords_conversion_tracking" string="Google Adwords Conversion Tracking"/>
                         <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
-                        <div class="content-group" attrs="{'invisible': [('google_adwards_conversoin_tracking', '=', False)]}">
+                        <div class="content-group" attrs="{'invisible': [('google_adwords_conversion_tracking', '=', False)]}">
                             <div class="row mt16">
                                 <label class="col-lg-3 o_light_label" string="Tracking ID" for="google_adwords_conversion_key"/>
-                                <field name="google_adwords_conversion_key" placeholder="AW-XXXXXXXXXX"
-                                    attrs="{'required': [('google_adwards_conversoin_tracking', '=', True)]}"/>
+                                <field name="google_adwords_conversion_key" placeholder="AW-XXXXXXXXXX" attrs="{'required': [('google_adwords_conversion_tracking', '=', True)]}"/>
                             </div>
                         </div>
-                        <div class="content-group" attrs="{'invisible': [('google_adwards_conversoin_tracking', '=', False)]}">
+                        <div class="content-group" attrs="{'invisible': [('google_adwords_conversion_tracking', '=', False)]}">
                             <div class="row mt16">
-                                <label class="col-lg-3 o_light_label" string="Event ID" for="google_adwords_event_key"/>
-                                <field name="google_adwords_event_key"
-                                    attrs="{'required': [('google_adwards_conversoin_tracking', '=', True)]}"/>
+                                <label class="col-lg-3 o_light_label" string="Event ID" for="google_adwords_conversion_event_key"/>
+                                <field name="google_adwords_conversion_event_key" attrs="{'required': [('google_adwards_conversion_tracking', '=', True)]}"/>
                             </div>
                         </div>
                     </div>
