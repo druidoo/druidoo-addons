@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_adwords_conversion
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_adwords_conversion
+#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
+msgid "<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-specific.\" groups=\"website.group_multi_website\"/>"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
+msgid "AW-XXXXXXXXXX"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model:ir.model,name:website_sale_adwords_conversion.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwords_event_key
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwords_event_key
+#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
+msgid "Event ID"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwards_conversoin_tracking
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwards_conversoin_tracking
+msgid "Google Adwards Conversoin Tracking"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_res_config_settings__google_adwords_conversion_key
+#: model:ir.model.fields,field_description:website_sale_adwords_conversion.field_website__google_adwords_conversion_key
+#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
+msgid "Tracking ID"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model_terms:ir.ui.view,arch_db:website_sale_adwords_conversion.res_config_settings_view_form
+msgid "Use Google Adwards"
+msgstr ""
+
+#. module: website_sale_adwords_conversion
+#: model:ir.model,name:website_sale_adwords_conversion.model_website
+msgid "Website"
+msgstr ""
+
