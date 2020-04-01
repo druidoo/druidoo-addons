@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <template id="website_layout" inherit_id="website.layout" active="False">
+    <template id="website_layout" inherit_id="website.layout">
         <xpath expr="//script[@id='tracking_code']" position="after">
             <t t-if="website and website.google_adwords_conversion_tracking">
                 <!-- Global site tag (gtag.js) - Google Ads -->
