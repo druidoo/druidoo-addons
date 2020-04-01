@@ -1,6 +1,6 @@
 {
-    "name": "Google Adwards",
-    "version": "12.0.1.0.0",
+    "name": "Google Adwords Conversion Tracking",
+    "version": "12.0.1.1.0",
     "author": "Druidoo",
     "license": "AGPL-3",
     "application": False,

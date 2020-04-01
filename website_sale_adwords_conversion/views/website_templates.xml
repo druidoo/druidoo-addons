@@ -3,7 +3,7 @@
 
     <template id="website_layout" inherit_id="website.layout" active="False">
         <xpath expr="//script[@id='tracking_code']" position="after">
-            <t t-if="website and website.google_adwards_conversion_tracking">
+            <t t-if="website and website.google_adwords_conversion_tracking">
                 <!-- Global site tag (gtag.js) - Google Ads -->
                 <script t-attf-src="https://www.googletagmanager.com/gtag/js?id=#{website.google_adwords_conversion_key}"/>
                 <script id="adwords_tracking_code">

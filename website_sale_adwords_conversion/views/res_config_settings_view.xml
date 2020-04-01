@@ -23,7 +23,7 @@
                         <div class="content-group" attrs="{'invisible': [('google_adwords_conversion_tracking', '=', False)]}">
                             <div class="row mt16">
                                 <label class="col-lg-3 o_light_label" string="Event ID" for="google_adwords_conversion_event_key"/>
-                                <field name="google_adwords_conversion_event_key" attrs="{'required': [('google_adwards_conversion_tracking', '=', True)]}"/>
+                                <field name="google_adwords_conversion_event_key" attrs="{'required': [('google_adwords_conversion_tracking', '=', True)]}"/>
                             </div>
                         </div>
                     </div>
