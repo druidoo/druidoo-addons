@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="payment" xml:space="preserve">
+
+    <t t-extend="payment.display_tx_list">
+        <t t-jquery="t[t-foreach*='tx_done'][t-as*='tx']" t-operation="before">
+            <t t-if="website.google_adwards_conversoin_tracking">
+                    <t t-foreach="tx_done" t-as="tx">
+                        <!-- Event snippet for Achat conversion page -->
+                        <script>
+                            gtag ('event', 'conversion', {'send_to': '<t t-esc="website.google_adwords_conversion_key"/> / <t t-esc="website.google_adwords_event_key"/>',
+                                                          'value': <t t-esc="tx['amount']"/>,
+                                                          'currency': <t t-esc="tx['currency']"/>,
+                                                          'transaction_id':<t t-esc="tx['reference']"/>
+                                                        });
+                        </script>
+                    </t>
+
+                    <t t-foreach="tx_pending" t-as="tx">
+                        <!-- Event snippet for Achat conversion page -->
+                        <script>
+                            gtag ('event', 'conversion', {'send_to': '<t t-esc="website.google_adwords_conversion_key"/> / <t t-esc="website.google_adwords_event_key"/>',
+                                                          'value': <t t-esc="tx['amount']"/>,
+                                                          'currency': <t t-esc="tx['currency']"/>,
+                                                          'transaction_id':<t t-esc="tx['reference']"/>
+                                                        });
+                        </script>
+                    </t>
+
+                    <t t-foreach="tx_authorized" t-as="tx">
+                        <!-- Event snippet for Achat conversion page -->
+                        <script>
+                            gtag ('event', 'conversion', {'send_to': '<t t-esc="website.google_adwords_conversion_key"/> / <t t-esc="website.google_adwords_event_key"/>',
+                                                          'value': <t t-esc="tx['amount']"/>,
+                                                          'currency': <t t-esc="tx['currency']"/>,
+                                                          'transaction_id':<t t-esc="tx['reference']"/>
+                                                        });
+                        </script>
+                    </t>
+            </t>
+        </t>
+        <t t-jquery="t[t-foreach*='tx_draft'][t-as*='tx']" t-operation="before">
+            <t t-if="website.google_adwards_conversoin_tracking">
+                <t t-foreach="tx_draft" t-as="tx">
+                    <!-- Event snippet for Achat conversion page -->
+                    <script>
+                        gtag ('event', 'conversion', {'send_to': '<t t-esc="website.google_adwords_conversion_key"/> / <t t-esc="website.google_adwords_event_key"/>',
+                                                      'value': <t t-esc="tx['amount']"/>,
+                                                      'currency': <t t-esc="tx['currency']"/>,
+                                                      'transaction_id':<t t-esc="tx['reference']"/>
+                                                    });
+                    </script>
+                </t>
+            </t>
+        </t>
+    </t>
+
+</templates>

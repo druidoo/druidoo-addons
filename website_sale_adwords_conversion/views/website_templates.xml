@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="website_layout" inherit_id="website.layout" active="False">
+        <xpath expr="//meta[@name='generator']" position="before">
+            <xpath expr="//script[@id='tracking_code']" position="move"/>
+        </xpath>
+        <xpath expr="//script[@id='tracking_code']" position="replace">
+            <t t-if="website and website.google_adwards_conversoin_tracking">
+
+                <!-- Global site tag (gtag.js) - Google Ads -->
+                <script t-attf-src="https://www.googletagmanager.com/gtag/js?id=#{website.google_adwords_conversion_key}"/>
+                <script id="adwards_tracking_code">
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '<t t-esc="website.google_adwords_conversion_key"/>');
+                </script>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
