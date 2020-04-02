@@ -17,7 +17,7 @@ screens.ActionpadWidget.include({
             if(!has_valid_product_lot){
                 self.gui.show_popup('alert', {
                     title: _t('Empty Serial/Lot Number'),
-                    'body':  _t('One or more product(s) required serial/lot number.'),
+                    body: _t('One or more product(s) required serial/lot number.'),
                 });
             }else{
                 self.gui.show_screen('payment');
