@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pos_invoice_confirm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-02 12:04+0000\n"
+"PO-Revision-Date: 2020-04-02 12:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_invoice_confirm
+#: model:ir.model.fields,help:pos_invoice_confirm.field_pos_config__iface_invoice_order_confirm
+msgid "If the order is not set to be invoiced, and the user tries to validate it, it'll show a confirmation popup asking the user if he wants to invoice it or not.\n"
+"\n"
+"This popup will not be shown if the order doesn't have a customer set."
+msgstr "Si la commande n'est pas marquée pour être facturée, et si l'utilisateur tente de la valider, un message pop-up apparaîtra pour lui demander s'il veut facturer ou non.\n"
+"\n"
+"Ce message pop-up n'apparaîtra pas si la commande n'a pas de client défini. "
+
+#. module: pos_invoice_confirm
+#. openerp-web
+#: code:addons/pos_invoice_confirm/static/src/js/screens.js:20
+#, python-format
+msgid "Invoice Reminder"
+msgstr "Rappel de Facture "
+
+#. module: pos_invoice_confirm
+#: model:ir.model.fields,field_description:pos_invoice_confirm.field_pos_config__iface_invoice_order_confirm
+msgid "Invoice reminder"
+msgstr "Rappel de facture"
+
+#. module: pos_invoice_confirm
+#: model:ir.model,name:pos_invoice_confirm.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Paramétrage du point de vente"
+
+#. module: pos_invoice_confirm
+#. openerp-web
+#: code:addons/pos_invoice_confirm/static/src/js/screens.js:21
+#, python-format
+msgid "This order will not be invoiced, are you sure you want to continue?"
+msgstr "Cette commande ne sera pas facturée, êtes-vous sûrs de vouloir continuer ?"
+
