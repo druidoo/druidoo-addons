@@ -15,15 +15,15 @@ msgstr ""
 
 #. module: pos_stock_lot_required
 #. openerp-web
-#: code:addons/pos_stock_lot_required/static/src/js/screens.js:19
+#: code:addons/pos_stock_lot_required/static/src/js/screens.js:21
 #, python-format
 msgid "Empty Serial/Lot Number"
-msgstr "Remettre à blanc le n° série/lot"
+msgstr ""
 
 #. module: pos_stock_lot_required
 #. openerp-web
-#: code:addons/pos_stock_lot_required/static/src/js/screens.js:20
+#: code:addons/pos_stock_lot_required/static/src/js/screens.js:22
 #, python-format
 msgid "One or more product(s) required serial/lot number."
-msgstr "Un ou plusieurs produits ont besoin d'un numéro de série ou de lot."
+msgstr ""
 
