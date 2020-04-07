@@ -29,45 +29,16 @@ class AccountInvoice(models.Model):
         stock_move_lines = pos_orders.mapped(
             'picking_id.move_lines.move_line_ids')
 
-        # Get the other customer invoices and refunds.
-        ordered_invoice_ids = pos_orders.mapped('invoice_id') \
-            .filtered(lambda i: i.state not in ['draft', 'cancel']) \
-            .sorted(lambda i: (i.date_invoice, i.id))
-
-        # Get the position of self in other customer invoices and refunds.
-        self_index = None
-        i = 0
-        for invoice in ordered_invoice_ids:
-            if invoice.id == self.id:
-                self_index = i
-                break
-            i += 1
-
-        # Get the previous invoice if any.
-        previous_invoices = ordered_invoice_ids[:self_index]
-        last_invoice = previous_invoices[-1] if previous_invoices else None
-
-        # Get the incoming and outgoing sml between self.date_invoice
-        # and the previous invoice (if any).
-        self_datetime = max(self.invoice_line_ids.mapped(
-            'write_date')) if self.invoice_line_ids else None
-        last_invoice_datetime = max(last_invoice.invoice_line_ids.mapped(
-            'write_date')) if last_invoice else None
-
         def _filter_incoming_sml(ml):
             if ml.state == 'done' and ml.location_id.usage == 'customer'\
                     and ml.lot_id:
-                if last_invoice_datetime:
-                    return last_invoice_datetime <= ml.date <= self_datetime
-                return ml.date <= self_datetime
+                return True
             return False
 
         def _filter_outgoing_sml(ml):
             if ml.state == 'done' and ml.location_dest_id.usage == 'customer'\
                     and ml.lot_id:
-                if last_invoice_datetime:
-                    return last_invoice_datetime <= ml.date <= self_datetime
-                return ml.date <= self_datetime
+                return True
             return False
 
         incoming_sml = stock_move_lines.filtered(_filter_incoming_sml)
