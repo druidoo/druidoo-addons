@@ -4,6 +4,8 @@ odoo.define('pos_stock_lot_required.screens', function (require) {
 "use strict";
 
 var screens = require('point_of_sale.screens');
+var core = require('web.core');
+var _t = core._t;
 
 screens.ActionpadWidget.include({
     renderElement: function() {
