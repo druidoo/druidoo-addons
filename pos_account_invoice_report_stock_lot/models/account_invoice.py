@@ -25,49 +25,48 @@ class AccountInvoice(models.Model):
 
         if not self.pos_order_id:
             return super()._get_invoiced_lot_values()
-        pos_orders = self.pos_order_id
-        stock_move_lines = pos_orders.mapped(
+
+        stock_move_lines = self.pos_order_id.mapped(
             'picking_id.move_lines.move_line_ids')
 
         def _filter_incoming_sml(ml):
-            if ml.state == 'done' and ml.location_id.usage == 'customer'\
-                    and ml.lot_id:
-                return True
-            return False
+            return (
+                ml.state == 'done'
+                and ml.location_id.usage == 'customer'
+                and ml.lot_id
+            )
 
         def _filter_outgoing_sml(ml):
-            if ml.state == 'done' and ml.location_dest_id.usage == 'customer'\
-                    and ml.lot_id:
-                return True
-            return False
+            return (
+                ml.state == 'done'
+                and ml.location_dest_id.usage == 'customer'
+                and ml.lot_id:
+            )
 
         incoming_sml = stock_move_lines.filtered(_filter_incoming_sml)
         outgoing_sml = stock_move_lines.filtered(_filter_outgoing_sml)
 
         # Prepare and return lot_values
-        qties_per_lot = defaultdict(lambda: 0)
+        qty_per_lot = defaultdict(lambda: 0)
         if self.type == 'out_refund':
             for ml in outgoing_sml:
-                qties_per_lot[
-                    ml.lot_id] -= ml.product_uom_id._compute_quantity(
+                qty_per_lot[ml.lot_id] -= ml.product_uom_id._compute_quantity(
                         ml.qty_done, ml.product_id.uom_id)
             for ml in incoming_sml:
-                qties_per_lot[
-                    ml.lot_id] += ml.product_uom_id._compute_quantity(
+                qty_per_lot[ml.lot_id] += ml.product_uom_id._compute_quantity(
                         ml.qty_done, ml.product_id.uom_id)
         else:
             for ml in outgoing_sml:
-                qties_per_lot[
-                    ml.lot_id] += ml.product_uom_id._compute_quantity(
+                qty_per_lot[ml.lot_id] += ml.product_uom_id._compute_quantity(
                         ml.qty_done, ml.product_id.uom_id)
             for ml in incoming_sml:
-                qties_per_lot[
-                    ml.lot_id] -= ml.product_uom_id._compute_quantity(
+                qty_per_lot[ml.lot_id] -= ml.product_uom_id._compute_quantity(
                         ml.qty_done, ml.product_id.uom_id)
         lot_values = []
-        for lot_id, qty in qties_per_lot.items():
+        for lot_id, qty in qty_per_lot.items():
             if float_is_zero(
-                    qty, precision_rounding=lot_id.product_id.uom_id.rounding):
+                    qty, precision_rounding=lot_id.product_id.uom_id.rounding
+            ):
                 continue
             lot_values.append({
                 'product_name': lot_id.product_id.name,
