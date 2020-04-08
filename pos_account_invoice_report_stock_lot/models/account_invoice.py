@@ -40,7 +40,7 @@ class AccountInvoice(models.Model):
             return (
                 ml.state == 'done'
                 and ml.location_dest_id.usage == 'customer'
-                and ml.lot_id:
+                and ml.lot_id
             )
 
         incoming_sml = stock_move_lines.filtered(_filter_incoming_sml)
