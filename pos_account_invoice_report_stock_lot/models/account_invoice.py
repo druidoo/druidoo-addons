@@ -51,17 +51,17 @@ class AccountInvoice(models.Model):
         if self.type == 'out_refund':
             for ml in outgoing_sml:
                 qty_per_lot[ml.lot_id] -= ml.product_uom_id._compute_quantity(
-                        ml.qty_done, ml.product_id.uom_id)
+                    ml.qty_done, ml.product_id.uom_id)
             for ml in incoming_sml:
                 qty_per_lot[ml.lot_id] += ml.product_uom_id._compute_quantity(
-                        ml.qty_done, ml.product_id.uom_id)
+                    ml.qty_done, ml.product_id.uom_id)
         else:
             for ml in outgoing_sml:
                 qty_per_lot[ml.lot_id] += ml.product_uom_id._compute_quantity(
-                        ml.qty_done, ml.product_id.uom_id)
+                    ml.qty_done, ml.product_id.uom_id)
             for ml in incoming_sml:
                 qty_per_lot[ml.lot_id] -= ml.product_uom_id._compute_quantity(
-                        ml.qty_done, ml.product_id.uom_id)
+                    ml.qty_done, ml.product_id.uom_id)
         lot_values = []
         for lot_id, qty in qty_per_lot.items():
             if float_is_zero(
