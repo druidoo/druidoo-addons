@@ -35,7 +35,7 @@ odoo.define('pos_voucher.popups', function (require) {
                 this.options.confirm.call(
                     this,
                     $('#voucher_type_selection').val(),
-                    this.inputbuffer
+                    parseFloat(this.inputbuffer.replace(',', '.'))
                 );
             }
         },
