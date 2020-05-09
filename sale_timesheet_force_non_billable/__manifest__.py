@@ -3,17 +3,14 @@
 
 {
     "name": "Force to set a timesheets Billable Type to Non Billable",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Druidoo",
     "category": "Project",
     "website": "https://druidoo.io",
     "license": "AGPL-3",
-    "depends": [
-        'sale_timesheet',
-    ],
+    "depends": ["sale_timesheet"],
     "data": [
-        'views/account_analytic_line_views.xml',
-        'views/task_timesheet_portal_templates.xml',
+        "views/account_analytic_line_views.xml",
     ],
     "installable": True,
 }
