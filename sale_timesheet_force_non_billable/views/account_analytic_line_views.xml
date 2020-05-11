@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_task_form2_inherited" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']"
+                   position="after">
+              <field name="force_non_billable" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//field[@name='timesheet_ids']/tree"
+                   position="attributes">
+              <attribute name="decoration-danger">force_non_billable</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='timesheet_ids']/form/sheet/group"
+                   position="inside">
+                <field name="force_non_billable" widget="boolean_toggle"/>
+            </xpath>
+            <xpath
+                expr="//field[@name='timesheet_ids']/kanban/field[@name='unit_amount']"
+                   position="after">
+              <field name="force_non_billable"/>
+            </xpath>
+            <xpath
+                expr="//field[@name='timesheet_ids']/kanban/templates//field[@name='unit_amount']"
+                   position="after">
+              <field name="force_non_billable" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_timesheet_line_tree" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='unit_amount']" position="after">
+              <field name="force_non_billable" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+              <attribute name="decoration-danger">force_non_billable</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="timesheet_view_search" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="sale_timesheet.timesheet_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="billable_time" position="attributes">
+                <attribute name="domain">[('force_non_billable', '=', False)]</attribute>
+            </filter>
+            <filter name="non_billable" position="attributes">
+                <attribute name="domain">[('force_non_billable', '=', True)]</attribute>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
