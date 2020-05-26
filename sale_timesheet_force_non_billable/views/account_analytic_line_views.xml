@@ -29,6 +29,9 @@
                    position="after">
               <field name="force_non_billable" widget="boolean_toggle"/>
             </xpath>
+            <field name="planned_hours" position="after">
+                <field name="invoiceable_hours" />
+            </field>
         </field>
     </record>
 
