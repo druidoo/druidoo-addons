@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!--add jitsi_meet_url field into form view-->
+    <record id="view_calendar_event_form_jitsi" model="ir.ui.view">
+        <field name="name">calendar.event.form.jitsi</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <field name='location' position="after">
+                <field name="jitsi_meet_url" widget="url"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="view_calendar_event_calendar_jitsi" model="ir.ui.view">
+        <field name="name">calendar.event.calendar.jitsi</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <field name='attendee_status' position="before">
+                <field name="jitsi_meet_url" widget="url"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
