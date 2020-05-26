@@ -23,3 +23,13 @@ msgstr ""
 msgid "Force Non Billable"
 msgstr ""
 
+#. module: sale_timesheet_force_non_billable
+#: model:ir.model.fields,field_description:sale_timesheet_force_non_billable.field_project_task__invoiceable_hours
+msgid "Invoiceable Hours"
+msgstr ""
+
+#. module: sale_timesheet_force_non_billable
+#: model:ir.model,name:sale_timesheet_force_non_billable.model_project_task
+msgid "Task"
+msgstr ""
+
