@@ -11,6 +11,8 @@ class AccountAnalyticLine(models.Model):
         default=False,
         track_visibility='onchange'
     )
+    
+    timesheet_invoice_type = fields.Selection(compute_sudo=True)
 
     @api.multi
     @api.depends('so_line.product_id', 'project_id', 'task_id',
