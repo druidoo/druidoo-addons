@@ -17,7 +17,7 @@ class AccountAnalyticLine(models.Model):
     )
     def _compute_timesheet_invoice_type(self):
         timesheets = self.filtered(lambda t: t.force_non_billable)
-        timesheets.update({"timesheet_invoice_type": "non_billable"})
+        timesheets.write({"timesheet_invoice_type": "non_billable"})
         return super(
             AccountAnalyticLine, self - timesheets
         )._compute_timesheet_invoice_type()
