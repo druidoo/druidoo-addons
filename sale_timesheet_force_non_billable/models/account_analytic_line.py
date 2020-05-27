@@ -18,6 +18,8 @@ class AccountAnalyticLine(models.Model):
         "so_line.product_id", "project_id", "task_id", "force_non_billable"
     )
     def _compute_timesheet_invoice_type(self):
+        # compute_sudo has no effect in non stored fields
+        self = self.sudo()
         timesheets = self.filtered(lambda t: t.force_non_billable)
         timesheets.write({"timesheet_invoice_type": "non_billable"})
         return super(
