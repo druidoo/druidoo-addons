@@ -19,6 +19,11 @@ msgid "Analytic Line"
 msgstr ""
 
 #. module: sale_timesheet_force_non_billable
+#: model:ir.model.fields,field_description:sale_timesheet_force_non_billable.field_account_analytic_line__timesheet_invoice_type
+msgid "Billable Type"
+msgstr ""
+
+#. module: sale_timesheet_force_non_billable
 #: model:ir.model.fields,field_description:sale_timesheet_force_non_billable.field_account_analytic_line__force_non_billable
 msgid "Force Non Billable"
 msgstr ""
