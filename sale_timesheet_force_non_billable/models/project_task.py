@@ -8,7 +8,7 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     invoiceable_hours = fields.Float(
-        compute='_compute_invoiceable_hours', store=True
+        compute='_compute_invoiceable_hours', compute_sudo=True, store=True
     )
 
     @api.depends('timesheet_ids')
