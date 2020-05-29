@@ -15,4 +15,6 @@
         'data/mail_template_data.xml',
     ],
     "installable": True,
+    'pre_init_hook': 'pre_init_hook',
+    'post_init_hook': 'post_init_hook',
 }

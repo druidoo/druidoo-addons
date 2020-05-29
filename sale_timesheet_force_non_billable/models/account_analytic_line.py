@@ -11,7 +11,7 @@ class AccountAnalyticLine(models.Model):
     force_non_billable = fields.Boolean(
         default=False, track_visibility="onchange"
     )
-    
+
     timesheet_invoice_type = fields.Selection(compute_sudo=True)
 
     @api.depends(
