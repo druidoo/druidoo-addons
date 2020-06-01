@@ -11,7 +11,6 @@ class AccountAnalyticLine(models.Model):
     force_non_billable = fields.Boolean(
         default=False, track_visibility="onchange"
     )
-
     timesheet_invoice_type = fields.Selection(compute_sudo=True)
 
     @api.depends(
@@ -21,7 +20,8 @@ class AccountAnalyticLine(models.Model):
         # compute_sudo has no effect in non stored fields
         self = self.sudo()
         timesheets = self.filtered(lambda t: t.force_non_billable)
-        timesheets.write({"timesheet_invoice_type": "non_billable"})
+        for timesheet in timesheets:
+            timesheet.timesheet_invoice_type = "non_billable"
         return super(
             AccountAnalyticLine, self - timesheets
         )._compute_timesheet_invoice_type()
