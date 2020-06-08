@@ -8,12 +8,6 @@ class PosConfig(models.Model):
     _inherit = 'pos.config'
 
     iface_downpayment = fields.Boolean('Enable Downpayments')
-    
-    deposit_product_id = fields.Many2one(
-        'product.product',
-        string='Deposit Product',
-        default=_default_deposit_product_id,
-    )
 
     @api.model
     def _default_deposit_product_id(self):
@@ -25,3 +19,9 @@ class PosConfig(models.Model):
             return product.exists()
         except Exception as e:
             return False
+
+    deposit_product_id = fields.Many2one(
+        'product.product',
+        string='Deposit Product',
+        default=_default_deposit_product_id,
+    )
