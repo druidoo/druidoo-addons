@@ -12,10 +12,7 @@ class PosConfig(models.Model):
     deposit_product_id = fields.Many2one(
         'product.product',
         string='Deposit Product',
-        default=lambda self:
-            self.env['product.product'].browse(
-                int(self.env['ir.config_parameter'].sudo().get_param(
-                    'sale.default_deposit_product_id'))).exists()
+        default=_default_deposit_product_id,
     )
 
     @api.model
