@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2020-06-18 13:38+0000\n"
-"Last-Translator: Weblate Admin <weblate@druidoo.io>\n"
+"Last-Translator: Iván Todorovich <ivan.todorovich@gmail.com>\n"
 "Language-Team: Spanish <https://translate.druidoo.io/projects/"
 "druidoo-addons-12-0/druidoo-addons-12-0-account_export/es/>\n"
 "Language: es\n"
@@ -32,12 +32,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_export.view_attachment_tree
 #: model:res.groups,name:account_export.group_account_export
 msgid "Account Export"
-msgstr ""
+msgstr "Exportación Contable"
 
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_form
 msgid "Account Export Config"
-msgstr ""
+msgstr "Configuración de Exportación"
 
 #. module: account_export
 #: model:ir.model,name:account_export.model_account_export_config_field
@@ -47,7 +47,7 @@ msgstr ""
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_config_tree
 msgid "Account Export Configuration"
-msgstr ""
+msgstr "Configuración de Exportación Contable"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_res_partner__property_account_payable_software
@@ -64,7 +64,7 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Necesita acción"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__activity_ids
@@ -89,7 +89,7 @@ msgstr ""
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config_field__config_id
 msgid "Config"
-msgstr ""
+msgstr "Configuración"
 
 #. module: account_export
 #: model:ir.model,name:account_export.model_res_partner
@@ -118,32 +118,32 @@ msgstr ""
 #. module: account_export
 #: model_terms:ir.ui.view,arch_db:account_export.view_account_export_form
 msgid "Dates"
-msgstr ""
+msgstr "Fechas"
 
 #. module: account_export
 #: selection:account.export.config,credit_debit_format:0
 msgid "Debit: (+); Credit: (-)"
-msgstr ""
+msgstr "Débito: (+); Crédito: (-)"
 
 #. module: account_export
 #: selection:account.export.config,credit_debit_format:0
 msgid "Debit: (-); Credit: (+)"
-msgstr ""
+msgstr "Débito: (-); Crédito: (+)"
 
 #. module: account_export
 #: selection:account.export.config,credit_debit_format:0
 msgid "Debit: 0; Credit: 1"
-msgstr ""
+msgstr "Débito: 0; Crédito: 1"
 
 #. module: account_export
 #: selection:account.export.config,credit_debit_format:0
 msgid "Debit: D; Credit: C"
-msgstr ""
+msgstr "Débito: D; Crédito: C"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export_config_field__description
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: account_export
 #: model:ir.model.fields,field_description:account_export.field_account_export__display_name
