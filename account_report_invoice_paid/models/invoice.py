@@ -11,11 +11,9 @@ class AccountInvoice(models.Model):
     @api.model
     def _get_payments_vals(self):
         res = super(AccountInvoice, self)._get_payments_vals()
-        payment_id = False
         for data in res:
             payment_id = data.get('account_payment_id')
-            payment_obj = self.env['account.payment']
             if payment_id:
-                for pay in payment_obj.browse(payment_id):
-                    data.update(code=pay.journal_id.code)
+                payment = self.env['account.payment'].browse(payment_id)
+                data.update(code=payment.journal_id.code)
         return res
