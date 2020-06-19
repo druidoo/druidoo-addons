@@ -13,6 +13,20 @@ this repository.
 
 <!-- prettier-ignore-start -->
 [//]: # (addons)
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[account_bank_statement_import_acc_number_alt](account_bank_statement_import_acc_number_alt/) | 13.0.1.0.0 | Bank Statement Import Alternative Account Number
+[account_report_invoice_advance_payment](account_report_invoice_advance_payment/) | 13.0.1.0.0 | Account Report Invoice Advance Payment
+[account_report_invoice_paid](account_report_invoice_paid/) | 13.0.1.0.0 | Account Invoice Report Paid
+[calendar_event_jitsi](calendar_event_jitsi/) | 13.0.1.0.0 | This module used to create Jitsi meeting from Odoo event
+[product_attribute_mass_edit](product_attribute_mass_edit/) | 13.0.1.0.0 | Edit multiple product attributes at once
+[project_portal_groupby_stage](project_portal_groupby_stage/) | 13.0.1.0.0 | Group by Stage in Tasks view of Portal
+[project_task_notify_state_changed](project_task_notify_state_changed/) | 13.0.1.0.0 | notify task stage changed
+[sale_analytic_account](sale_analytic_account/) | 13.0.1.0.0 | This module used to create analytic account based on product in sale order
+[sale_timesheet_force_non_billable](sale_timesheet_force_non_billable/) | 13.0.1.0.0 | Force to set a timesheets Billable Type to Non Billable
+
 [//]: # (end addons)
 <!-- prettier-ignore-end -->
