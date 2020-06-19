@@ -10,3 +10,9 @@ little extensions of odoo.
 If a module is here frequently is because such need comply a very specific need
 of a customer and we considered such feature is generic enought to share on
 this repository.
+
+<!-- prettier-ignore-start -->
+[//]: # (addons)
+This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+[//]: # (end addons)
+<!-- prettier-ignore-end -->
