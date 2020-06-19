@@ -13,6 +13,8 @@ jobs:
     steps:
       
     - uses: actions/checkout@v2
+      with:
+        persist-credentials: false 
     - uses: nelonoel/branch-name@v1
     - uses: actions/setup-python@v2
       with:
@@ -48,7 +50,7 @@ jobs:
         oca-gen-addons-table --commit
         oca-gen-addon-readme --commit --addons-dir=. --org-name=${{ github.event.repository.owner.name }} --repo-name=${{ github.event.repository.name }} --branch=${BRANCH_NAME}
         oca-gen-addon-icon --commit --addons-dir=.
-        
+    
   
     - name: Push
       uses: ad-m/github-push-action@master
