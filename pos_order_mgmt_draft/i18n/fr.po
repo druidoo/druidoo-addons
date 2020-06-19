@@ -7,23 +7,28 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-01 14:39+0000\n"
-"PO-Revision-Date: 2019-08-01 14:39+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-06-19 09:27+0000\n"
+"Last-Translator: Weblate Admin <weblate@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/"
+"druidoo-addons-12-0/druidoo-addons-12-0-pos_order_mgmt_draft/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: pos_order_mgmt_draft
 #: model:mail.template,report_name:pos_order_mgmt_draft.email_template_pos_order
 msgid "${(object.pos_reference or object.name or '').replace('/','_')}"
-msgstr ""
+msgstr "${(object.pos_reference or object.name or '').replace('/','_')}"
 
 #. module: pos_order_mgmt_draft
 #: model:mail.template,subject:pos_order_mgmt_draft.email_template_pos_order
 msgid "${object.company_id.name} ${object.state == 'draft' and 'Quotation' or 'Order'} (Ref ${object.pos_reference or object.name or 'n/a' })"
 msgstr ""
+"${object.company_id.name} ${object.state == 'draft' and 'Devis' or 'Bon de "
+"commande'} (Ref ${object.pos_reference or object.name or 'n/a' })"
 
 #. module: pos_order_mgmt_draft
 #: model:mail.template,body_html:pos_order_mgmt_draft.email_template_pos_order
@@ -42,20 +47,25 @@ msgid "<div style=\"margin: 0px; padding: 0px;\">\n"
 "    </p>\n"
 "</div>\n"
 "            "
-msgstr "<div style=\"margin: 0px; padding: 0px;\">\n"
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
 "    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"        % set doc_name = 'quotation' if object.state == 'draft' else 'order'\n"
+"        % set doc_name = 'quotation' if object.state == 'draft' else 'order'"
+"\n"
 "        Cher ${object.partner_id.name}\n"
 "        % if object.partner_id.parent_id:\n"
 "            (${object.partner_id.parent_id.name})\n"
 "        % endif\n"
 "        <br/><br/>\n"
-"        Veuillez trouver ci-joint le devis ${doc_name} <strong>${object.pos_reference or object.name}</strong>\n"
+"        Veuillez trouver ci-joint le devis ${doc_name} <strong>${"
+"object.pos_reference or object.name}</strong>\n"
 "        de ${object.company_id.name}.\n"
 "        <br/><br/>\n"
-"        Merci de votre confiance, n'hésitez pas à nous contacter pour toute question !\n"
+"        Merci de votre confiance, n'hésitez pas à nous contacter pour toute "
+"question !\n"
 "    </p>\n"
 "</div>\n"
+"            "
 
 #. module: pos_order_mgmt_draft
 #: model_terms:ir.ui.view,arch_db:pos_order_mgmt_draft.report_posorder_document
@@ -330,4 +340,3 @@ msgstr "Veuillez sélectionner un client avant d'enregistrer"
 #, python-format
 msgid "return"
 msgstr "retour"
-
