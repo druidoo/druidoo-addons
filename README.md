@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/druidoo/druidoo-addons.svg?branch=13.0)](https://travis-ci.com/druidoo/druidoo-addons)
 [![codecov](https://codecov.io/gh/druidoo/druidoo-addons/branch/13.0/graph/badge.svg)](https://codecov.io/gh/druidoo/druidoo-addons)
+[![weblate](https://translate.druidoo.io/widgets/druidoo-addons-13-0/-/svg-badge.svg)](https://translate.druidoo.io/projects/druidoo-addons-13-0)
 
 Druidoo for Odoo
 ===
