@@ -101,13 +101,16 @@ class AccountExport(models.Model):
 
     @api.multi
     def _compute_last_export_date(self):
-        self.ensure_one()
-        ir_attachment_ids = self.env["ir.attachment"].search([
-            ('res_model', '=', 'account.export'), ('res_id', '=', self.id)])
-        if ir_attachment_ids:
-            ir_attachment_ids.sorted(key=lambda v: v.write_date)
-        self.last_export_date = ir_attachment_ids and\
-            ir_attachment_ids[-1].write_date or False
+        for rec in self:
+            ir_attachment_id = self.env["ir.attachment"].search([
+                ('res_model', '=', 'account.export'),
+                ('res_id', '=', rec.id),
+                ],
+                order="write_date desc",
+                limit=1,
+            )
+            rec.last_export_date = \
+                ir_attachment_id.write_date or False
 
     @api.model
     def _get_default_name(self):
