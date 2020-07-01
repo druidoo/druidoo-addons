@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_attribute_mass_edit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__action
+msgid "Action"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields.selection,name:product_attribute_mass_edit.selection__product_attribute_mass_edit_wizard_line__action__add
+msgid "Add values"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__force
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__force
+msgid "Allow to modify attributes that create/delete variants"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__attribute_id
+msgid "Attribute"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
+msgid ""
+"By default, it will not allow to edit attributes that will trigger a variant create/deletion. This is dangerous and not recommended.<br/>\n"
+"                But, if you need it, open this wizard in Debug mode and enable <i>Allow to modify attributes that create/delete variants</i>"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
+msgid "Cancel"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
+msgid "Confirm"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__create_uid
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__create_date
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__display_name
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__id
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__id
+msgid "ID"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
+msgid ""
+"If the line doesn't exist and you're trying to add new values, it will be created.<br/>\n"
+"                If you remove all the values of a line, the line will be removed"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard____last_update
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__write_uid
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__write_date
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.actions.act_window,name:product_attribute_mass_edit.product_attribute_mass_edit_wizard_action
+msgid "Mass Edit Product Attributes"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__line_ids
+#: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
+msgid "Operations"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model,name:product_attribute_mass_edit.model_product_attribute_mass_edit_wizard
+msgid "Product Attribute Mass Edit Wizard"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model,name:product_attribute_mass_edit.model_product_attribute_mass_edit_wizard_line
+msgid "Product Attribute Mass Edit Wizard Line"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard__product_tmpl_ids
+msgid "Product Templates"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields.selection,name:product_attribute_mass_edit.selection__product_attribute_mass_edit_wizard_line__action__remove
+msgid "Remove values"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields.selection,name:product_attribute_mass_edit.selection__product_attribute_mass_edit_wizard_line__action__replace
+msgid "Replace values"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:0
+#, python-format
+msgid ""
+"Unable to mass edit attributes that create variants\n"
+"You're trying to edit attribute \"%s\", which always creates new variants.This is not recommended. If you really need to do it run the wizard in debug mode and enable the option."
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: code:addons/product_attribute_mass_edit/wizards/product_attribute_mass_edit.py:0
+#, python-format
+msgid ""
+"Unable to mass edit attributes that create variants\n"
+"You're trying to remove or replace values for \"%s\", which creates variants dynamically.\n"
+"This is not recommended. If you really need to do it run the wizard in debug mode and enable the option."
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model_terms:ir.ui.view,arch_db:product_attribute_mass_edit.product_attribute_mass_edit_wizard_view
+msgid ""
+"Use this to wizard to <strong>Add</strong>, <strong>Remove</strong> or "
+"<strong>Replace</strong> product attributes values to the product's "
+"variants."
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__value_ids
+msgid "Values"
+msgstr ""
+
+#. module: product_attribute_mass_edit
+#: model:ir.model.fields,field_description:product_attribute_mass_edit.field_product_attribute_mass_edit_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
