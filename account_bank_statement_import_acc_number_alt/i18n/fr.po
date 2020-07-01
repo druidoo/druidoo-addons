@@ -7,20 +7,24 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-11 09:21+0000\n"
-"PO-Revision-Date: 2020-03-11 09:21+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-07-01 10:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/"
+"druidoo-addons-13-0/"
+"druidoo-addons-13-0-account_bank_statement_import_acc_number_alt/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: account_bank_statement_import_acc_number_alt
 #: model:ir.model.fields,field_description:account_bank_statement_import_acc_number_alt.field_account_journal__bank_acc_number_alt
 #: model:ir.model.fields,field_description:account_bank_statement_import_acc_number_alt.field_account_setup_bank_manual_config__acc_number_alt
 #: model:ir.model.fields,field_description:account_bank_statement_import_acc_number_alt.field_res_partner_bank__acc_number_alt
 msgid "Alternative Account Number"
-msgstr "Numéro de compte alternative"
+msgstr "Numéro de compte secondaire"
 
 #. module: account_bank_statement_import_acc_number_alt
 #: model:ir.model.fields,help:account_bank_statement_import_acc_number_alt.field_account_journal__bank_acc_number_alt
@@ -29,6 +33,9 @@ msgstr "Numéro de compte alternative"
 msgid "Alternative Bank Account Number\n"
 "It will be considered when importing bank statements, if the primary account number doesn't match."
 msgstr ""
+"Numéro de compte secondaire\n"
+"Ce numéro est utilisé lors de l'import des relevés si le numéro principal "
+"est absent du relevé."
 
 #. module: account_bank_statement_import_acc_number_alt
 #: model:ir.model,name:account_bank_statement_import_acc_number_alt.model_res_partner_bank
@@ -43,5 +50,4 @@ msgstr "Import d'un relevé bancaire"
 #. module: account_bank_statement_import_acc_number_alt
 #: model:ir.model,name:account_bank_statement_import_acc_number_alt.model_account_journal
 msgid "Journal"
-msgstr ""
-
+msgstr "Journal"
