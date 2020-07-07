@@ -7,13 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-11 15:46+0000\n"
-"PO-Revision-Date: 2020-02-11 15:46+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-07-07 14:27+0000\n"
+"Last-Translator: Simon Mas <simon.mas@druidoo.io>\n"
+"Language-Team: French <https://translate.druidoo.io/projects/"
+"druidoo-addons-12-0/druidoo-addons-12-0-pos_voucher/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: pos_voucher
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_report
@@ -103,7 +106,7 @@ msgstr "Annulé"
 #: code:addons/pos_voucher/static/src/xml/pos.xml:20
 #, python-format
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #. module: pos_voucher
 #. openerp-web
@@ -111,7 +114,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__code
 #, python-format
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__company_id
@@ -219,7 +222,7 @@ msgstr "Date d'expiration"
 #. module: pos_voucher
 #: selection:pos.voucher,discount_type:0
 msgid "Fixed"
-msgstr "Fixé"
+msgstr "Fixe"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_follower_ids
@@ -281,11 +284,14 @@ msgstr "Si actif, certains messages ont une erreur de livraison."
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__pos_order_line_id
 msgid "If this voucher was created from POS, it stores the line that created this voucher."
 msgstr ""
+"Si cet avoir a été créé depuis le point de vente, il est lié à la ligne qui "
+"a déclenché sa création."
 
 #. module: pos_voucher
 #: model:ir.model.fields,help:pos_voucher.field_pos_voucher__pos_order_id
 msgid "If this voucher was created from POS, it stores the order that created this voucher."
 msgstr ""
+"Si cet avoir a été créé depuis la caisse, il est lié à la commande d'origine."
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_is_follower
@@ -296,8 +302,9 @@ msgstr "Est un abonné"
 #: model:ir.model,name:pos_voucher.model_account_journal
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher_type__journal_id
 #: model_terms:ir.ui.view,arch_db:pos_voucher.pos_voucher_type_search
+#, fuzzy
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher____last_update
@@ -323,9 +330,9 @@ msgstr "Dernière mise à jour le"
 #. module: pos_voucher
 #. openerp-web
 #: code:addons/pos_voucher/static/src/xml/pos.xml:173
-#, python-format
+#, fuzzy, python-format
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__message_main_attachment_id
@@ -673,7 +680,7 @@ msgstr "Valeur de l'avoir"
 #: code:addons/pos_voucher/static/src/js/screens.js:438
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 #. module: pos_voucher
 #: model:ir.model.fields,field_description:pos_voucher.field_pos_voucher__website_message_ids
@@ -690,7 +697,7 @@ msgstr "Historique de communication du site web"
 #: code:addons/pos_voucher/static/src/xml/pos.xml:19
 #, python-format
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #. module: pos_voucher
 #: code:addons/pos_voucher/models/pos_voucher.py:121
@@ -702,4 +709,3 @@ msgstr "Vous ne pouvez pas annuler un avoir créé depuis le point de vente"
 #: model:ir.model.fields,help:pos_voucher.field_pos_order_line__pos_voucher_code
 msgid "this is for update from pos screen to display in pos voucher ticket"
 msgstr ""
-
