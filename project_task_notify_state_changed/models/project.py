@@ -11,9 +11,8 @@ class Task(models.Model):
 
     @api.multi
     def _track_template(self, tracking):
-        self.ensure_one()
         res = super()._track_template(tracking)
-        if not self.notify_stage_changed:
+        if not all(self.mapped('notify_stage_changed')):
             res.pop('stage_id', None)
         return res
 
