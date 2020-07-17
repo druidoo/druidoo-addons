@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_uom_merge_form" model="ir.ui.view">
+        <field name="model">uom.uom.merge</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <separator string="Merge the following units of measure"/>
+                    <group col="1">
+                        <p class="oe_grey">
+                            Selected unit of measure will be merged together.
+                            All documents and moves linked to one of these uoms
+                            will be redirected to the destination unit of measure.
+                            You can remove uoms from this list to avoid merging them.
+                        </p>
+                        <group col="2">
+                            <field name="target_uom_id"/>
+                        </group>
+                        <field name="uom_ids" nolabel="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="merge" type="object" string="Merge" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_uom_merge" model="ir.actions.act_window">
+        <field name="name">Deduplicate UoMs</field>
+        <field name="res_model">uom.uom.merge</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <act_window
+        id="action_uom_merge_multi"
+        name="Merge UoMs"
+        res_model="uom.uom.merge"
+        src_model="uom.uom"
+        view_mode="form"
+        target="new"
+        multi="True"
+        key2="client_action_multi"
+        groups="base.group_system"
+        />
+</odoo>
