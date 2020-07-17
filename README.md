@@ -47,6 +47,7 @@ addon | version | summary
 [sale_timesheet_force_non_billable](sale_timesheet_force_non_billable/) | 12.0.1.0.0 | Force to set a timesheets Billable Type to Non Billable
 [sale_ux](sale_ux/) | 12.0.1.0.0 | - Sale Order Report: - Show datetime as date
 [stock_ux](stock_ux/) | 12.0.1.0.0 | - Delivery Slip Report: - Add title before the name - Show datetime as date
+[uom_merge](uom_merge/) | 12.0.1.0.0 | Product UoM Merge
 [website_product_attribute_filter](website_product_attribute_filter/) | 12.0.1.0.0 | Website Product Attribute Filters
 [website_sale_adwords_conversion](website_sale_adwords_conversion/) | 12.0.1.1.0 | Google Adwords Conversion Tracking
 [website_sale_price_filter](website_sale_price_filter/) | 12.0.1.0.0 | Website Sale Price Filter
