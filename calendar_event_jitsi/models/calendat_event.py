@@ -3,18 +3,18 @@
 from odoo import models, fields, api
 from odoo.addons.http_routing.models.ir_http import slug
 
+JITSI_MEET_BASE_URL = "https://meet.jit.si"
+
 
 class Meeting(models.Model):
     _inherit = 'calendar.event'
 
     jitsi_meet_url = fields.Char(
         string="Jitsi Meet URL",
-        readonly=True,
-        help="Jitsi Meet URL"
+        compute="_compute_jitsi_meet_url",
     )
 
-    @api.model
-    def create(self, values):
-        meeting = super(Meeting, self).create(values)
-        meeting.jitsi_meet_url = "https://meet.jit.si/%s" % slug(meeting)
-        return meeting
+    def _compute_jitsi_meet_url(self):
+        for rec in self:
+            rec.jitsi_meet_url = "%s/%s" % (
+                JITSI_MEET_BASE_URL, slug(rec))
